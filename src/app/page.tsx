@@ -378,7 +378,7 @@ export default function Home() {
               Get in Touch
             </a>
             <a
-              href="https://github.com/alidereyurt"
+              href="https://github.com/dereyurtali"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 dark:border-gray-700 rounded-full hover:border-gray-400 dark:hover:border-gray-600 transition-colors text-base sm:text-lg font-medium"
@@ -386,7 +386,7 @@ export default function Home() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com/in/alidereyurt"
+              href="https://www.linkedin.com/in/alidereyurt/"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 dark:border-gray-700 rounded-full hover:border-gray-400 dark:hover:border-gray-600 transition-colors text-base sm:text-lg font-medium"
