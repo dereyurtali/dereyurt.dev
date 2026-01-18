@@ -44,7 +44,7 @@ export default function ParameterProject() {
             {/* Launch Application Button */}
             <div className="flex flex-wrap gap-4 mb-8">
               <a
-                href="http://16.171.144.150"
+                href="https://parameterapp.dereyurt.dev"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
@@ -60,12 +60,6 @@ export default function ParameterProject() {
               >
                 Back to Portfolio
               </a>
-            </div>
-
-            <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 rounded">
-              <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                <strong>Note:</strong> The application is hosted on AWS EC2. It may take a few seconds to load initially.
-              </p>
             </div>
           </div>
         </div>

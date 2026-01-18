@@ -322,7 +322,7 @@ export default function Home() {
                   )}
                   {project.title === "ML Surface Roughness Predictor" && (
                     <a
-                      href="http://16.171.144.150"
+                      href="https://parameterapp.dereyurt.dev"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
