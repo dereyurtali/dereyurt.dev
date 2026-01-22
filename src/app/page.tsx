@@ -84,7 +84,54 @@ export default function Home() {
         },
       ],
     },
-    // Add more projects here
+    {
+      title: "Spin Stabilized Camera for CanSat",
+      description: "A technical research document exploring software and hardware methods for camera stabilization in CanSat satellites during descent.",
+      tech: ["NASA CanSat", "Embedded Systems", "Gyroscope", "Image Processing"],
+      link: "/cansat-stabilization",
+      skills: [
+        {
+          category: "Stabilization Methods",
+          items: [
+            "Software-based pixel shifting",
+            "Point tracking stabilization",
+            "Gyro sensor yaw value reading",
+            "Hardware counter-rotation",
+            "Motor encoder/decoder control"
+          ]
+        },
+        {
+          category: "Hardware Components",
+          items: [
+            "Gyroscope sensors (IMU)",
+            "Electric motors with encoders",
+            "Separate power systems",
+            "Camera modules",
+            "Microcontrollers"
+          ]
+        },
+        {
+          category: "Software Concepts",
+          items: [
+            "Video frame processing",
+            "Pixel manipulation algorithms",
+            "Real-time data processing",
+            "Memory optimization",
+            "Compression techniques"
+          ]
+        },
+        {
+          category: "Competition Experience",
+          items: [
+            "NASA CanSat Competition",
+            "TÜRKSAT Model Satellite (4×)",
+            "Technical documentation",
+            "System design",
+            "Team collaboration"
+          ]
+        },
+      ],
+    },
   ];
 
   return (
