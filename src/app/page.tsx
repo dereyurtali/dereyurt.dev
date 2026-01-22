@@ -180,6 +180,54 @@ export default function Home() {
         },
       ],
     },
+    {
+      title: "TÜRKSAT Model Satellite 2022",
+      description: "Critical Design Review for a 5-layer modular satellite with PID-controlled active landing, custom smoke capsules, and YOLOv4-tiny object detection.",
+      tech: ["TÜRKSAT Competition", "ESP32", "PID Control", "3D Printing"],
+      link: "/turksat-muy-2022",
+      skills: [
+        {
+          category: "System Architecture",
+          items: [
+            "5-layer modular payload design",
+            "Thermal management & weight distribution",
+            "Post-PDR design improvements",
+            "39/39 requirements compliance",
+            "FDM 3D printing (PETG/ABS)"
+          ]
+        },
+        {
+          category: "Active Landing System",
+          items: [
+            "PID controller (Kp=15, Ki=0.5, Kd=8)",
+            "Counter-rotating BLDC motors",
+            "10-second altitude hold @150m",
+            "Safety systems (5m cutoff)",
+            "Gyro-based stabilization"
+          ]
+        },
+        {
+          category: "Custom Missions",
+          items: [
+            "Smoke capsules (KNO3+Sugar)",
+            "Electric fuse activation circuit",
+            "100% ignition reliability",
+            "YOLOv4-tiny object detection",
+            "Dual-channel communication"
+          ]
+        },
+        {
+          category: "Project Leadership",
+          items: [
+            "System Lead (6 members)",
+            "Operation Control Officer",
+            "Integration & test methodology",
+            "Environmental testing (drop, thermal)",
+            "Mission operations planning"
+          ]
+        },
+      ],
+    },
   ];
 
   return (
