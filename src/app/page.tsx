@@ -132,6 +132,54 @@ export default function Home() {
         },
       ],
     },
+    {
+      title: "TÜRKSAT Model Satellite 2021",
+      description: "Critical Design Review report for a model satellite mission featuring autogyro active landing, autonomous separation, and real-time telemetry systems.",
+      tech: ["TÜRKSAT Competition", "Embedded C/C++", "CAD Design", "Systems Engineering"],
+      link: "/turksat-muy-2021",
+      skills: [
+        {
+          category: "System Design",
+          items: [
+            "Mission architecture planning",
+            "Payload structure design",
+            "Autogyro active landing system",
+            "Carrier-payload separation mechanism",
+            "Mass budget optimization (700g)"
+          ]
+        },
+        {
+          category: "Embedded Software",
+          items: [
+            "Arduino Nano flight controller",
+            "ESP32-CAM WiFi & video",
+            "State machine architecture",
+            "PID controller implementation",
+            "EEPROM persistence & recovery"
+          ]
+        },
+        {
+          category: "Electronics & Sensors",
+          items: [
+            "BNO055 IMU integration",
+            "NEO M8N GPS module",
+            "BMP280 pressure sensor",
+            "Power budget analysis",
+            "Custom PCB design"
+          ]
+        },
+        {
+          category: "Project Leadership",
+          items: [
+            "Team Lead (6 members)",
+            "Operations Control Officer",
+            "Budget management (~3500 TL)",
+            "199-page CDR documentation",
+            "97% requirements compliance"
+          ]
+        },
+      ],
+    },
   ];
 
   return (
