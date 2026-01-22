@@ -218,36 +218,71 @@ export default function CansatStabilization() {
               You can turn the camera physically. If your CanSat spins in Clockwise direction, you can turn the camera to Counterclockwise direction so image doesn't move.
             </p>
 
-            {/* Yaw/Pitch/Roll Diagram */}
+            {/* Yaw/Pitch/Roll Diagram - Aircraft Axes */}
             <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-4 sm:p-6 mb-6">
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12">
+              <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
+                {/* Aircraft with axes */}
                 <div className="text-center">
-                  <div className="w-24 h-24 sm:w-32 sm:h-32 relative">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-8 sm:w-20 sm:h-10 bg-gray-400 dark:bg-gray-600 rounded-sm transform -rotate-12"></div>
-                    </div>
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 text-green-500 font-bold text-xs sm:text-sm">Yaw ↻</div>
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-blue-500 font-bold text-xs sm:text-sm">Pitch ↕</div>
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 text-red-500 font-bold text-xs sm:text-sm">Roll ↔</div>
-                  </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Aircraft axes</p>
+                  <svg viewBox="0 0 200 160" className="w-48 h-40 sm:w-64 sm:h-52">
+                    {/* Aircraft body */}
+                    <ellipse cx="100" cy="80" rx="60" ry="15" fill="#9CA3AF" stroke="#6B7280" strokeWidth="1"/>
+                    {/* Wings */}
+                    <path d="M40 80 L100 75 L100 85 L40 80" fill="#9CA3AF" stroke="#6B7280" strokeWidth="1"/>
+                    <path d="M160 80 L100 75 L100 85 L160 80" fill="#9CA3AF" stroke="#6B7280" strokeWidth="1"/>
+                    {/* Tail */}
+                    <path d="M35 80 L35 55 L50 80" fill="#9CA3AF" stroke="#6B7280" strokeWidth="1"/>
+                    {/* Nose */}
+                    <ellipse cx="165" cy="80" rx="8" ry="8" fill="#6B7280"/>
+
+                    {/* Yaw arrow (green, top) */}
+                    <path d="M100 20 C120 20 130 35 120 50" fill="none" stroke="#22C55E" strokeWidth="2" markerEnd="url(#arrowGreen)"/>
+                    <text x="90" y="15" fill="#22C55E" fontSize="12" fontWeight="bold">Yaw</text>
+
+                    {/* Roll arrow (red, left side) */}
+                    <path d="M20 60 C15 80 20 100 35 105" fill="none" stroke="#EF4444" strokeWidth="2"/>
+                    <polygon points="35,105 28,100 32,108" fill="#EF4444"/>
+                    <text x="5" y="85" fill="#EF4444" fontSize="12" fontWeight="bold">Roll</text>
+
+                    {/* Pitch arrow (blue, bottom) */}
+                    <path d="M100 130 C80 135 70 120 75 105" fill="none" stroke="#3B82F6" strokeWidth="2"/>
+                    <polygon points="75,105 70,112 80,110" fill="#3B82F6"/>
+                    <text x="85" y="148" fill="#3B82F6" fontSize="12" fontWeight="bold">Pitch</text>
+                  </svg>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Aircraft rotation axes</p>
                 </div>
 
-                <div className="text-4xl sm:text-6xl">→</div>
-
+                {/* CanSat cylinder diagram */}
                 <div className="text-center">
-                  <div className="w-24 h-32 sm:w-28 sm:h-40 border-2 border-gray-400 dark:border-gray-600 rounded-lg relative">
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 sm:w-8 sm:h-8 bg-gray-300 dark:bg-gray-700 rounded-full flex items-center justify-center">
-                      <span className="text-xs">📷</span>
-                    </div>
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs text-gray-500 dark:text-gray-400">
-                      CanSat
-                    </div>
-                    <div className="absolute -right-6 top-1/2 -translate-y-1/2 text-green-500 text-lg sm:text-xl">↻</div>
-                  </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Counter-rotation</p>
+                  <svg viewBox="0 0 140 200" className="w-32 h-48 sm:w-40 sm:h-56">
+                    {/* Camera on top */}
+                    <ellipse cx="70" cy="25" rx="15" ry="8" fill="#6B7280" stroke="#4B5563" strokeWidth="1"/>
+                    <rect x="62" y="25" width="16" height="12" fill="#4B5563"/>
+                    <text x="70" y="20" textAnchor="middle" fill="#374151" fontSize="10">camera</text>
+
+                    {/* Connecting line */}
+                    <line x1="70" y1="37" x2="70" y2="55" stroke="#4B5563" strokeWidth="1" strokeDasharray="3,2"/>
+
+                    {/* CanSat cylinder - top ellipse */}
+                    <ellipse cx="70" cy="70" rx="40" ry="12" fill="none" stroke="#4B5563" strokeWidth="2"/>
+
+                    {/* Cylinder body */}
+                    <line x1="30" y1="70" x2="30" y2="160" stroke="#4B5563" strokeWidth="2"/>
+                    <line x1="110" y1="70" x2="110" y2="160" stroke="#4B5563" strokeWidth="2"/>
+
+                    {/* Bottom ellipse */}
+                    <ellipse cx="70" cy="160" rx="40" ry="12" fill="none" stroke="#4B5563" strokeWidth="2"/>
+
+                    {/* CanSat label */}
+                    <text x="70" y="120" textAnchor="middle" fill="#6B7280" fontSize="11">cansat</text>
+
+                    {/* Rotation arrow on right side */}
+                    <path d="M125 100 C135 115 135 130 125 145" fill="none" stroke="#22C55E" strokeWidth="2"/>
+                    <polygon points="125,145 120,138 130,140" fill="#22C55E"/>
+                  </svg>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">CanSat with counter-rotating camera</p>
                 </div>
               </div>
+              <p className="text-center text-xs text-gray-400 dark:text-gray-500 mt-4 italic">"My awesome paint drawing" - Original caption from 2020</p>
             </div>
 
             <h4 className="font-semibold mb-4">Requirements:</h4>
