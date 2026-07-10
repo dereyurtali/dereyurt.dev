@@ -32,9 +32,18 @@ export function Plate({
   tall?: boolean;
 }) {
   return (
-    <figure className="card" data-reveal>
-      <div className={tall ? 'h-[520px] p-4' : 'h-[400px] p-4'}>{children}</div>
-      <figcaption className="label border-t border-line px-4 py-2.5">{caption}</figcaption>
+    <figure className="card min-w-0" data-reveal>
+      {/* The drawings do not survive being squeezed into 350px, so on narrow
+          screens they keep their size and the frame scrolls sideways instead. */}
+      <div className="overflow-x-auto p-4">
+        <div className={`min-w-[620px] lg:min-w-0 ${tall ? 'h-[440px] lg:h-[520px]' : 'h-[320px] lg:h-[400px]'}`}>
+          {children}
+        </div>
+      </div>
+      <figcaption className="label flex items-center justify-between gap-3 border-t border-line px-4 py-2.5">
+        <span>{caption}</span>
+        <span className="shrink-0 text-signal lg:hidden">SWIPE →</span>
+      </figcaption>
     </figure>
   );
 }

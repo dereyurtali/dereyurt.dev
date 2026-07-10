@@ -94,6 +94,17 @@ body {
   color: var(--color-signal);
 }
 
+/* An 11px label makes an 18px tall link. Fingers need 44px; a mouse does not. */
+.label-link {
+  display: inline-flex;
+  align-items: center;
+}
+@media (pointer: coarse) {
+  .label-link {
+    min-height: 44px;
+  }
+}
+
 /* Section head: label + hairline, no boxes */
 .title-block {
   display: flex;

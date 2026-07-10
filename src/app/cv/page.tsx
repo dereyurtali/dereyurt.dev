@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import PrintButton from '@/components/PrintButton';
+import SiteHeader, { HOME_NAV } from '@/components/SiteHeader';
 
 export const metadata: Metadata = {
   title: 'CV — Ali Dereyurt',
@@ -90,24 +91,7 @@ export default function CvPage() {
   return (
     <div>
       {/* ---------- Header (screen only) ---------- */}
-      <header className="fixed top-0 z-50 w-full border-b border-line bg-paper/85 backdrop-blur-md print:hidden">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-4 sm:px-8">
-          <Link href="/" className="label label-signal">
-            ALI DEREYURT
-          </Link>
-          <nav className="flex items-center gap-6 sm:gap-10">
-            <Link href="/#work" className="label transition-colors hover:text-ink">
-              WORK
-            </Link>
-            <Link href="/airmed" className="label transition-colors hover:text-ink">
-              HOW I BUILD
-            </Link>
-            <Link href="/#contact" className="label transition-colors hover:text-ink">
-              CONTACT
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader items={HOME_NAV} />
 
       <main className="mx-auto max-w-[860px] px-5 pb-24 pt-28 sm:px-8">
         {/* ---------- Head ---------- */}
@@ -118,13 +102,13 @@ export default function CvPage() {
             <p className="mt-2 text-ink-dim">AI Developer — Istanbul, Türkiye</p>
           </div>
           <div className="flex flex-col items-start gap-1.5 sm:items-end">
-            <a href="mailto:ali@dereyurt.dev" className="label transition-colors hover:text-signal">
+            <a href="mailto:ali@dereyurt.dev" className="label label-link transition-colors hover:text-signal">
               ALI@DEREYURT.DEV
             </a>
-            <a href="https://github.com/dereyurtali" className="label transition-colors hover:text-signal">
+            <a href="https://github.com/dereyurtali" className="label label-link transition-colors hover:text-signal">
               GITHUB.COM/DEREYURTALI
             </a>
-            <a href="https://www.linkedin.com/in/alidereyurt/" className="label transition-colors hover:text-signal">
+            <a href="https://www.linkedin.com/in/alidereyurt/" className="label label-link transition-colors hover:text-signal">
               LINKEDIN.COM/IN/ALIDEREYURT
             </a>
             <PrintButton />
@@ -173,7 +157,7 @@ export default function CvPage() {
                 href={p.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="display text-xl transition-colors hover:text-signal sm:col-span-3"
+                className="label-link display text-xl transition-colors hover:text-signal sm:col-span-3"
               >
                 {p.name}
               </a>
@@ -223,7 +207,7 @@ export default function CvPage() {
         </section>
 
         <div className="mt-16 print:hidden">
-          <Link href="/" className="label underline-offset-4 transition-colors hover:text-ink hover:underline">
+          <Link href="/" className="label label-link underline-offset-4 transition-colors hover:text-ink hover:underline">
             ← BACK TO SITE
           </Link>
         </div>

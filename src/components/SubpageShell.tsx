@@ -4,6 +4,7 @@ import { ReactNode, useRef } from 'react';
 import Link from 'next/link';
 import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger, splitLines, EASE_OUT } from '@/lib/animation';
+import SiteHeader, { HOME_NAV } from '@/components/SiteHeader';
 
 gsap.registerPlugin(useGSAP);
 
@@ -90,24 +91,7 @@ export default function SubpageShell({
 
   return (
     <div ref={root}>
-      <header className="fixed top-0 z-50 w-full border-b border-line bg-paper/85 backdrop-blur-md">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-4 sm:px-8">
-          <Link href="/" className="label label-signal">
-            ALI DEREYURT
-          </Link>
-          <nav aria-label="Primary" className="flex items-center gap-6 sm:gap-10">
-            <Link href="/#work" className="label transition-colors hover:text-ink">
-              WORK
-            </Link>
-            <Link href="/airmed" className="label transition-colors hover:text-ink">
-              HOW I BUILD
-            </Link>
-            <Link href="/cv" className="label transition-colors hover:text-ink">
-              CV
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader items={HOME_NAV} />
 
       <main>
         {/* hero */}
@@ -139,14 +123,14 @@ export default function SubpageShell({
         {/* footer */}
         <footer className="border-t border-line px-5 py-10 sm:px-8">
           <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-6">
-            <Link href="/#work" className="label underline-offset-4 transition-colors hover:text-signal hover:underline">
+            <Link href="/#work" className="label label-link underline-offset-4 transition-colors hover:text-signal hover:underline">
               ← BACK TO WORK
             </Link>
             <div className="flex flex-wrap gap-8">
-              <a href="mailto:ali@dereyurt.dev" className="label transition-colors hover:text-signal">
+              <a href="mailto:ali@dereyurt.dev" className="label label-link transition-colors hover:text-signal">
                 ALI@DEREYURT.DEV
               </a>
-              <a href="https://github.com/dereyurtali" target="_blank" rel="noopener noreferrer" className="label transition-colors hover:text-signal">
+              <a href="https://github.com/dereyurtali" target="_blank" rel="noopener noreferrer" className="label label-link transition-colors hover:text-signal">
                 GITHUB ↗
               </a>
             </div>

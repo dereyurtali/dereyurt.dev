@@ -50,7 +50,7 @@ export default function CansatStabilization() {
 
       {/* ---------- Method comparison ---------- */}
       <Section dwg="TAB 02" title="METHOD COMPARISON">
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid min-w-0 gap-6 lg:grid-cols-2">
           <div className="card p-8" data-reveal>
             <p className="label mb-6">SOFTWARE STABILIZATION</p>
             <ul className="space-y-2.5">
@@ -93,7 +93,7 @@ export default function CansatStabilization() {
 
       {/* ---------- Build ---------- */}
       <Section dwg="TAB 03" title="WHAT THE RIG NEEDS" band>
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid min-w-0 gap-6 lg:grid-cols-2">
           <Spec
             title="COMPONENTS"
             items={[

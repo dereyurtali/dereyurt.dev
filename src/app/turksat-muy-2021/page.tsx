@@ -84,7 +84,7 @@ export default function TurksatCDR2021() {
 
       {/* ---------- Subsystems ---------- */}
       <Section dwg="TAB 02" title="SUBSYSTEM HIGHLIGHTS">
-        <div className="grid gap-6 lg:grid-cols-3">
+        <div className="grid min-w-0 gap-6 lg:grid-cols-3">
           <Spec
             title="SENSING"
             items={[

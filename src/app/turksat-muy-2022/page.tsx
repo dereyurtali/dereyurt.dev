@@ -87,7 +87,7 @@ export default function TurksatCDR2022() {
       {/* ---------- Payload architecture ---------- */}
       <Section dwg="FIG 02" title="FIVE-LAYER PAYLOAD ARCHITECTURE">
         <div className="grid gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-7">
+          <div className="min-w-0 lg:col-span-7">
             <Plate caption="MODULAR STACK — LOW CoG, SERVICEABLE LAYERS, CRASH PROTECTION" tall>
               <LayerStack
                 layers={[
@@ -101,7 +101,7 @@ export default function TurksatCDR2022() {
               />
             </Plate>
           </div>
-          <div className="flex flex-col gap-6 lg:col-span-5">
+          <div className="flex min-w-0 flex-col gap-6 lg:col-span-5">
             <Spec
               title="DESIGN GOALS"
               items={[

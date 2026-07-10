@@ -22,7 +22,7 @@ export default function PrintimizeProject() {
             href="https://github.com/dereyurtali/printimize-showcase"
             target="_blank"
             rel="noopener noreferrer"
-            className="label underline-offset-4 transition-colors hover:text-signal hover:underline"
+            className="label label-link underline-offset-4 transition-colors hover:text-signal hover:underline"
           >
             GITHUB ↗
           </a>
@@ -48,7 +48,7 @@ export default function PrintimizeProject() {
 
       {/* ---------- AI engineering decisions ---------- */}
       <Section dwg="TAB 02" title="AI ENGINEERING DECISIONS">
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid min-w-0 gap-6 lg:grid-cols-2">
           <Spec
             title="FORCED TOOL-USE FOR STRUCTURED OUTPUT"
             items={[

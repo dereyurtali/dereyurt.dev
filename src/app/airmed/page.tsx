@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger, EASE_OUT } from '@/lib/animation';
 import { DIAGRAMS } from '@/components/pipeline/diagrams';
+import SiteHeader, { HOME_NAV } from '@/components/SiteHeader';
 
 gsap.registerPlugin(useGSAP);
 
@@ -53,61 +54,90 @@ export default function AirmedPage() {
   useGSAP(
     () => {
       const ctx = root.current!;
-      const stages = gsap.utils.toArray<HTMLElement>('.stage', ctx);
-      const steps = gsap.utils.toArray<HTMLElement>('.rail-step', ctx);
-      const railFill = ctx.querySelector<HTMLElement>('.rail-fill')!;
-      const barFill = ctx.querySelector<HTMLElement>('.bar-fill')!;
-      const counter = ctx.querySelector<HTMLElement>('.stage-counter')!;
       const N = STAGES.length;
-      let current = -1;
+      const mm = gsap.matchMedia();
 
-      const setStage = (idx: number) => {
-        if (idx === current) return;
-        // geçilen adımların çizimi tamamlanmış, gelmeyenler boş dursun
-        timelines.current.forEach((tl, i) => {
-          if (!tl) return;
-          if (i < idx) tl.progress(1);
-          if (i > idx) tl.progress(0);
-        });
-        current = idx;
-        stages.forEach((s, i) => {
-          if (i === idx) {
-            gsap.to(s, { autoAlpha: 1, y: 0, duration: 0.45, ease: EASE_OUT, overwrite: 'auto' });
-          } else {
-            gsap.to(s, { autoAlpha: 0, y: i < idx ? -24 : 24, duration: 0.3, overwrite: 'auto' });
-          }
-        });
-        steps.forEach((s, i) => {
-          s.classList.toggle('is-active', i === idx);
-          s.classList.toggle('is-done', i < idx);
-        });
-        counter.textContent = `STEP ${idx + 1} / ${N}`;
-      };
+      // Desktop: one screen, pinned, the story scrubbed by the scroll wheel.
+      mm.add('(min-width: 1024px)', () => {
+        const stages = gsap.utils.toArray<HTMLElement>('.stage', ctx);
+        const steps = gsap.utils.toArray<HTMLElement>('.rail-step', ctx);
+        const railFill = ctx.querySelector<HTMLElement>('.rail-fill')!;
+        const barFill = ctx.querySelector<HTMLElement>('.bar-fill')!;
+        const counter = ctx.querySelector<HTMLElement>('.stage-counter')!;
+        let current = -1;
 
-      gsap.set(stages, { autoAlpha: 0, y: 24 });
+        const setStage = (idx: number) => {
+          if (idx === current) return;
+          timelines.current.forEach((tl, i) => {
+            if (!tl) return;
+            if (i < idx) tl.progress(1);
+            if (i > idx) tl.progress(0);
+          });
+          current = idx;
+          stages.forEach((s, i) => {
+            if (i === idx) {
+              gsap.to(s, { autoAlpha: 1, y: 0, duration: 0.45, ease: EASE_OUT, overwrite: 'auto' });
+            } else {
+              gsap.to(s, { autoAlpha: 0, y: i < idx ? -24 : 24, duration: 0.3, overwrite: 'auto' });
+            }
+          });
+          steps.forEach((s, i) => {
+            s.classList.toggle('is-active', i === idx);
+            s.classList.toggle('is-done', i < idx);
+          });
+          counter.textContent = `STEP ${idx + 1} / ${N}`;
+        };
 
-      ScrollTrigger.create({
-        trigger: '.pipe-pin',
-        start: 'top top',
-        end: `+=${N * 140}%`,
-        pin: true,
-        scrub: true,
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          const p = self.progress;
-          const raw = Math.min(N - 0.0001, p * N);
-          const idx = Math.floor(raw);
-          // adım içi ilerleme: diyagram scroll'la kare kare çizilir,
-          // adımın son üçte biri okumaya kalsın diye 1.35× hızlandırılır
-          const local = gsap.utils.clamp(0, 1, (raw - idx) * 1.35);
-          gsap.set(railFill, { height: `${p * 100}%` });
-          gsap.set(barFill, { width: `${p * 100}%` });
-          setStage(idx);
-          timelines.current[idx]?.progress(local);
-        },
+        gsap.set(stages, { autoAlpha: 0, y: 24 });
+
+        ScrollTrigger.create({
+          trigger: '.pipe-pin',
+          start: 'top top',
+          end: `+=${N * 140}%`,
+          pin: true,
+          scrub: true,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const p = self.progress;
+            const raw = Math.min(N - 0.0001, p * N);
+            const idx = Math.floor(raw);
+            const local = gsap.utils.clamp(0, 1, (raw - idx) * 1.35);
+            gsap.set(railFill, { height: `${p * 100}%` });
+            gsap.set(barFill, { width: `${p * 100}%` });
+            setStage(idx);
+            timelines.current[idx]?.progress(local);
+          },
+        });
+
+        setStage(0);
+        return () => gsap.set(stages, { clearProps: 'all' });
       });
 
-      setStage(0);
+      // Touch: pinning a screen and scrubbing sideways drawings is miserable on a
+      // phone, so the seven steps simply stack and each drawing draws itself once,
+      // as it comes into view.
+      mm.add('(max-width: 1023px)', () => {
+        const stages = gsap.utils.toArray<HTMLElement>('.stage', ctx);
+        gsap.set(stages, { autoAlpha: 1, y: 0 });
+        stages.forEach((stage, i) => {
+          gsap.from(stage, {
+            autoAlpha: 0,
+            y: 24,
+            duration: 0.7,
+            ease: EASE_OUT,
+            scrollTrigger: { trigger: stage, start: 'top 88%' },
+          });
+          ScrollTrigger.create({
+            trigger: stage,
+            start: 'top 70%',
+            once: true,
+            onEnter: () => {
+              const tl = timelines.current[i];
+              if (tl) gsap.to(tl, { progress: 1, duration: 2.2, ease: 'none' });
+            },
+          });
+        });
+      });
 
       gsap.from('.pipe-intro > *', {
         autoAlpha: 0,
@@ -124,28 +154,11 @@ export default function AirmedPage() {
   return (
     <div ref={root}>
       {/* ---------- Header ---------- */}
-      <header className="fixed top-0 z-50 w-full border-b border-line bg-paper/85 backdrop-blur-md">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-4 sm:px-8">
-          <Link href="/" className="label label-signal">
-            ALI DEREYURT
-          </Link>
-          <nav aria-label="Primary" className="flex items-center gap-6 sm:gap-10">
-            <Link href="/#work" className="label transition-colors hover:text-ink">
-              WORK
-            </Link>
-            <Link href="/cv" className="label transition-colors hover:text-ink">
-              CV
-            </Link>
-            <Link href="/#contact" className="label transition-colors hover:text-ink">
-              CONTACT
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader items={HOME_NAV} />
 
       <main>
         {/* ---------- Pinned, scroll-drawn pipeline ---------- */}
-        <section className="pipe-pin grid-paper relative flex h-svh flex-col overflow-hidden px-5 sm:px-8">
+        <section className="pipe-pin grid-paper relative flex flex-col overflow-hidden px-5 pb-16 sm:px-8 lg:h-svh lg:pb-0">
           <div className="pipe-intro relative mx-auto w-full max-w-[1440px] pt-24 sm:pt-28">
             <p className="label label-signal">AIRMED HBYS — HOW IT&apos;S BUILT</p>
             <h1 className="display mt-2 text-3xl leading-[0.95] sm:text-5xl">
@@ -153,7 +166,7 @@ export default function AirmedPage() {
             </h1>
           </div>
 
-          <div className="relative mx-auto grid w-full max-w-[1440px] flex-1 items-center gap-6 sm:gap-12 lg:grid-cols-[280px_1fr]">
+          <div className="relative mx-auto grid w-full min-w-0 max-w-[1440px] flex-1 items-center gap-6 sm:gap-12 lg:grid-cols-[280px_1fr]">
             {/* rail */}
             <div className="rail relative hidden pl-7 lg:block">
               <div className="absolute bottom-2 left-2 top-2 w-px bg-line" />
@@ -161,23 +174,27 @@ export default function AirmedPage() {
               {STAGES.map((s) => (
                 <div key={s.rail} className="rail-step relative py-3">
                   <span className="rail-dot absolute -left-5 top-1/2 h-2 w-2 -translate-y-1/2 border border-line-2 bg-paper transition-all duration-300" />
-                  <span className="label transition-colors duration-300">{s.rail}</span>
+                  <span className="label label-link transition-colors duration-300">{s.rail}</span>
                 </div>
               ))}
             </div>
 
             {/* stages — each with its own scroll-drawn diagram */}
-            <div className="relative min-h-[440px] w-full">
+            <div className="relative w-full min-w-0 space-y-20 lg:min-h-[440px] lg:space-y-0">
               {STAGES.map((s, i) => {
                 const Diagram = DIAGRAMS[i];
                 return (
-                  <div key={s.rail} className="stage absolute inset-0 flex flex-col justify-center gap-4">
+                  <div key={s.rail} className="stage flex min-w-0 flex-col justify-center gap-4 lg:absolute lg:inset-0">
                     <p className="label label-signal lg:hidden">{s.rail}</p>
                     <h2 className="display max-w-2xl text-2xl leading-[0.98] sm:text-4xl">{s.title}</h2>
                     <p className="max-w-xl text-sm leading-relaxed text-ink-dim sm:text-[15px]">{s.body}</p>
-                    <div className="mt-2 h-[300px] w-full sm:h-[360px]">
-                      <Diagram register={(tl) => (timelines.current[i] = tl)} />
+                    {/* below lg the drawing keeps its width and the frame swipes */}
+                    <div className="-mx-5 mt-2 overflow-x-auto px-5 lg:mx-0 lg:overflow-visible lg:px-0">
+                      <div className="h-[280px] min-w-[600px] lg:h-[360px] lg:min-w-0">
+                        <Diagram register={(tl) => (timelines.current[i] = tl)} />
+                      </div>
                     </div>
+                    <p className="label text-signal lg:hidden">SWIPE THE DRAWING →</p>
                   </div>
                 );
               })}
@@ -185,7 +202,7 @@ export default function AirmedPage() {
           </div>
 
           {/* progress */}
-          <div className="relative mx-auto w-full max-w-[1440px] pb-6">
+          <div className="relative mx-auto hidden w-full max-w-[1440px] pb-6 lg:block">
             <div className="h-px overflow-hidden bg-line">
               <div className="bar-fill h-full bg-signal" style={{ width: 0 }} />
             </div>
@@ -214,7 +231,7 @@ export default function AirmedPage() {
                 READ THE CODE ON GITHUB
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </a>
-              <Link href="/" className="label underline-offset-4 transition-colors hover:text-ink hover:underline">
+              <Link href="/" className="label label-link underline-offset-4 transition-colors hover:text-ink hover:underline">
                 ← BACK TO WORK
               </Link>
             </div>

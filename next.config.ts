@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
@@ -40,6 +41,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  // A lockfile in a parent directory made Next root the traced output at
+  // ~/Documents, which buried server.js and broke both `npm start` and the
+  // Dockerfile's `COPY .next/standalone ./`.
+  outputFileTracingRoot: path.join(process.cwd()),
   poweredByHeader: false,
   reactStrictMode: true,
   compress: true,

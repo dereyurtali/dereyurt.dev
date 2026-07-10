@@ -28,7 +28,7 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const SITE = "https://dereyurt.dev";
+const SITE = "https://ali.dereyurt.dev";
 const DESCRIPTION =
   "AI developer building production systems where LLM agents do real work — agentic tool-use, guardrails, and the pipelines that keep them safe.";
 

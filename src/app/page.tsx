@@ -7,6 +7,7 @@ import { gsap, ScrollTrigger, splitLines, EASE_OUT } from '@/lib/animation';
 import AirmedSchematic from '@/components/AirmedSchematic';
 import WatchCta from '@/components/WatchCta';
 import AmbientVideo from '@/components/AmbientVideo';
+import SiteHeader, { HOME_NAV } from '@/components/SiteHeader';
 
 gsap.registerPlugin(useGSAP);
 
@@ -177,27 +178,7 @@ export default function Home() {
       </a>
 
       {/* ---------- Header ---------- */}
-      <header className="fixed top-0 z-50 w-full border-b border-line bg-paper/85 backdrop-blur-md">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-4 sm:px-8">
-          <Link href="/" className="label label-signal">
-            ALI DEREYURT
-          </Link>
-          <nav aria-label="Primary" className="flex items-center gap-6 sm:gap-10">
-            <a href="#work" className="label transition-colors hover:text-ink">
-              WORK
-            </a>
-            <Link href="/airmed" className="label transition-colors hover:text-ink">
-              HOW I BUILD
-            </Link>
-            <Link href="/cv" className="label transition-colors hover:text-ink">
-              CV
-            </Link>
-            <a href="#contact" className="label transition-colors hover:text-ink">
-              CONTACT
-            </a>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader items={HOME_NAV} />
 
       <main>
         {/* ---------- Hero: full-bleed scroll-scrubbed drafting video ---------- */}
@@ -249,7 +230,7 @@ export default function Home() {
             <div className="featured-panel relative overflow-hidden border border-line bg-card">
               <div className="grid lg:grid-cols-12">
                 {/* text side — clean paper, fully readable */}
-                <div className="p-8 sm:p-14 lg:col-span-7">
+                <div className="min-w-0 p-6 sm:p-10 lg:col-span-7 lg:p-14">
                   <p className="label mb-5" data-reveal>
                     FLAGSHIP — PRODUCTION HIS
                   </p>
@@ -288,7 +269,7 @@ export default function Home() {
                       href="https://github.com/dereyurtali/airmed-hbys-showcase"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="label mt-5 inline-block underline-offset-4 transition-colors hover:text-ink hover:underline"
+                      className="label label-link mt-5 underline-offset-4 transition-colors hover:text-ink hover:underline"
                     >
                       READ THE CODE ON GITHUB ↗
                     </a>
@@ -296,7 +277,7 @@ export default function Home() {
                 </div>
 
                 {/* animation side — AirMed'in gerçek mimarisi, canlı şema */}
-                <div className="grid-paper relative flex min-h-[380px] items-center justify-center border-t border-line p-6 lg:col-span-5 lg:border-l lg:border-t-0">
+                <div className="grid-paper relative flex min-h-[300px] min-w-0 items-center justify-center border-t border-line p-4 sm:min-h-[380px] sm:p-6 lg:col-span-5 lg:border-l lg:border-t-0">
                   <AirmedSchematic />
                   <p className="label absolute bottom-3 left-4 bg-paper/85 px-2 py-1">
                     AIRMED — SYSTEM SCHEMATIC <span className="text-signal">· LIVE</span>
@@ -327,7 +308,7 @@ export default function Home() {
                         <Link
                           key={l.label}
                           href={l.href}
-                          className="label underline-offset-4 transition-colors hover:text-signal hover:underline"
+                          className="label label-link underline-offset-4 transition-colors hover:text-signal hover:underline"
                         >
                           {l.label.toUpperCase()} →
                         </Link>
@@ -337,7 +318,7 @@ export default function Home() {
                           href={l.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="label underline-offset-4 transition-colors hover:text-signal hover:underline"
+                          className="label label-link underline-offset-4 transition-colors hover:text-signal hover:underline"
                         >
                           {l.label.toUpperCase()} ↗
                         </a>
@@ -377,7 +358,7 @@ export default function Home() {
             <div className="mt-10" data-reveal>
               <Link
                 href="/airmed"
-                className="group inline-flex items-center gap-3 font-mono text-xs tracking-[0.14em] text-signal"
+                className="label-link group gap-3 font-mono text-xs tracking-[0.14em] text-signal"
               >
                 SEE THE FULL PIPELINE, ANIMATED
                 <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -439,7 +420,7 @@ export default function Home() {
               <div className="lg:col-span-7">
                 <a
                   href="mailto:ali@dereyurt.dev"
-                  className="cta group block max-w-lg border border-ink bg-card"
+                  className="cta group block w-full max-w-lg border border-ink bg-card"
                 >
                   <span className="flex items-stretch">
                     <span className="flex-1 px-6 py-5">
@@ -483,7 +464,7 @@ export default function Home() {
                   href="https://github.com/dereyurtali"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="label transition-colors hover:text-signal"
+                  className="label label-link transition-colors hover:text-signal"
                 >
                   GITHUB ↗
                 </a>
@@ -491,11 +472,11 @@ export default function Home() {
                   href="https://www.linkedin.com/in/alidereyurt/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="label transition-colors hover:text-signal"
+                  className="label label-link transition-colors hover:text-signal"
                 >
                   LINKEDIN ↗
                 </a>
-                <Link href="/cv" className="label transition-colors hover:text-signal">
+                <Link href="/cv" className="label label-link transition-colors hover:text-signal">
                   CV
                 </Link>
               </div>

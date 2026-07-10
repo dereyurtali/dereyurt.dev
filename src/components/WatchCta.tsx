@@ -10,9 +10,9 @@ export default function WatchCta() {
   const STOPS = [0, 1, 2, 3, 4, 5, 6];
 
   return (
-    <Link href="/airmed" className="cta group block max-w-lg border border-ink bg-card">
+    <Link href="/airmed" className="cta group block w-full max-w-lg border border-ink bg-card">
       <span className="flex items-stretch">
-        <span className="flex-1 px-6 py-5">
+        <span className="min-w-0 flex-1 px-5 py-5 sm:px-6">
           <span className="flex items-baseline gap-3">
             <span className="cta-play text-signal">▶</span>
             <span className="font-mono text-[13px] tracking-[0.16em] text-ink">
@@ -21,7 +21,7 @@ export default function WatchCta() {
           </span>
 
           {/* the walkthrough, in miniature */}
-          <span className="mt-4 flex items-center gap-4">
+          <span className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
             <svg viewBox="0 0 168 12" className="cta-rail h-3 w-[168px] shrink-0" aria-hidden>
               <line x1="4" y1="6" x2="164" y2="6" stroke="currentColor" strokeWidth="1" opacity="0.35" />
               {STOPS.map((i) => (
