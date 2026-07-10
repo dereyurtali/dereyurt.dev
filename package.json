@@ -1,30 +1,34 @@
 {
   "name": "dereyurt.dev",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Personal site of Ali Dereyurt \u2014 AI developer.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "typecheck": "tsc --noEmit"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "dependencies": {
-    "@types/node": "^25.0.9",
-    "@types/react": "^19.2.8",
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.25",
     "next": "^16.1.2",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "typescript": "^5.9.3"
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.23",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.18"
-  }
+    "postcss": "^8.5.10",
+    "tailwindcss": "^4.1.18",
+    "@types/node": "^25.0.9",
+    "@types/react": "^19.2.8",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "postcss": "^8.5.10"
+  },
+  "private": true
 }

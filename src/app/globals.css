@@ -1,18 +1,26 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
-  --color-background: #000000;
-  --color-foreground: #f5f5f7;
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* Engineering-drawing palette, pared back: paper, ink, one signal colour */
+  --color-paper: #f7f8f4;
+  --color-paper-2: #f4f5f0;
+  --color-paper-3: #e6e8e1;
+  --color-card: #fdfdfb;
+  --color-ink: #15171a;
+  --color-ink-dim: rgba(21, 23, 26, 0.72);
+  --color-ink-faint: rgba(21, 23, 26, 0.62);
+  --color-line: rgba(21, 23, 26, 0.1);
+  --color-line-2: rgba(21, 23, 26, 0.2);
+  --color-signal: #c93c0b;
+  --color-signal-soft: rgba(201, 60, 11, 0.08);
+  --color-green: #1c6b42;
+  --color-red: #b53c3c;
 
-  --animate-fade-in: fade-in 0.6s ease-out;
-  --animate-slide-up: slide-up 0.8s ease-out;
-  --animate-scale-in: scale-in 0.5s ease-out;
+  --font-display: var(--font-sans), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-sans), -apple-system, sans-serif;
+  --font-mono: var(--font-mono), "SF Mono", monospace;
 }
 
-/* Base styles for consistent mobile rendering */
 * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -22,71 +30,337 @@ html {
   text-size-adjust: 100%;
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slide-up {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes scale-in {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
 body {
-  color: var(--color-foreground);
-  background: var(--color-background);
+  background: var(--color-paper);
+  color: var(--color-ink);
   font-family: var(--font-sans);
+  /* perfect-fourth scale (1.333): base 1rem / 1.5, tracking 0 */
+  font-size: 1rem;
+  line-height: 1.55;
+  letter-spacing: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Force color consistency on mobile */
-@supports (-webkit-touch-callout: none) {
-  body {
-    min-height: -webkit-fill-available;
-  }
-
-  html {
-    height: -webkit-fill-available;
-  }
+::selection {
+  background: var(--color-signal);
+  color: var(--color-paper);
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
+/* Keyboard focus must always be visible (WCAG 2.4.7) */
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
 }
 
-/* Custom scrollbar for webkit browsers */
+/* Faint graph-paper ground — used sparingly, on the hero and figures only */
+.grid-paper {
+  background-image:
+    linear-gradient(to right, rgba(21, 23, 26, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(21, 23, 26, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Display headings: the same superfamily, pushed to its condensed heavy corner.
+   font-stretch drives Archivo's `wdth` axis, so one file covers 20px labels and
+   130px posters without the wobbly optical sizing a static face would give. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 66%;
+  text-transform: uppercase;
+  letter-spacing: 0.004em;
+  text-wrap: balance;
+}
+
+/* Huge settings want a touch more weight and a touch less tracking */
+.display-xl {
+  font-weight: 900;
+  font-stretch: 62%;
+  letter-spacing: -0.005em;
+}
+
+/* Mono label — the site's recurring annotation style */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}
+
+.label-signal {
+  color: var(--color-signal);
+}
+
+/* Section head: label + hairline, no boxes */
+.title-block {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* Inline technical tag */
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-dim);
+}
+
+/* Split-text reveal setup: lines are masked, GSAP animates .line-inner */
+.mask-line {
+  overflow: hidden;
+  display: block;
+}
+
+.mask-line > .line-inner {
+  display: block;
+  transform: translateY(110%);
+}
+
+/* Thin rules used as animated dividers (GSAP scales X) */
+.rule {
+  height: 1px;
+  background: var(--color-line);
+  transform-origin: left center;
+}
+
+/* Dimension line: rule with end ticks */
+.dim {
+  position: relative;
+  height: 1px;
+  background: var(--color-line-2);
+}
+.dim::before,
+.dim::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  width: 1px;
+  height: 9px;
+  background: var(--color-line-2);
+}
+.dim::before { left: 0; }
+.dim::after { right: 0; }
+
+/* Card surfaces — sharp corners, hairline border */
+.card {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+}
+
+/* /airmed pipeline rail states (classes toggled by GSAP) */
+.rail-step.is-active .rail-dot {
+  background: var(--color-signal);
+  border-color: var(--color-signal);
+}
+.rail-step.is-active .label {
+  color: var(--color-signal);
+}
+.rail-step.is-done .rail-dot {
+  background: var(--color-ink-faint);
+  border-color: transparent;
+}
+.rail-step.is-done .label {
+  color: var(--color-ink-dim);
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
-
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--color-paper);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
+  background: #d2d5cb;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #bcc0b3;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ======================= PRINT / PDF (the CV) ======================= */
+@page {
+  size: A4;
+  margin: 16mm 15mm 14mm;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 9.6pt;
+    line-height: 1.45;
+  }
+
+  .grid-paper {
+    background-image: none;
+  }
+
+  /* Chrome that has no business on paper */
+  header,
+  .print-hide {
+    display: none !important;
+  }
+
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Links print as plain text; the URL is already spelled out in the header block */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .label {
+    color: #555 !important;
+    letter-spacing: 0.14em;
+  }
+
+  /* Colour survives the printer only where it carries meaning */
+  .label.label-signal,
+  .text-signal {
+    color: #b03a0a !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .rule {
+    background: #ccc;
+  }
+
+  .title-block {
+    border-bottom-color: #bbb !important;
+  }
+
+  .cv-entry {
+    border-bottom: 1px solid #e0e0e0 !important;
+  }
+
+  /* Never split an entry across a page */
+  .cv-entry,
+  .cv-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .cv-section {
+    break-before: auto;
+    margin-top: 7mm !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  .title-block {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .cv-head {
+    margin-bottom: 4mm;
+  }
+
+  .cv-name {
+    font-size: 28pt !important;
+  }
+
+  /* Tighter rhythm on paper than on screen */
+  .cv-entry {
+    padding-top: 3mm !important;
+    padding-bottom: 3mm !important;
+  }
+}
+
+/* ---------------- Primary CTA ---------------- */
+.cta {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.cta:hover,
+.cta:focus-visible {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.cta:hover .font-mono,
+.cta:focus-visible .font-mono {
+  color: var(--color-paper);
+}
+.cta:hover span[class*="border-l"],
+.cta:focus-visible span[class*="border-l"] {
+  border-color: rgba(247, 248, 244, 0.35);
+}
+
+/* the rail is a miniature of the pipeline the button opens */
+.cta-rail {
+  color: var(--color-ink);
+}
+.cta:hover .cta-rail,
+.cta:focus-visible .cta-rail {
+  color: var(--color-paper);
+}
+.cta-pulse {
+  fill: var(--color-signal);
+  animation: cta-walk 4.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@keyframes cta-walk {
+  0%   { transform: translateX(0); }
+  8%   { transform: translateX(0); }
+  14%  { transform: translateX(26.6px); }
+  22%  { transform: translateX(26.6px); }
+  28%  { transform: translateX(53.2px); }
+  36%  { transform: translateX(53.2px); }
+  42%  { transform: translateX(79.8px); }
+  50%  { transform: translateX(79.8px); }
+  56%  { transform: translateX(106.4px); }
+  64%  { transform: translateX(106.4px); }
+  70%  { transform: translateX(133px); }
+  78%  { transform: translateX(133px); }
+  84%  { transform: translateX(159.6px); }
+  96%  { transform: translateX(159.6px); }
+  100% { transform: translateX(0); }
+}
+
+/* the play glyph breathes; the arrow nudges until you follow it */
+.cta-play {
+  font-size: 10px;
+  animation: cta-breathe 2.6s ease-in-out infinite;
+}
+@keyframes cta-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.cta-arrow {
+  display: inline-block;
+  animation: nudge 2.4s ease-in-out infinite;
+}
+.cta:hover .cta-arrow,
+.cta:focus-visible .cta-arrow {
+  animation: none;
+  transform: translateX(5px);
+  transition: transform 0.25s ease;
+}
+@keyframes nudge {
+  0%, 62%, 100% { transform: translateX(0); }
+  70% { transform: translateX(5px); }
+  78% { transform: translateX(0); }
+  86% { transform: translateX(5px); }
 }

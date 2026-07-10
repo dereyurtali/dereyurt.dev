@@ -1,577 +1,509 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
+import { useGSAP } from '@gsap/react';
+import { gsap, ScrollTrigger, splitLines, EASE_OUT } from '@/lib/animation';
+import AirmedSchematic from '@/components/AirmedSchematic';
+import WatchCta from '@/components/WatchCta';
+import AmbientVideo from '@/components/AmbientVideo';
 
-interface Project {
-  title: string;
-  description: string;
-  tech: string[];
-  link?: string;
-  image?: string;
-  skills: {
-    category: string;
-    items: string[];
-  }[];
-}
+gsap.registerPlugin(useGSAP);
+
+const CAPABILITIES =
+  'AGENTIC TOOL-USE · CLAUDE / OPENROUTER · N8N · POSTGRESQL RLS · NESTJS · NEXT.JS · CI/CD ON SELF-HOSTED RUNNERS';
+
+const WORK = [
+  {
+    index: '02',
+    title: 'Clinic AI Automation',
+    subtitle: 'n8n-orchestrated operations for an eye hospital',
+    description:
+      'LLM conversation agent with intent classification + n8n workflows wiring the CRM, Google Workspace and the clinic\'s EHR over REST, OAuth 2.0 and webhooks, plus a computer-vision document pipeline. 90%+ less manual work, 24/7 patient support.',
+    links: [],
+  },
+  {
+    index: '03',
+    title: 'Printimize',
+    subtitle: 'AI-powered 3D print parameter optimization',
+    description:
+      'Claude vision with forced tool-use for structured defect analysis; Bayesian optimization over ML models trained on real lab measurements.',
+    links: [
+      { label: 'Case study', href: '/parameter', internal: true },
+      { label: 'Live', href: 'https://parameterapp.dereyurt.dev' },
+      { label: 'GitHub', href: 'https://github.com/dereyurtali/printimize-showcase' },
+    ],
+  },
+  {
+    index: '04',
+    title: 'UX Principles Skill',
+    subtitle: 'A Claude Code skill used by other developers',
+    description:
+      'Seven classic design books distilled into rules and review heuristics Claude applies while building UIs. Open source.',
+    links: [{ label: 'GitHub', href: 'https://github.com/dereyurtali/ux-principles-skill' }],
+  },
+  {
+    index: '05',
+    title: 'AirMed Monitor',
+    subtitle: 'Live ops panel for my AI dev pipeline',
+    description:
+      'Real-time instrument panel I use daily while building AirMed — runner queues, CI jobs and staging deploys on one screen.',
+    links: [
+      { label: 'Live', href: 'https://dereyurtali.github.io/airmed-monitor/' },
+      { label: 'GitHub', href: 'https://github.com/dereyurtali/airmed-monitor' },
+    ],
+  },
+  {
+    index: '06',
+    title: 'HEDAP',
+    subtitle: 'CAN bus analysis platform — Qt6 / C++17',
+    description:
+      'Cross-platform desktop tool for BMS engineers: Vector DBC decode, UART/SLCAN/PCAN live telemetry, four synchronized real-time charts. Built AI-orchestrated at ASPİLSAN R&D and delivered as their internal tool.',
+    links: [{ label: 'GitHub', href: 'https://github.com/dereyurtali/HEDAP' }],
+  },
+  {
+    index: '07',
+    title: 'Vonguard',
+    subtitle: 'Bilingual site + warranty verification',
+    description:
+      'TR/EN marketing site with a Supabase-backed warranty verification flow. Next.js 16, Tailwind v4.',
+    links: [
+      { label: 'Live', href: 'https://vonguard-website.vercel.app' },
+      { label: 'GitHub', href: 'https://github.com/dereyurtali/vonguard-website' },
+    ],
+  },
+];
+
+const PROCESS = [
+  ['PARALLEL SESSIONS', 'One issue = one branch = one worktree = one AI session. Hooks block edits in the main clone.'],
+  ['TWO-LANE CI', 'Fast blocking gate in minutes on self-hosted runners; heavy e2e suite in stage groups.'],
+  ['AUTO STAGING', 'Every merge deploys to a staging box on a private Tailscale mesh.'],
+  ['SAFE PRODUCTION', 'Backups → migration rehearsal on a copy → deploy → health check → auto-rollback.'],
+];
+
+const EARLIER = [
+  { title: 'TÜRKSAT Model Satellite 2022', meta: 'System Lead · PID landing · YOLOv4', href: '/turksat-muy-2022' },
+  { title: 'TÜRKSAT Model Satellite 2021', meta: 'Team Lead · autogyro', href: '/turksat-muy-2021' },
+  { title: 'CanSat Spin Stabilization', meta: 'NASA CanSat', href: '/cansat-stabilization' },
+  { title: 'ROKETSAN / TÜBİTAK Rocket', meta: 'Payload structures', href: '/cv' },
+];
 
 export default function Home() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const root = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
+  useGSAP(
+    (_context, contextSafe) => {
+      const ctx = root.current!;
 
-  useEffect(() => {
-    if (selectedProject) {
-      // Smooth scroll to skills section when project is selected
-      setTimeout(() => {
-        const skillsSection = document.getElementById('skills');
-        if (skillsSection) {
-          skillsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-    }
-  }, [selectedProject]);
+      // ScrollTrigger'lar GSAP context'i içinde doğsun; aksi halde rota değişiminde
+      // temizlenmeyip eski ölçülerle sayfada kalıyorlar.
+      const build = contextSafe!(() => {
+        // ---------- Hero: canlı çizim masası — video kendi kendine akar ----------
+        gsap.from('.hero-video-wrap', { autoAlpha: 0, duration: 1.6, ease: 'power2.out', delay: 0.4 });
 
-  const projects: Project[] = [
-    {
-      title: "ML Surface Roughness Predictor",
-      description: "An intelligent additive manufacturing solution that predicts surface quality and optimizes 3D printing parameters using physics-informed machine learning.",
-      tech: ["Machine Learning", "React", "FastAPI", "AWS"],
-      link: "/parameter",
-      skills: [
-        {
-          category: "AI & Machine Learning",
-          items: [
-            "Gradient Boosting Regressor (R² = 0.9917)",
-            "Physics-Informed ML with Monotonic Constraints",
-            "Computer Vision with Claude 4.5 Sonnet API",
-            "5-Fold Cross-Validation & LOOCV",
-            "Predictive Modeling (GBR, Random Forest, SVR)"
-          ]
-        },
-        {
-          category: "Full-Stack Development",
-          items: [
-            "React 18 & TypeScript SPA",
-            "FastAPI (Python 3.11) Asynchronous API",
-            "Three.js & React Three Fiber (3D Visualization)",
-            "Zustand State Management",
-            "TailwindCSS Responsive Design"
-          ]
-        },
-        {
-          category: "Manufacturing & Engineering",
-          items: [
-            "PrusaSlicer CLI Integration",
-            "Double-Lock Adaptive Cusp Filtering (DL-ACF)",
-            "Mitutoyo Surftest SJ-500 Metrology",
-            "Trimesh Geometric Validation",
-            "FDM 3D Printing Process Optimization"
-          ]
-        },
-        {
-          category: "Cloud & DevOps",
-          items: [
-            "AWS EC2 (t3.flex.large) Deployment",
-            "Docker Containerization",
-            "Ubuntu 22.04 LTS Server",
-            "Production-Ready Infrastructure",
-            "CI/CD Pipeline"
-          ]
-        },
-      ],
+        const heroTitle = ctx.querySelector('.hero-title')!;
+        const split = splitLines(heroTitle);
+        gsap.set(heroTitle, { autoAlpha: 1 });
+
+        const tl = gsap.timeline({ defaults: { ease: EASE_OUT } });
+        tl.from(split.lines, {
+          yPercent: 110,
+          duration: 1.2,
+          stagger: 0.08,
+          delay: 0.15,
+        })
+          .from('.hero-meta', { autoAlpha: 0, y: 14, duration: 0.9, stagger: 0.08 }, '-=0.8')
+          .from('.hero-strip', { scaleX: 0, transformOrigin: 'left', duration: 1.1, ease: 'power3.inOut' }, '-=0.9')
+          .from('.hero-caps', { autoAlpha: 0, duration: 0.8 }, '-=0.5');
+
+        // ---------- Scroll reveals ----------
+        ctx.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
+          gsap.from(el, {
+            autoAlpha: 0,
+            y: 36,
+            duration: 1,
+            ease: EASE_OUT,
+            scrollTrigger: { trigger: el, start: 'top 94%' },
+          });
+        });
+
+        ctx.querySelectorAll<HTMLElement>('[data-rule]').forEach((el) => {
+          gsap.from(el, {
+            scaleX: 0,
+            duration: 1.2,
+            ease: 'power3.inOut',
+            scrollTrigger: { trigger: el, start: 'top 92%' },
+          });
+        });
+
+        ctx.querySelectorAll<HTMLElement>('[data-split]').forEach((el) => {
+          const s = splitLines(el);
+          gsap.set(el, { autoAlpha: 1 });
+          gsap.from(s.lines, {
+            yPercent: 110,
+            duration: 1.1,
+            stagger: 0.08,
+            ease: EASE_OUT,
+            scrollTrigger: { trigger: el, start: 'top 85%' },
+          });
+        });
+
+        // Work rows: staggered entrance
+        gsap.from('.work-row', {
+          autoAlpha: 0,
+          y: 44,
+          duration: 0.9,
+          stagger: 0.12,
+          ease: EASE_OUT,
+          scrollTrigger: { trigger: '.work-list', start: 'top 85%' },
+        });
+
+        ScrollTrigger.refresh();
+      });
+
+      if (document.fonts.status === 'loaded') build();
+      else document.fonts.ready.then(() => root.current && build());
     },
-    {
-      title: "Spin Stabilized Camera for CanSat",
-      description: "A technical research document exploring software and hardware methods for camera stabilization in CanSat satellites during descent.",
-      tech: ["NASA CanSat", "Embedded Systems", "Gyroscope", "Image Processing"],
-      link: "/cansat-stabilization",
-      skills: [
-        {
-          category: "Stabilization Methods",
-          items: [
-            "Software-based pixel shifting",
-            "Point tracking stabilization",
-            "Gyro sensor yaw value reading",
-            "Hardware counter-rotation",
-            "Motor encoder/decoder control"
-          ]
-        },
-        {
-          category: "Hardware Components",
-          items: [
-            "Gyroscope sensors (IMU)",
-            "Electric motors with encoders",
-            "Separate power systems",
-            "Camera modules",
-            "Microcontrollers"
-          ]
-        },
-        {
-          category: "Software Concepts",
-          items: [
-            "Video frame processing",
-            "Pixel manipulation algorithms",
-            "Real-time data processing",
-            "Memory optimization",
-            "Compression techniques"
-          ]
-        },
-        {
-          category: "Competition Experience",
-          items: [
-            "NASA CanSat Competition",
-            "TÜRKSAT Model Satellite (4×)",
-            "Technical documentation",
-            "System design",
-            "Team collaboration"
-          ]
-        },
-      ],
-    },
-    {
-      title: "TÜRKSAT Model Satellite 2021",
-      description: "Critical Design Review report for a model satellite mission featuring autogyro active landing, autonomous separation, and real-time telemetry systems.",
-      tech: ["TÜRKSAT Competition", "Embedded C/C++", "CAD Design", "Systems Engineering"],
-      link: "/turksat-muy-2021",
-      skills: [
-        {
-          category: "System Design",
-          items: [
-            "Mission architecture planning",
-            "Payload structure design",
-            "Autogyro active landing system",
-            "Carrier-payload separation mechanism",
-            "Mass budget optimization (700g)"
-          ]
-        },
-        {
-          category: "Embedded Software",
-          items: [
-            "Arduino Nano flight controller",
-            "ESP32-CAM WiFi & video",
-            "State machine architecture",
-            "PID controller implementation",
-            "EEPROM persistence & recovery"
-          ]
-        },
-        {
-          category: "Electronics & Sensors",
-          items: [
-            "BNO055 IMU integration",
-            "NEO M8N GPS module",
-            "BMP280 pressure sensor",
-            "Power budget analysis",
-            "Custom PCB design"
-          ]
-        },
-        {
-          category: "Project Leadership",
-          items: [
-            "Team Lead (6 members)",
-            "Operations Control Officer",
-            "Budget management (~3500 TL)",
-            "199-page CDR documentation",
-            "97% requirements compliance"
-          ]
-        },
-      ],
-    },
-    {
-      title: "TÜRKSAT Model Satellite 2022",
-      description: "Critical Design Review for a 5-layer modular satellite with PID-controlled active landing, custom smoke capsules, and YOLOv4-tiny object detection.",
-      tech: ["TÜRKSAT Competition", "ESP32", "PID Control", "3D Printing"],
-      link: "/turksat-muy-2022",
-      skills: [
-        {
-          category: "System Architecture",
-          items: [
-            "5-layer modular payload design",
-            "Thermal management & weight distribution",
-            "Post-PDR design improvements",
-            "39/39 requirements compliance",
-            "FDM 3D printing (PETG/ABS)"
-          ]
-        },
-        {
-          category: "Active Landing System",
-          items: [
-            "PID controller (Kp=15, Ki=0.5, Kd=8)",
-            "Counter-rotating BLDC motors",
-            "10-second altitude hold @150m",
-            "Safety systems (5m cutoff)",
-            "Gyro-based stabilization"
-          ]
-        },
-        {
-          category: "Custom Missions",
-          items: [
-            "Smoke capsules (KNO3+Sugar)",
-            "Electric fuse activation circuit",
-            "100% ignition reliability",
-            "YOLOv4-tiny object detection",
-            "Dual-channel communication"
-          ]
-        },
-        {
-          category: "Project Leadership",
-          items: [
-            "System Lead (6 members)",
-            "Operation Control Officer",
-            "Integration & test methodology",
-            "Environmental testing (drop, thermal)",
-            "Mission operations planning"
-          ]
-        },
-      ],
-    },
-  ];
+    { scope: root }
+  );
 
   return (
-    <main className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-gray-100">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/80 dark:bg-black/80 backdrop-blur-xl z-50 border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-          <div className="flex items-center justify-center">
-            <div className="flex gap-4 sm:gap-8 text-sm sm:text-base">
-              <a href="#main" className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
-                Main
-              </a>
-              <a href="#projects" className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
-                Projects
-              </a>
-              <a href="#contact" className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
-                Contact
-              </a>
-            </div>
-          </div>
+    <div ref={root}>
+      <a
+        href="#work"
+        className="label sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:border focus:border-ink focus:bg-paper focus:px-4 focus:py-2"
+      >
+        SKIP TO CONTENT
+      </a>
+
+      {/* ---------- Header ---------- */}
+      <header className="fixed top-0 z-50 w-full border-b border-line bg-paper/85 backdrop-blur-md">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-4 sm:px-8">
+          <Link href="/" className="label label-signal">
+            ALI DEREYURT
+          </Link>
+          <nav aria-label="Primary" className="flex items-center gap-6 sm:gap-10">
+            <a href="#work" className="label transition-colors hover:text-ink">
+              WORK
+            </a>
+            <Link href="/airmed" className="label transition-colors hover:text-ink">
+              HOW I BUILD
+            </Link>
+            <Link href="/cv" className="label transition-colors hover:text-ink">
+              CV
+            </Link>
+            <a href="#contact" className="label transition-colors hover:text-ink">
+              CONTACT
+            </a>
+          </nav>
         </div>
-      </nav>
+      </header>
 
-      {/* Hero Section */}
-      <section id="main" className="pt-32 pb-20 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h1
-              className={`text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 transition-all duration-1000 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-            >
-              Ali Dereyurt
-            </h1>
-            <p
-              className={`text-xl sm:text-2xl md:text-3xl text-gray-600 dark:text-gray-400 mb-4 transition-all duration-1000 delay-200 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-            >
-              Computer Engineering Student
-            </p>
-            <p
-              className={`text-base sm:text-lg text-gray-500 dark:text-gray-500 transition-all duration-1000 delay-300 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-            >
-              4th Year at Fatih Sultan Mehmet Vakıf University • Istanbul, Turkey
-            </p>
+      <main>
+        {/* ---------- Hero: full-bleed scroll-scrubbed drafting video ---------- */}
+        <section className="hero-pin grid-paper relative flex h-svh flex-col justify-between overflow-hidden border-b border-line px-5 pt-24 sm:px-8">
+          {/* full-bleed video layer, scrubbed by scroll */}
+          <div className="hero-video-wrap pointer-events-none absolute inset-0" aria-hidden>
+            {/* Filigran: multiply ile kâğıda basılı, metnin kontrastını bozmayacak yoğunlukta */}
+            <AmbientVideo
+              eager
+              src="/videos/fig-satellite.mp4"
+              poster="/videos/fig-satellite-poster.jpg"
+              className="hero-video h-full w-full object-cover opacity-[0.28] mix-blend-multiply"
+            />
+            <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-paper to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-paper to-transparent" />
           </div>
 
-          {/* Profile Cards */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            {/* Education & Profile */}
-            <div className="bg-white dark:bg-gray-900/50 rounded-3xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800">
-              <h3 className="text-xl sm:text-2xl font-semibold mb-4">Education & Profile</h3>
-              <ul className="space-y-3 text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                <li className="flex items-start">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span><strong>Degree:</strong> Computer Engineering, FSMVU</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span><strong>Languages:</strong> English (C1), Turkish (Native)</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span><strong>Location:</strong> Ümraniye, Istanbul</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Experience */}
-            <div className="bg-white dark:bg-gray-900/50 rounded-3xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800">
-              <h3 className="text-xl sm:text-2xl font-semibold mb-4">Experience</h3>
-              <ul className="space-y-3 text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                <li className="flex items-start">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span><strong>Manufacturing Engineer</strong> @ 3DOIT (2024-2025)</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span><strong>Intern</strong> @ TÜRKSAT Satellite R&D</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span><strong>Instructor</strong> @ T3 Foundation</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span><strong>Part-time Student</strong> @ ALUTEAM</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Technical Skills */}
-            <div className="bg-white dark:bg-gray-900/50 rounded-3xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800 sm:col-span-2 lg:col-span-1">
-              <h3 className="text-xl sm:text-2xl font-semibold mb-4">Technical Skills</h3>
-              <ul className="space-y-3 text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                <li className="flex items-start">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span><strong>Programming:</strong> Java, C++, JavaScript, Python</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span><strong>Design:</strong> Autodesk Fusion 360</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span><strong>Management:</strong> Trello, Asana, Slack, Notion</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Leadership & Competitions - Highlighted Section */}
-          <div className="bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 rounded-3xl p-8 sm:p-10 border-2 border-blue-200 dark:border-blue-800 shadow-lg">
-            <div className="text-center mb-6">
-              <h3 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Leadership & Competitions
-              </h3>
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                Proven track record in competitive environments and team leadership
+          <div className="hero-copy relative mx-auto w-full max-w-[1440px]">
+            <div className="mb-8 flex items-center justify-between">
+              <p className="hero-meta label">AI DEVELOPER — ISTANBUL, TR</p>
+              <p className="hero-meta label hidden items-center gap-2 sm:flex">
+                <span className="inline-block h-2 w-2 animate-pulse bg-green" />
+                OPEN TO WORK
               </p>
             </div>
-            <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
-              <div className="bg-white dark:bg-gray-900/50 rounded-2xl p-6 border border-gray-200 dark:border-gray-800">
-                <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-                  <span className="text-2xl mr-2">🏆</span>
-                  Competitions
-                </h4>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <span className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-sm mr-3 mt-0.5">4×</span>
-                    <div>
-                      <strong className="text-gray-900 dark:text-gray-100">TÜRKSAT Model Satellite Competition</strong>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Team Leader & Mechanical Design (2019-2021)</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="w-2 h-2 bg-purple-500 rounded-full mr-3 mt-2 flex-shrink-0"></span>
-                    <div>
-                      <strong className="text-gray-900 dark:text-gray-100">ROKETSAN/TÜBİTAK Rocket Competition</strong>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Payload Design Engineer</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="w-2 h-2 bg-purple-500 rounded-full mr-3 mt-2 flex-shrink-0"></span>
-                    <div>
-                      <strong className="text-gray-900 dark:text-gray-100">NASA CanSat Competition</strong>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Team Member</p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div className="bg-white dark:bg-gray-900/50 rounded-2xl p-6 border border-gray-200 dark:border-gray-800">
-                <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-                  <span className="text-2xl mr-2">👥</span>
-                  Leadership
-                </h4>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <span className="flex-shrink-0 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-sm mr-3 mt-0.5">4×</span>
-                    <div>
-                      <strong className="text-gray-900 dark:text-gray-100">Club President</strong>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Next Generation R&D Student Club</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">Served 4 consecutive terms</p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+
+            <h1 className="hero-title display display-xl invisible text-[15vw] leading-[0.92] sm:text-[11vw] lg:text-[9.6vw]">
+              Systems where <span className="text-signal">AI does real work</span> — safely, in
+              production.
+            </h1>
+
+          </div>
+
+          <div className="relative mx-auto w-full max-w-[1440px] pb-8">
+            <div className="hero-strip dim mb-4" />
+            <p className="hero-caps label">{CAPABILITIES}</p>
+          </div>
+        </section>
+
+        {/* ---------- Featured: AirMed over scrubbed system-topology video ---------- */}
+        <section id="work" className="px-5 py-24 sm:px-8 sm:py-32">
+          <div className="mx-auto max-w-[1440px]">
+            <div className="title-block mb-14" data-reveal>
+              <span className="label label-signal">01</span>
+              <span className="label">SELECTED WORK</span>
+              <span className="label ml-auto hidden sm:block">2023 — 2026</span>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20 px-4 sm:px-6 bg-gray-50 dark:bg-gray-900/50">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-12 sm:mb-16 text-center">
-            Projects
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {projects.map((project, index) => (
-              <div
-                key={index}
-                onClick={() => setSelectedProject(project)}
-                className={`group bg-white dark:bg-black rounded-3xl p-6 sm:p-8 hover:scale-105 active:scale-95 transition-all duration-500 border-2 cursor-pointer ${
-                  selectedProject?.title === project.title
-                    ? 'border-blue-500 dark:border-blue-400'
-                    : 'border-gray-200 dark:border-gray-800'
-                } ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: `${(index + 1) * 150}ms` }}
-              >
-                <div className="mb-6">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300"></div>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-semibold mb-3">{project.title}</h3>
-                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 text-xs sm:text-sm bg-gray-100 dark:bg-gray-800 rounded-full"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex flex-wrap items-center gap-4">
-                  {project.link && (
-                    <Link
-                      href={project.link}
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center text-sm sm:text-base text-blue-600 dark:text-blue-400 hover:underline"
-                    >
-                      Learn more
-                      <svg
-                        className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </Link>
-                  )}
-                  {project.title === "ML Surface Roughness Predictor" && (
-                    <a
-                      href="https://parameterapp.dereyurt.dev"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center px-4 py-2 text-sm sm:text-base bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all"
-                    >
-                      Go to Application
-                      <svg
-                        className="w-4 h-4 ml-2"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
-                      </svg>
-                    </a>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section - Only shown when project is selected */}
-      {selectedProject && (
-        <section id="skills" className="py-20 px-4 sm:px-6 bg-gray-50 dark:bg-gray-900/50 scroll-mt-20">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-center">
-              {selectedProject.title} - Skills & Technologies
-            </h2>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-12 sm:mb-16 text-base sm:text-lg px-4">
-              Technologies and skills used in this project
-            </p>
-            <div className={`grid gap-6 sm:gap-8 ${selectedProject.skills.length > 3 ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1 md:grid-cols-3'}`}>
-              {selectedProject.skills.map((category, index) => (
-                <div
-                  key={index}
-                  className="bg-white dark:bg-black rounded-3xl p-6 border border-gray-200 dark:border-gray-800 animate-fade-in"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <h3 className="text-lg sm:text-xl font-semibold mb-4">{category.category}</h3>
-                  <ul className="space-y-2">
-                    {category.items.map((skill, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start text-gray-600 dark:text-gray-400 text-sm"
-                      >
-                        <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5 flex-shrink-0"></span>
-                        <span>{skill}</span>
+            <div className="featured-panel relative overflow-hidden border border-line bg-card">
+              <div className="grid lg:grid-cols-12">
+                {/* text side — clean paper, fully readable */}
+                <div className="p-8 sm:p-14 lg:col-span-7">
+                  <p className="label mb-5" data-reveal>
+                    FLAGSHIP — PRODUCTION HIS
+                  </p>
+                  <h2 className="display display-xl invisible text-6xl leading-[0.95] sm:text-8xl" data-split>
+                    AirMed <span className="text-signal">HBYS</span>
+                  </h2>
+                  <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-dim" data-reveal>
+                    Multi-tenant hospital information system with an LLM patient assistant that
+                    books real appointments over WhatsApp, Telegram and Instagram. 95 database
+                    models, PostgreSQL row-level security, trilingual UI.
+                  </p>
+                  <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2" data-reveal>
+                    {['Agentic Tool-Use', 'Claude / OpenRouter', 'NestJS · tRPC · Prisma', 'PostgreSQL RLS'].map(
+                      (t) => (
+                        <span key={t} className="tag">
+                          {t}
+                        </span>
+                      )
+                    )}
+                  </div>
+                  <ul className="mt-10 space-y-3 border-l-2 border-signal pl-5" data-reveal>
+                    {[
+                      'Model loop never holds a DB connection — three-phase transaction design',
+                      '115 hand-reviewed migrations — RLS tenancy, partitioned audit logs, race-free counters',
+                      'Log watcher auto-opens issues; in-app button files feature requests to GitHub',
+                      'Auto-fix agent drafts PRs from PII-scrubbed error context',
+                    ].map((line) => (
+                      <li key={line} className="text-sm leading-relaxed text-ink-dim">
+                        {line}
                       </li>
                     ))}
                   </ul>
+                  <div className="mt-10" data-reveal>
+                    <WatchCta />
+                    <a
+                      href="https://github.com/dereyurtali/airmed-hbys-showcase"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="label mt-5 inline-block underline-offset-4 transition-colors hover:text-ink hover:underline"
+                    >
+                      READ THE CODE ON GITHUB ↗
+                    </a>
+                  </div>
                 </div>
-              ))}
+
+                {/* animation side — AirMed'in gerçek mimarisi, canlı şema */}
+                <div className="grid-paper relative flex min-h-[380px] items-center justify-center border-t border-line p-6 lg:col-span-5 lg:border-l lg:border-t-0">
+                  <AirmedSchematic />
+                  <p className="label absolute bottom-3 left-4 bg-paper/85 px-2 py-1">
+                    AIRMED — SYSTEM SCHEMATIC <span className="text-signal">· LIVE</span>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
-      )}
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8">
-            Let's Connect
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 sm:mb-12 px-4">
-            Interested in working together or have a question? Feel free to reach out.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 px-4">
-            <a
-              href="mailto:ali@dereyurt.dev"
-              className="px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 active:bg-blue-800 transition-colors text-base sm:text-lg font-medium"
-            >
-              Get in Touch
-            </a>
-            <a
-              href="https://github.com/dereyurtali"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 dark:border-gray-700 rounded-full hover:border-gray-400 dark:hover:border-gray-600 transition-colors text-base sm:text-lg font-medium"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://www.linkedin.com/in/alidereyurt/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 dark:border-gray-700 rounded-full hover:border-gray-400 dark:hover:border-gray-600 transition-colors text-base sm:text-lg font-medium"
-            >
-              LinkedIn
-            </a>
+        {/* ---------- Work rows ---------- */}
+        <section className="px-5 pb-24 sm:px-8 sm:pb-32">
+          <div className="work-list mx-auto max-w-[1440px]">
+            {WORK.map((w) => (
+              <article key={w.index} className="work-row group border-t border-line py-10 transition-colors hover:bg-paper-2 sm:py-12">
+                <div className="grid gap-6 sm:grid-cols-12 sm:items-baseline">
+                  <p className="label sm:col-span-1">NO. {w.index}</p>
+                  <div className="sm:col-span-5">
+                    <h3 className="display text-4xl leading-[0.95] transition-colors group-hover:text-signal sm:text-6xl">
+                      {w.title}
+                    </h3>
+                    <p className="label mt-3">{w.subtitle.toUpperCase()}</p>
+                  </div>
+                  <p className="text-sm leading-relaxed text-ink-dim sm:col-span-4">{w.description}</p>
+                  <div className="flex gap-5 sm:col-span-2 sm:justify-end">
+                    {w.links.map((l) =>
+                      'internal' in l && l.internal ? (
+                        <Link
+                          key={l.label}
+                          href={l.href}
+                          className="label underline-offset-4 transition-colors hover:text-signal hover:underline"
+                        >
+                          {l.label.toUpperCase()} →
+                        </Link>
+                      ) : (
+                        <a
+                          key={l.label}
+                          href={l.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="label underline-offset-4 transition-colors hover:text-signal hover:underline"
+                        >
+                          {l.label.toUpperCase()} ↗
+                        </a>
+                      )
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+            <div className="rule" data-rule />
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <footer className="py-8 sm:py-12 px-4 sm:px-6 border-t border-gray-200 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto text-center text-sm sm:text-base text-gray-600 dark:text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Ali Dereyurt. All rights reserved.</p>
-        </div>
-      </footer>
-    </main>
+        {/* ---------- Process band ---------- */}
+        <section className="border-y border-line bg-paper-2 px-5 py-24 sm:px-8 sm:py-32">
+          <div className="mx-auto max-w-[1440px]">
+            <div className="title-block mb-12" data-reveal>
+              <span className="label label-signal">02</span>
+              <span className="label">HOW I WORK</span>
+            </div>
+            <h2 className="display invisible max-w-4xl text-4xl leading-[0.98] sm:text-6xl" data-split>
+              AI agents in the loop — <span className="text-signal">mistakes made structurally
+              impossible.</span>
+            </h2>
+            <div
+              className="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4"
+              data-reveal
+            >
+              {PROCESS.map(([title, body], i) => (
+                <div key={title} className="bg-card p-6">
+                  <p className="font-mono text-[10px] tracking-[0.18em] text-ink-faint">0{i + 1}</p>
+                  <p className="label label-signal mb-3 mt-4">{title}</p>
+                  <p className="text-sm leading-relaxed text-ink-dim">{body}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-10" data-reveal>
+              <Link
+                href="/airmed"
+                className="group inline-flex items-center gap-3 font-mono text-xs tracking-[0.14em] text-signal"
+              >
+                SEE THE FULL PIPELINE, ANIMATED
+                <span className="transition-transform group-hover:translate-x-1">→</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- Earlier work ---------- */}
+        <section className="px-5 py-24 sm:px-8">
+          <div className="mx-auto max-w-[1440px]">
+            <div className="title-block mb-8" data-reveal>
+              <span className="label label-signal">03</span>
+              <span className="label">EARLIER WORK — AEROSPACE</span>
+            </div>
+            {EARLIER.map((e) => (
+              <Link
+                key={e.title}
+                href={e.href}
+                className="group flex items-baseline justify-between gap-4 border-b border-line py-6"
+                data-reveal
+              >
+                <span className="display text-xl text-ink-dim transition-colors group-hover:text-signal sm:text-2xl">
+                  {e.title}
+                </span>
+                <span className="label hidden text-right sm:block">{e.meta}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ---------- Contact: robotic arm draws the closing line ---------- */}
+        <section id="contact" className="contact-section relative overflow-hidden px-5 pb-28 pt-16 sm:px-8 sm:pb-32">
+          <div className="pointer-events-none absolute inset-0" aria-hidden>
+            <AmbientVideo
+              src="/videos/fig-arm.mp4"
+              poster="/videos/fig-arm-poster.jpg"
+              className="contact-video h-full w-full object-cover opacity-[0.1] mix-blend-multiply"
+            />
+            <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-paper to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-paper to-transparent" />
+          </div>
+          <div className="relative mx-auto max-w-[1440px]">
+            <div className="rule mb-14" data-rule />
+            <p className="label label-signal mb-8" data-reveal>
+              04 — CONTACT
+            </p>
+
+            {/* data-split must sit on the element that carries `invisible`,
+                otherwise GSAP reveals the wrapper and the heading stays hidden. */}
+            <h2
+              className="contact-title display display-xl invisible text-[13vw] leading-[0.92] sm:text-[9vw]"
+              data-split
+            >
+              Let&apos;s build something real<span className="text-signal">.</span>
+            </h2>
+
+            <div className="mt-14 grid gap-10 lg:grid-cols-12 lg:items-end" data-reveal>
+              <div className="lg:col-span-7">
+                <a
+                  href="mailto:ali@dereyurt.dev"
+                  className="cta group block max-w-lg border border-ink bg-card"
+                >
+                  <span className="flex items-stretch">
+                    <span className="flex-1 px-6 py-5">
+                      <span className="block font-mono text-[13px] tracking-[0.16em] text-ink">
+                        ALI@DEREYURT.DEV
+                      </span>
+                      <span className="mt-2 block font-mono text-[11px] tracking-[0.1em] text-ink-faint">
+                        I READ EVERY MAIL — REPLY WITHIN A DAY
+                      </span>
+                    </span>
+                    <span className="flex w-16 items-center justify-center border-l border-ink text-xl leading-none">
+                      <span className="cta-arrow">→</span>
+                    </span>
+                  </span>
+                </a>
+              </div>
+
+              <dl className="lg:col-span-4 lg:col-start-9">
+                <div className="dim mb-5" />
+                <div className="flex justify-between gap-6 border-b border-line py-3">
+                  <dt className="label">STATUS</dt>
+                  <dd className="label flex items-center gap-2 text-ink">
+                    <span className="inline-block h-2 w-2 bg-green" aria-hidden />
+                    OPEN TO WORK
+                  </dd>
+                </div>
+                <div className="flex justify-between gap-6 border-b border-line py-3">
+                  <dt className="label">BASED IN</dt>
+                  <dd className="label text-ink">ISTANBUL, TR</dd>
+                </div>
+                <div className="flex justify-between gap-6 border-b border-line py-3">
+                  <dt className="label">WORKING</dt>
+                  <dd className="label text-ink">ON-SITE · HYBRID · REMOTE</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div className="mt-16 flex flex-wrap items-center justify-between gap-6" data-reveal>
+              <div className="flex flex-wrap gap-8">
+                <a
+                  href="https://github.com/dereyurtali"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="label transition-colors hover:text-signal"
+                >
+                  GITHUB ↗
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/alidereyurt/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="label transition-colors hover:text-signal"
+                >
+                  LINKEDIN ↗
+                </a>
+                <Link href="/cv" className="label transition-colors hover:text-signal">
+                  CV
+                </Link>
+              </div>
+              <p className="label">© {new Date().getFullYear()} ALI DEREYURT</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }

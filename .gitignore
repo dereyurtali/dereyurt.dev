@@ -32,3 +32,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AI tooling config (local, not part of the site)
+/.claude/
+/.agents/
+/skills-lock.json
+
+# Generated clips kept on disk but never served or referenced
+/assets/
