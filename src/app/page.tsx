@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger, splitLines, EASE_OUT } from '@/lib/animation';
 import AirmedSchematic from '@/components/AirmedSchematic';
+import AgentLoop from '@/components/AgentLoop';
 import DnaHelix from '@/components/DnaHelix';
 import WatchCta from '@/components/WatchCta';
 import AmbientVideo from '@/components/AmbientVideo';
@@ -116,9 +117,7 @@ export default function Home() {
       // ScrollTrigger'lar GSAP context'i içinde doğsun; aksi halde rota değişiminde
       // temizlenmeyip eski ölçülerle sayfada kalıyorlar.
       const build = contextSafe!(() => {
-        // ---------- Hero: canlı çizim masası — video kendi kendine akar ----------
-        gsap.from('.hero-video-wrap', { autoAlpha: 0, duration: 1.6, ease: 'power2.out', delay: 0.4 });
-
+        // ---------- Hero: ad oturur, sonra yanındaki döngü paneli açılır ----------
         const heroTitle = ctx.querySelector('.hero-title')!;
         const split = splitLines(heroTitle);
         gsap.set(heroTitle, { autoAlpha: 1 });
@@ -130,8 +129,11 @@ export default function Home() {
           stagger: 0.08,
           delay: 0.15,
         })
-          .from('.hero-meta', { autoAlpha: 0, y: 14, duration: 0.9, stagger: 0.08 }, '-=0.8')
-          .from('.hero-strip', { scaleX: 0, transformOrigin: 'left', duration: 1.1, ease: 'power3.inOut' }, '-=0.9')
+          .from('.hero-meta', { autoAlpha: 0, y: 14, duration: 0.9, stagger: 0.08 }, '-=0.9')
+          .from('.hero-role', { autoAlpha: 0, y: 16, duration: 0.9 }, '-=0.8')
+          // panel çerçevesi önce açılır, içindeki iz kendi zamanlamasıyla yazmaya başlar
+          .from('.hero-panel', { autoAlpha: 0, y: 24, duration: 1, ease: 'power3.out' }, '-=0.7')
+          .from('.hero-strip', { scaleX: 0, transformOrigin: 'left', duration: 1.1, ease: 'power3.inOut' }, '-=0.8')
           .from('.hero-caps', { autoAlpha: 0, duration: 0.8 }, '-=0.5');
 
         // ---------- Scroll reveals ----------
@@ -198,38 +200,47 @@ export default function Home() {
       <SiteHeader items={HOME_NAV} />
 
       <main>
-        {/* ---------- Hero: full-bleed scroll-scrubbed drafting video ---------- */}
-        <section className="hero-pin grid-paper relative flex h-svh flex-col justify-between overflow-hidden border-b border-line px-5 pt-24 sm:px-8">
-          {/* full-bleed video layer, scrubbed by scroll */}
-          <div className="hero-video-wrap pointer-events-none absolute inset-0" aria-hidden>
-            {/* Filigran: multiply ile kâğıda basılı, metnin kontrastını bozmayacak yoğunlukta */}
-            <AmbientVideo
-              eager
-              src="/videos/fig-satellite.mp4"
-              poster="/videos/fig-satellite-poster.jpg"
-              className="hero-video h-full w-full object-cover opacity-[0.28] mix-blend-multiply"
-            />
-            <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-paper to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-paper to-transparent" />
-          </div>
+        {/* ---------- Hero: the name, and beside it the work, running ----------
+            No slogan. A recruiter is told nothing and shown one thing instead: an
+            agentic turn going through classification, a guardrail, a tool call and
+            a row-level-secured transaction, live, on loop. */}
+        <section className="hero-pin grid-paper relative flex min-h-svh flex-col overflow-hidden border-b border-line px-5 pb-8 pt-20 sm:px-8 sm:pt-24">
+          {/* the copy block sits in the middle of whatever height is left, so the
+              hero neither clips on a phone nor leaves a void on a desktop */}
+          <div className="flex flex-1 items-center">
+            <div className="hero-copy relative mx-auto w-full max-w-[1440px]">
+              <div className="mb-8 flex items-center justify-between">
+                <p className="hero-meta label">AI DEVELOPER — ISTANBUL, TR</p>
+                <p className="hero-meta label hidden items-center gap-2 sm:flex">
+                  <span className="inline-block h-2 w-2 animate-pulse bg-green" />
+                  OPEN TO WORK
+                </p>
+              </div>
 
-          <div className="hero-copy relative mx-auto w-full max-w-[1440px]">
-            <div className="mb-8 flex items-center justify-between">
-              <p className="hero-meta label">AI DEVELOPER — ISTANBUL, TR</p>
-              <p className="hero-meta label hidden items-center gap-2 sm:flex">
-                <span className="inline-block h-2 w-2 animate-pulse bg-green" />
-                OPEN TO WORK
-              </p>
+              {/* DOM order is name → panel → role, which on a phone puts the proof
+                  inside the first screen; on lg the grid pulls the panel to the right
+                  column and the role back under the name. */}
+              <div className="grid gap-7 lg:grid-cols-12 lg:gap-12">
+                <h1 className="hero-title display display-xl invisible min-w-0 text-[16vw] leading-[0.84] sm:text-[13vw] lg:col-span-6 lg:text-[7.4vw]">
+                  Ali
+                  <br />
+                  Dereyurt
+                </h1>
+
+                <div className="hero-panel min-w-0 lg:col-span-6 lg:row-span-2 lg:self-center">
+                  <AgentLoop />
+                </div>
+
+                <p className="hero-role max-w-md text-[15px] leading-relaxed text-ink-dim sm:text-base lg:col-span-6">
+                  I build <span className="text-ink">agentic systems</span> — LLM tool-use wired
+                  into real databases, with the guardrails and pipelines that keep them safe in
+                  production.
+                </p>
+              </div>
             </div>
-
-            <h1 className="hero-title display display-xl invisible text-[15vw] leading-[0.92] sm:text-[11vw] lg:text-[9.6vw]">
-              Systems where <span className="text-signal">AI does real work</span> — safely, in
-              production.
-            </h1>
-
           </div>
 
-          <div className="relative mx-auto w-full max-w-[1440px] pb-8">
+          <div className="relative mx-auto mt-10 w-full max-w-[1440px]">
             <div className="hero-strip dim mb-4" />
             <p className="hero-caps label">{CAPABILITIES}</p>
           </div>
