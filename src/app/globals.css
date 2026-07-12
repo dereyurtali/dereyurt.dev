@@ -165,6 +165,42 @@ body {
   border: 1px solid var(--color-line);
 }
 
+/* Header links.
+ *
+ * Five labels plus the wordmark have to clear a 360px phone (SE, Galaxy S8), and
+ * at the display tracking they do not — so below sm the type steps down a pixel
+ * and the tracking collapses. Declared here, after .label, because a Tailwind
+ * text-[10px] utility loses to .label's own font-size at equal specificity.
+ */
+.nav-label {
+  font-size: 10px;
+  letter-spacing: 0.02em;
+}
+@media (min-width: 640px) {
+  .nav-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+  }
+}
+
+/* Drawing stage.
+ *
+ * Every schematic is a viewBox with 8–10px labels in it, so squeezing a 760-wide
+ * drawing into a 350px phone renders those labels at ~3px — a smudge. Below lg the
+ * stage therefore holds the drawing at its true size (--fig-w / --fig-h) and the
+ * frame around it scrolls sideways; from lg on it goes fluid again.
+ */
+.fig-stage {
+  min-width: var(--fig-w);
+  height: var(--fig-h);
+}
+@media (min-width: 1024px) {
+  .fig-stage {
+    min-width: 0;
+    height: var(--fig-h-lg, var(--fig-h));
+  }
+}
+
 /* /airmed pipeline rail states (classes toggled by GSAP) */
 .rail-step.is-active .rail-dot {
   background: var(--color-signal);

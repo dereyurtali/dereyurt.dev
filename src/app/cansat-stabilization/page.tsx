@@ -21,7 +21,12 @@ export default function CansatStabilization() {
     >
       {/* ---------- The rig ---------- */}
       <Section dwg="FIG 01" title="COUNTER-ROTATING CAMERA">
-        <Plate caption="THE BODY SPINS · THE CAMERA PLATFORM SPINS THE OTHER WAY · THE HORIZON STAYS PUT">
+        <Plate
+          caption="THE BODY SPINS · THE CAMERA PLATFORM SPINS THE OTHER WAY · THE HORIZON STAYS PUT"
+          w={760}
+          h={340}
+          hLg={400}
+        >
           <SpinRig />
         </Plate>
       </Section>

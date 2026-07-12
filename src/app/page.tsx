@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger, splitLines, EASE_OUT } from '@/lib/animation';
 import AirmedSchematic from '@/components/AirmedSchematic';
+import DnaHelix from '@/components/DnaHelix';
 import WatchCta from '@/components/WatchCta';
 import AmbientVideo from '@/components/AmbientVideo';
 import SiteHeader, { HOME_NAV } from '@/components/SiteHeader';
@@ -73,6 +74,22 @@ const WORK = [
       { label: 'GitHub', href: 'https://github.com/dereyurtali/vonguard-website' },
     ],
   },
+];
+
+const STUDIO_CAPABILITIES = [
+  ['AI & AUTOMATION', 'LLM-integrated products, agents and workflow automation that replace manual steps.'],
+  ['SAAS PLATFORMS', 'Multi-tenant architectures built for growth, isolation and reliability.'],
+  ['HEALTHCARE SYSTEMS', 'KVKK / GDPR-ready clinical software, EHR integration, real clinic workflows.'],
+  ['CLOUD & INFRASTRUCTURE', 'On-prem or EU-hosted deploys, observability, encrypted off-site backups.'],
+];
+
+// IBM Plex Mono has no ⇄ (U+21C4) — it falls back to another face and breaks the
+// line. Everything here stays inside the font's own glyph set.
+const STUDIO_SPECS = [
+  ['REGISTERED', 'EU · GREECE'],
+  ['OPERATING', 'ISTANBUL · ATHENS'],
+  ['SHIPS THROUGH IT', 'AIRMED · VONGUARD'],
+  ['COMPLIANCE', 'KVKK / GDPR-ALIGNED'],
 ];
 
 const PROCESS = [
@@ -219,7 +236,7 @@ export default function Home() {
         </section>
 
         {/* ---------- Featured: AirMed over scrubbed system-topology video ---------- */}
-        <section id="work" className="px-5 py-24 sm:px-8 sm:py-32">
+        <section id="work" className="scroll-mt-16 px-5 py-24 sm:px-8 sm:py-32">
           <div className="mx-auto max-w-[1440px]">
             <div className="title-block mb-14" data-reveal>
               <span className="label label-signal">01</span>
@@ -277,8 +294,11 @@ export default function Home() {
                 </div>
 
                 {/* animation side — AirMed'in gerçek mimarisi, canlı şema */}
-                <div className="grid-paper relative flex min-h-[300px] min-w-0 items-center justify-center border-t border-line p-4 sm:min-h-[380px] sm:p-6 lg:col-span-5 lg:border-l lg:border-t-0">
-                  <AirmedSchematic />
+                <div className="grid-paper relative flex min-h-[300px] min-w-0 items-center justify-center border-t border-line p-4 pb-12 sm:min-h-[380px] sm:p-6 sm:pb-12 lg:col-span-5 lg:border-l lg:border-t-0">
+                  {/* Aynı şema, iki yerleşim: telefonda dikey olan çizilir, çünkü yatay
+                      olanı 316px'e sıkışınca etiketleri 3px'e düşüyor. */}
+                  <AirmedSchematic variant="compact" className="h-auto w-full max-w-[340px] sm:hidden" />
+                  <AirmedSchematic className="mx-auto hidden h-auto w-full max-w-[720px] sm:block" />
                   <p className="label absolute bottom-3 left-4 bg-paper/85 px-2 py-1">
                     AIRMED — SYSTEM SCHEMATIC <span className="text-signal">· LIVE</span>
                   </p>
@@ -332,11 +352,71 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ---------- Studio: where the client work ships from ---------- */}
+        <section id="studio" className="scroll-mt-16 px-5 pb-24 sm:px-8 sm:pb-32">
+          <div className="mx-auto max-w-[1440px]">
+            <div className="title-block mb-14" data-reveal>
+              <span className="label label-signal">02</span>
+              <span className="label">STUDIO</span>
+              <a
+                href="https://dnasoft.co"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="label label-link ml-auto transition-colors hover:text-signal"
+              >
+                DNASOFT.CO ↗
+              </a>
+            </div>
+
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+              <div className="min-w-0 lg:col-span-7">
+                <h2 className="display display-xl invisible text-5xl leading-[0.95] sm:text-7xl" data-split>
+                  DNA <span className="text-signal">Software</span> Solutions
+                </h2>
+                <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-dim" data-reveal>
+                  The studio I build under — EU-registered in Greece, run from Istanbul. AirMed HBYS
+                  and Vonguard ship through it, which means I don&apos;t hand a system over at launch:
+                  I scope it, build it, deploy it, and stay on call while it runs in a real clinic.
+                </p>
+
+                <dl className="mt-10 max-w-xl" data-reveal>
+                  {STUDIO_SPECS.map(([k, v]) => (
+                    <div key={k} className="flex justify-between gap-6 border-b border-line py-3">
+                      <dt className="label">{k}</dt>
+                      <dd className="label text-ink">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <div
+                  className="mt-10 grid gap-px border border-line bg-line sm:grid-cols-2"
+                  data-reveal
+                >
+                  {STUDIO_CAPABILITIES.map(([title, body]) => (
+                    <div key={title} className="bg-card p-6">
+                      <p className="label label-signal mb-3">{title}</p>
+                      <p className="text-sm leading-relaxed text-ink-dim">{body}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* figür: adı çift sarmal, baz çiftleri stüdyonun yetenek alanları */}
+              <div className="grid-paper relative flex min-h-[360px] min-w-0 items-center justify-center border border-line p-4 sm:p-6 lg:col-span-5">
+                <DnaHelix />
+                <p className="label absolute bottom-3 left-4 bg-paper/85 px-2 py-1">
+                  FIG. — CAPABILITY PAIRS <span className="text-signal">· LIVE</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ---------- Process band ---------- */}
         <section className="border-y border-line bg-paper-2 px-5 py-24 sm:px-8 sm:py-32">
           <div className="mx-auto max-w-[1440px]">
             <div className="title-block mb-12" data-reveal>
-              <span className="label label-signal">02</span>
+              <span className="label label-signal">03</span>
               <span className="label">HOW I WORK</span>
             </div>
             <h2 className="display invisible max-w-4xl text-4xl leading-[0.98] sm:text-6xl" data-split>
@@ -371,7 +451,7 @@ export default function Home() {
         <section className="px-5 py-24 sm:px-8">
           <div className="mx-auto max-w-[1440px]">
             <div className="title-block mb-8" data-reveal>
-              <span className="label label-signal">03</span>
+              <span className="label label-signal">04</span>
               <span className="label">EARLIER WORK — AEROSPACE</span>
             </div>
             {EARLIER.map((e) => (
@@ -391,7 +471,7 @@ export default function Home() {
         </section>
 
         {/* ---------- Contact: robotic arm draws the closing line ---------- */}
-        <section id="contact" className="contact-section relative overflow-hidden px-5 pb-28 pt-16 sm:px-8 sm:pb-32">
+        <section id="contact" className="contact-section relative scroll-mt-16 overflow-hidden px-5 pb-28 pt-16 sm:px-8 sm:pb-32">
           <div className="pointer-events-none absolute inset-0" aria-hidden>
             <AmbientVideo
               src="/videos/fig-arm.mp4"
@@ -404,7 +484,7 @@ export default function Home() {
           <div className="relative mx-auto max-w-[1440px]">
             <div className="rule mb-14" data-rule />
             <p className="label label-signal mb-8" data-reveal>
-              04 — CONTACT
+              05 — CONTACT
             </p>
 
             {/* data-split must sit on the element that carries `invisible`,

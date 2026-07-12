@@ -37,7 +37,7 @@ export default function TurksatCDR2022() {
     >
       {/* ---------- Mission profile ---------- */}
       <Section dwg="FIG 01" title="MISSION PROFILE">
-        <Plate caption="ASCENT → DESCENT → SEPARATION @200 M → HOVER @150 M → RECOVERY → LANDING">
+        <Plate caption="ASCENT → DESCENT → SEPARATION @200 M → HOVER @150 M → RECOVERY → LANDING" w={900} h={450}>
           <MissionProfile
             path="M130 58 C 200 90, 240 108, 286 128 C 340 156, 386 172, 430 196 C 480 220, 520 232, 560 250 C 610 272, 650 292, 680 306 C 730 328, 780 340, 812 348"
             carrier="M430 196 C 470 250, 520 330, 560 398"
@@ -88,7 +88,7 @@ export default function TurksatCDR2022() {
       <Section dwg="FIG 02" title="FIVE-LAYER PAYLOAD ARCHITECTURE">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="min-w-0 lg:col-span-7">
-            <Plate caption="MODULAR STACK — LOW CoG, SERVICEABLE LAYERS, CRASH PROTECTION" tall>
+            <Plate caption="MODULAR STACK — LOW CoG, SERVICEABLE LAYERS, CRASH PROTECTION" w={620} h={480} hLg={520}>
               <LayerStack
                 layers={[
                   { label: 'ACTIVE LANDING', sub: '2× 2205 BLDC · COUNTER-ROTATING 4" PROPS', h: 62 },
@@ -159,12 +159,9 @@ export default function TurksatCDR2022() {
 
       {/* ---------- Flight software ---------- */}
       <Section dwg="FIG 03" title="FLIGHT SOFTWARE STATE MACHINE">
-        <figure className="card" data-reveal>
-          <div className="h-[180px] p-4">
-            <StateMachine states={['YERDE', 'YÜKSELİŞ', 'DÜŞÜŞ', 'AYRILMA', 'SABİT', 'KURTARMA', 'BİTİŞ']} />
-          </div>
-          <figcaption className="label border-t border-line px-4 py-2.5">AUTONOMOUS PHASE SEQUENCING</figcaption>
-        </figure>
+        <Plate caption="AUTONOMOUS PHASE SEQUENCING" w={860} h={120} hLg={150}>
+          <StateMachine states={['YERDE', 'YÜKSELİŞ', 'DÜŞÜŞ', 'AYRILMA', 'SABİT', 'KURTARMA', 'BİTİŞ']} />
+        </Plate>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
           <Spec

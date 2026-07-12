@@ -34,7 +34,7 @@ export default function TurksatCDR2021() {
     >
       {/* ---------- Mission profile ---------- */}
       <Section dwg="FIG 01" title="MISSION PROFILE">
-        <Plate caption="DEPLOYMENT @700 M → SEPARATION @400 M → HOVER @200 M → LANDING">
+        <Plate caption="DEPLOYMENT @700 M → SEPARATION @400 M → HOVER @200 M → LANDING" w={900} h={450}>
           <MissionProfile
             path="M140 56 C 210 84, 270 108, 320 130 C 390 162, 460 194, 520 226 C 600 262, 690 312, 762 344"
             carrier="M320 130 C 400 210, 480 320, 536 398"
@@ -114,12 +114,9 @@ export default function TurksatCDR2021() {
 
       {/* ---------- Flight software ---------- */}
       <Section dwg="FIG 02" title="FLIGHT SOFTWARE STATE MACHINE" band>
-        <figure className="card" data-reveal>
-          <div className="h-[180px] p-4">
-            <StateMachine states={['YERDE', 'YÜKSELİŞ', 'AYRILMA', 'AKTİF İNİŞ', 'SABİT', 'İNİŞ', 'BİTİŞ']} />
-          </div>
-          <figcaption className="label border-t border-line px-4 py-2.5">AUTONOMOUS PHASE SEQUENCING</figcaption>
-        </figure>
+        <Plate caption="AUTONOMOUS PHASE SEQUENCING" w={860} h={120} hLg={150}>
+          <StateMachine states={['YERDE', 'YÜKSELİŞ', 'AYRILMA', 'AKTİF İNİŞ', 'SABİT', 'İNİŞ', 'BİTİŞ']} />
+        </Plate>
       </Section>
 
       {/* ---------- Team ---------- */}

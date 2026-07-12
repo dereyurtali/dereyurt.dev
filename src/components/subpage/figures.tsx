@@ -21,22 +21,39 @@ const T = (props: React.SVGProps<SVGTextElement>) => (
   <text fontFamily="var(--font-mono)" fontSize="8.5" letterSpacing="1.2" fill={C.faint} {...props} />
 );
 
-/** Figure frame: bordered plate with a mono caption strip, like a drawing sheet */
+/**
+ * Figure frame: bordered plate with a mono caption strip, like a drawing sheet.
+ *
+ * `w` / `h` are the child's viewBox dimensions. Below lg the stage is held at
+ * exactly those pixels so the drawing renders 1:1 and its labels stay the size
+ * they were drawn at; the frame swipes instead of shrinking the type to 3px.
+ */
 export function Plate({
   caption,
   children,
-  tall,
+  w,
+  h,
+  hLg,
 }: {
   caption: string;
   children: React.ReactNode;
-  tall?: boolean;
+  w: number;
+  h: number;
+  hLg?: number;
 }) {
   return (
     <figure className="card min-w-0" data-reveal>
-      {/* The drawings do not survive being squeezed into 350px, so on narrow
-          screens they keep their size and the frame scrolls sideways instead. */}
       <div className="overflow-x-auto p-4">
-        <div className={`min-w-[620px] lg:min-w-0 ${tall ? 'h-[440px] lg:h-[520px]' : 'h-[320px] lg:h-[400px]'}`}>
+        <div
+          className="fig-stage"
+          style={
+            {
+              '--fig-w': `${w}px`,
+              '--fig-h': `${h}px`,
+              '--fig-h-lg': `${hLg ?? h}px`,
+            } as React.CSSProperties
+          }
+        >
           {children}
         </div>
       </div>

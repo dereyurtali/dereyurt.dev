@@ -66,7 +66,9 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     const toAnchor = () => {
       const target = hash && document.querySelector(hash);
       if (!target) return false;
-      if (lenis.current) lenis.current.scrollTo(target as HTMLElement, { immediate: true });
+      // Lenis ignores scroll-margin, so the fixed header is cleared by hand;
+      // without it a cross-page /#studio lands with its title block underneath.
+      if (lenis.current) lenis.current.scrollTo(target as HTMLElement, { immediate: true, offset: -64 });
       else (target as HTMLElement).scrollIntoView();
       return true;
     };

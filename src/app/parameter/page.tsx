@@ -31,7 +31,12 @@ export default function PrintimizeProject() {
     >
       {/* ---------- Pipeline ---------- */}
       <Section dwg="FIG 01" title="THE PIPELINE">
-        <Plate caption="STL → RENDERS → CLAUDE VISION → ML MODEL → BAYESIAN OPTIMIZER → SLICER → G-CODE">
+        <Plate
+          caption="STL → RENDERS → CLAUDE VISION → ML MODEL → BAYESIAN OPTIMIZER → SLICER → G-CODE"
+          w={760}
+          h={340}
+          hLg={400}
+        >
           <PrintPipeline />
         </Plate>
       </Section>

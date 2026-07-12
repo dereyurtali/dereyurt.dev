@@ -65,6 +65,35 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Search engines otherwise have no way to connect this site to the studio the
+ * work actually ships from — sameAs/worksFor makes ali.dereyurt.dev ⇄ dnasoft.co
+ * one identity rather than two unrelated domains.
+ */
+const PERSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Ali Dereyurt",
+  url: SITE,
+  jobTitle: "AI Developer",
+  description: DESCRIPTION,
+  address: { "@type": "PostalAddress", addressLocality: "Istanbul", addressCountry: "TR" },
+  email: "mailto:ali@dereyurt.dev",
+  sameAs: [
+    "https://github.com/dereyurtali",
+    "https://www.linkedin.com/in/alidereyurt/",
+    "https://dnasoft.co",
+  ],
+  worksFor: {
+    "@type": "Organization",
+    name: "DNA Software Solutions",
+    url: "https://dnasoft.co",
+    email: "mailto:hello@dnasoft.co",
+    description:
+      "Software studio building AI-native products, multi-tenant SaaS and regulated healthcare systems.",
+  },
+};
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -80,6 +109,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${archivo.variable} ${mono.variable}`}>
       <body className="antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_LD) }}
+        />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

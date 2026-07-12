@@ -188,9 +188,13 @@ export default function AirmedPage() {
                     <p className="label label-signal lg:hidden">{s.rail}</p>
                     <h2 className="display max-w-2xl text-2xl leading-[0.98] sm:text-4xl">{s.title}</h2>
                     <p className="max-w-xl text-sm leading-relaxed text-ink-dim sm:text-[15px]">{s.body}</p>
-                    {/* below lg the drawing keeps its width and the frame swipes */}
+                    {/* below lg the drawing keeps its true 720×340 size and the frame
+                        swipes; squeezed into 600×280 its labels dropped to ~6px */}
                     <div className="-mx-5 mt-2 overflow-x-auto px-5 lg:mx-0 lg:overflow-visible lg:px-0">
-                      <div className="h-[280px] min-w-[600px] lg:h-[360px] lg:min-w-0">
+                      <div
+                        className="fig-stage"
+                        style={{ '--fig-w': '720px', '--fig-h': '340px', '--fig-h-lg': '360px' } as React.CSSProperties}
+                      >
                         <Diagram register={(tl) => (timelines.current[i] = tl)} />
                       </div>
                     </div>
