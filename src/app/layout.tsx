@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import InkCursor from "@/components/InkCursor";
 
 /**
  * Two families, three roles.
@@ -113,6 +114,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_LD) }}
         />
+        <InkCursor />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
