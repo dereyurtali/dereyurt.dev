@@ -57,39 +57,52 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
 
   // On every route change: land at the top (or the requested anchor), drop any
   // remembered scroll position, then let ScrollTrigger remeasure the new page.
-  // The router writes its own scroll offset back after we run, so the reset is
-  // repeated on the next frame and once more after the router has settled.
+  //
+  // One pass is not enough. The router writes its own scroll offset back after we
+  // run, and fonts and video posters keep changing the layout for a few hundred ms
+  // after that — a /cv → /#studio jump measured once landed a thousand pixels short.
+  // So we re-land until the page stops moving, and give up the moment the visitor
+  // touches the scroll themselves, so we never yank them back.
   useEffect(() => {
     const hash = window.location.hash;
     ScrollTrigger.clearScrollMemory();
 
-    const toAnchor = () => {
-      const target = hash && document.querySelector(hash);
-      if (!target) return false;
-      // Lenis ignores scroll-margin, so the fixed header is cleared by hand;
-      // without it a cross-page /#studio lands with its title block underneath.
-      if (lenis.current) lenis.current.scrollTo(target as HTMLElement, { immediate: true, offset: -64 });
-      else (target as HTMLElement).scrollIntoView();
-      return true;
+    let cancelled = false;
+    const cancel = () => {
+      cancelled = true;
     };
 
-    const toTop = () => {
-      lenis.current?.scrollTo(0, { immediate: true });
-      window.scrollTo(0, 0);
-    };
-
-    const settle = () => {
-      if (!toAnchor()) toTop();
+    const land = () => {
+      if (cancelled) return;
+      // The fixed header is cleared by the section's own scroll-margin, which Lenis
+      // honours — an offset here on top of it lands the section twice as low.
+      const target = hash ? document.querySelector<HTMLElement>(hash) : null;
+      if (target) {
+        if (lenis.current) lenis.current.scrollTo(target, { immediate: true });
+        else target.scrollIntoView();
+      } else {
+        lenis.current?.scrollTo(0, { immediate: true });
+        window.scrollTo(0, 0);
+      }
       ScrollTrigger.refresh(true);
     };
 
-    settle();
-    const raf = requestAnimationFrame(settle);
-    const timer = window.setTimeout(settle, 120);
+    window.addEventListener('wheel', cancel, { passive: true, once: true });
+    window.addEventListener('touchstart', cancel, { passive: true, once: true });
+    window.addEventListener('keydown', cancel, { once: true });
+
+    land();
+    const raf = requestAnimationFrame(land);
+    const timers = [120, 350, 700, 1100].map((t) => window.setTimeout(land, t));
+    document.fonts.ready.then(land);
 
     return () => {
+      cancel();
       cancelAnimationFrame(raf);
-      clearTimeout(timer);
+      timers.forEach(clearTimeout);
+      window.removeEventListener('wheel', cancel);
+      window.removeEventListener('touchstart', cancel);
+      window.removeEventListener('keydown', cancel);
     };
   }, [pathname]);
 
