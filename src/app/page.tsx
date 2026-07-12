@@ -6,7 +6,7 @@ import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger, splitLines, EASE_OUT } from '@/lib/animation';
 import AirmedSchematic from '@/components/AirmedSchematic';
 import AgentLoop from '@/components/AgentLoop';
-import DnaHelix from '@/components/DnaHelix';
+import StudioSpine from '@/components/StudioSpine';
 import WatchCta from '@/components/WatchCta';
 import AmbientVideo from '@/components/AmbientVideo';
 import SiteHeader, { HOME_NAV } from '@/components/SiteHeader';
@@ -117,7 +117,9 @@ export default function Home() {
       // ScrollTrigger'lar GSAP context'i içinde doğsun; aksi halde rota değişiminde
       // temizlenmeyip eski ölçülerle sayfada kalıyorlar.
       const build = contextSafe!(() => {
-        // ---------- Hero: ad oturur, sonra yanındaki döngü paneli açılır ----------
+        // ---------- Hero: kâğıt önce belirir, sonra ad oturur, sonra panel açılır ----------
+        gsap.from('.hero-video-wrap', { autoAlpha: 0, duration: 1.8, ease: 'power2.out', delay: 0.3 });
+
         const heroTitle = ctx.querySelector('.hero-title')!;
         const split = splitLines(heroTitle);
         gsap.set(heroTitle, { autoAlpha: 1 });
@@ -205,6 +207,24 @@ export default function Home() {
             agentic turn going through classification, a guardrail, a tool call and
             a row-level-secured transaction, live, on loop. */}
         <section className="hero-pin grid-paper relative flex min-h-svh flex-col overflow-hidden border-b border-line px-5 pb-8 pt-20 sm:px-8 sm:pt-24">
+          {/* A plotter inking a system diagram onto graph paper — the same thing the
+              page claims to do, printed into the paper rather than framed as a video:
+              multiply blend at low opacity, edges faded out, so type stays readable. */}
+          <div className="hero-video-wrap pointer-events-none absolute inset-0" aria-hidden>
+            {/* A portrait viewport shows the clip's full height, so the pen body fills
+                the top as a grey blob. Scaling up from the bottom edge pushes it out of
+                frame and leaves the drawing it is inking. */}
+            <AmbientVideo
+              eager
+              src="/videos/fig-plotter.mp4"
+              poster="/videos/fig-plotter-poster.jpg"
+              className="hero-video h-full w-full origin-bottom scale-150 object-cover opacity-[0.18] mix-blend-multiply sm:scale-100 sm:opacity-[0.22]"
+            />
+            <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-paper to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-paper to-transparent" />
+            <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-paper to-transparent" />
+          </div>
+
           {/* the copy block sits in the middle of whatever height is left, so the
               hero neither clips on a phone nor leaves a void on a desktop */}
           <div className="flex flex-1 items-center">
@@ -389,35 +409,32 @@ export default function Home() {
                   and Vonguard ship through it, which means I don&apos;t hand a system over at launch:
                   I scope it, build it, deploy it, and stay on call while it runs in a real clinic.
                 </p>
-
-                <dl className="mt-10 max-w-xl" data-reveal>
-                  {STUDIO_SPECS.map(([k, v]) => (
-                    <div key={k} className="flex justify-between gap-6 border-b border-line py-3">
-                      <dt className="label">{k}</dt>
-                      <dd className="label text-ink">{v}</dd>
-                    </div>
-                  ))}
-                </dl>
-
-                <div
-                  className="mt-10 grid gap-px border border-line bg-line sm:grid-cols-2"
-                  data-reveal
-                >
-                  {STUDIO_CAPABILITIES.map(([title, body]) => (
-                    <div key={title} className="bg-card p-6">
-                      <p className="label label-signal mb-3">{title}</p>
-                      <p className="text-sm leading-relaxed text-ink-dim">{body}</p>
-                    </div>
-                  ))}
-                </div>
               </div>
 
-              {/* figür: adı çift sarmal, baz çiftleri stüdyonun yetenek alanları */}
-              <div className="grid-paper relative flex min-h-[360px] min-w-0 items-center justify-center border border-line p-4 sm:p-6 lg:col-span-5">
-                <DnaHelix />
-                <p className="label absolute bottom-3 left-4 bg-paper/85 px-2 py-1">
-                  FIG. — CAPABILITY PAIRS <span className="text-signal">· LIVE</span>
-                </p>
+              <dl className="min-w-0 lg:col-span-5 lg:self-end" data-reveal>
+                {STUDIO_SPECS.map(([k, v]) => (
+                  <div key={k} className="flex justify-between gap-6 border-b border-line py-3">
+                    <dt className="label">{k}</dt>
+                    <dd className="label text-ink">{v}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+
+            {/* The name, doing structural work: the strand runs the width of the band
+                and each base pair drops a leader into the capability under it. */}
+            <div className="mt-16">
+              <StudioSpine className="hidden h-[110px] w-full lg:block" />
+              <div className="grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+                {STUDIO_CAPABILITIES.map(([title, body], i) => (
+                  <div key={title} className="bg-card p-6">
+                    <p className="font-mono text-[10px] tracking-[0.18em] text-ink-faint">
+                      0{i + 1}
+                    </p>
+                    <p className="label label-signal mb-3 mt-4">{title}</p>
+                    <p className="text-sm leading-relaxed text-ink-dim">{body}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

@@ -28,7 +28,7 @@ const SCENARIOS: { channel: string; lines: Line[]; stat: string }[] = [
       { k: 'IN', v: '"yarın 14:00\'e alabilir miyiz?"', tone: 'in' },
       { k: 'INTENT', v: 'reschedule_appointment · 0.97', tone: 'step' },
       { k: 'GUARD', v: 'pii scrubbed · tenant = clinic_04', tone: 'step' },
-      { k: 'TOOL', v: 'slots.find({ doctor, thu }) → 3 open', tone: 'step', wait: true },
+      { k: 'TOOL', v: 'slots.find({ doctor, thu }) → 3', tone: 'step', wait: true },
       { k: 'TX', v: 'BEGIN · SET rls · UPDATE · COMMIT', tone: 'step' },
       { k: 'OUT', v: '"Perşembe 14:00 onaylandı ✓"', tone: 'out' },
     ],
