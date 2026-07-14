@@ -9,7 +9,9 @@ import AgentLoop from '@/components/AgentLoop';
 import StudioSpine from '@/components/StudioSpine';
 import WatchCta from '@/components/WatchCta';
 import AmbientVideo from '@/components/AmbientVideo';
+import OrbField from '@/components/OrbField';
 import SiteHeader, { HOME_NAV } from '@/components/SiteHeader';
+import ClinicFlows from '@/components/ClinicFlows';
 
 gsap.registerPlugin(useGSAP);
 
@@ -61,8 +63,13 @@ const WORK = [
     title: 'HEDAP',
     subtitle: 'CAN bus analysis platform — Qt6 / C++17',
     description:
-      'Cross-platform desktop tool for BMS engineers: Vector DBC decode, UART/SLCAN/PCAN live telemetry, four synchronized real-time charts. Built AI-orchestrated at ASPİLSAN R&D and delivered as their internal tool.',
-    links: [{ label: 'GitHub', href: 'https://github.com/dereyurtali/HEDAP' }],
+      'Cross-platform desktop tool for BMS engineers: Vector DBC decode, UART/SLCAN/PCAN live telemetry, four synchronized real-time charts. Built AI-orchestrated at ASPİLSAN R&D and delivered as their internal tool. Repo is private — access granted on request.',
+    links: [
+      {
+        label: 'Private repo — request access',
+        href: 'mailto:ali@dereyurt.dev?subject=HEDAP%20repo%20access%20request',
+      },
+    ],
   },
   {
     index: '07',
@@ -117,8 +124,15 @@ export default function Home() {
       // ScrollTrigger'lar GSAP context'i içinde doğsun; aksi halde rota değişiminde
       // temizlenmeyip eski ölçülerle sayfada kalıyorlar.
       const build = contextSafe!(() => {
+        // A hash navigation ("/#work") can run this twice on the SAME nodes,
+        // ~20ms apart. The second pass's gsap.from() then captures the
+        // first pass's hidden from-state as its END state — every reveal
+        // completes to invisible and the page looks empty until a reload.
+        // Flag the DOM itself: one build per mounted tree, ever.
+        if (ctx.dataset.gsapBuilt) return;
+        ctx.dataset.gsapBuilt = '1';
         // ---------- Hero: kâğıt önce belirir, sonra ad oturur, sonra panel açılır ----------
-        gsap.from('.hero-video-wrap', { autoAlpha: 0, duration: 1.8, ease: 'power2.out', delay: 0.3 });
+        gsap.from('.hero-orbs-wrap', { autoAlpha: 0, duration: 1.8, ease: 'power2.out', delay: 0.3 });
 
         const heroTitle = ctx.querySelector('.hero-title')!;
         const split = splitLines(heroTitle);
@@ -185,6 +199,14 @@ export default function Home() {
 
       if (document.fonts.status === 'loaded') build();
       else document.fonts.ready.then(() => root.current && build());
+
+      // The router can keep this DOM alive across a leave-and-return while the
+      // GSAP context (and every style it set) is reverted — so the built-flag
+      // must die with the context, or the returning visit never rebuilds and
+      // `.invisible` elements stay invisible.
+      return () => {
+        delete ctx.dataset.gsapBuilt;
+      };
     },
     { scope: root }
   );
@@ -207,22 +229,11 @@ export default function Home() {
             agentic turn going through classification, a guardrail, a tool call and
             a row-level-secured transaction, live, on loop. */}
         <section className="hero-pin grid-paper relative flex min-h-svh flex-col overflow-hidden border-b border-line px-5 pb-8 pt-20 sm:px-8 sm:pt-24">
-          {/* A plotter inking a system diagram onto graph paper — the same thing the
-              page claims to do, printed into the paper rather than framed as a video:
-              multiply blend at low opacity, edges faded out, so type stays readable. */}
-          <div className="hero-video-wrap pointer-events-none absolute inset-0" aria-hidden>
-            {/* A portrait viewport shows the clip's full height, so the pen body fills
-                the top as a grey blob. Scaling up from the bottom edge pushes it out of
-                frame and leaves the drawing it is inking. */}
-            <AmbientVideo
-              eager
-              src="/videos/fig-plotter.mp4"
-              poster="/videos/fig-plotter-poster.jpg"
-              className="hero-video h-full w-full origin-bottom scale-150 object-cover opacity-[0.18] mix-blend-multiply sm:scale-100 sm:opacity-[0.22]"
-            />
-            <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-paper to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-paper to-transparent" />
-            <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-paper to-transparent" />
+          {/* Drifting theme-coloured circles on the graph paper — multiply blend at
+              low alpha keeps them under the type; they gather gently around a slow
+              cursor (see OrbField for the behaviour). */}
+          <div className="hero-orbs-wrap pointer-events-none absolute inset-0" aria-hidden>
+            <OrbField className="h-full w-full mix-blend-multiply" />
           </div>
 
           {/* the copy block sits in the middle of whatever height is left, so the
@@ -377,6 +388,8 @@ export default function Home() {
                     )}
                   </div>
                 </div>
+                {/* the clinic row carries its n8n workflows as clickable drawings */}
+                {w.title === 'Clinic AI Automation' && <ClinicFlows />}
               </article>
             ))}
             <div className="rule" data-rule />

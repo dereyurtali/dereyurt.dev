@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <rect width="1440" height="900" fill="#f7f8f4"/>
+  
+  
+    <rect x="0" y="0" width="1440" height="64" fill="#fdfdfb" /><line x1="0" y1="64" x2="1440" y2="64" stroke="rgba(21,23,26,0.1)" stroke-width="1"/>
+    <rect x="28" y="22" width="20" height="20" fill="#c93c0b" /><path d="M 34 32 h 8 M 38 28 v 8" stroke="#f7f8f4" stroke-width="2.4"/>
+    <text x="60" y="37" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#15171a" font-weight="700" letter-spacing="0" text-anchor="start">AirMed HBYS</text>
+    <text x="185" y="36" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">· TÜRKEYE GÖZ KLİNİĞİ — DEMO</text>
+    <rect x="1236" y="21" width="77.6" height="22" fill="rgba(201,60,11,0.08)" /><text x="1274.8" y="36" font-family="ui-monospace, Menlo, monospace" font-size="10.5" fill="#c93c0b" font-weight="400" letter-spacing="1" text-anchor="middle">YÖNETİCİ</text>
+    <text x="1222" y="37" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="end">Cem Öztürk</text>
+    <rect x="0" y="64" width="232" height="836" fill="#fdfdfb" /><line x1="232" y1="64" x2="232" y2="900" stroke="rgba(21,23,26,0.1)" stroke-width="1"/>
+    <rect x="0" y="96" width="232" height="36" fill="rgba(201,60,11,0.08)" /><rect x="0" y="96" width="3" height="36" fill="#c93c0b" /><text x="28" y="118" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="#c93c0b" font-weight="400" letter-spacing="1.5" text-anchor="start">PANEL</text><text x="28" y="164" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">RANDEVULAR</text><text x="28" y="210" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">HASTALAR</text><text x="28" y="256" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">MUAYENE</text><text x="28" y="302" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">LABORATUVAR</text><text x="28" y="348" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">FATURALAMA</text><text x="28" y="394" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">ECZANE</text><text x="28" y="440" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">STOK</text><text x="28" y="486" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">RAPORLAR</text><text x="28" y="532" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">KULLANICILAR</text><text x="28" y="578" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">AYARLAR</text>
+    <text x="28" y="872" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">v0.4 · KVKK UYUMLU</text>
+  
+  <text x="272" y="116" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#15171a" font-weight="700" letter-spacing="0" text-anchor="start">Bugün — 14 Temmuz 2026, Salı</text>
+  
+    <rect x="272" y="146" width="268" height="120" fill="#fdfdfb" stroke="rgba(21,23,26,0.1)"/>
+    <text x="296" y="180" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">BUGÜN RANDEVU</text>
+    <text x="296" y="236" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#15171a" font-weight="700" letter-spacing="0" text-anchor="start">42</text>
+    <rect x="564" y="146" width="268" height="120" fill="#fdfdfb" stroke="rgba(21,23,26,0.1)"/>
+    <text x="588" y="180" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">BEKLEYEN ONAY</text>
+    <text x="588" y="236" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#c93c0b" font-weight="700" letter-spacing="0" text-anchor="start">7</text>
+    <rect x="856" y="146" width="268" height="120" fill="#fdfdfb" stroke="rgba(21,23,26,0.1)"/>
+    <text x="880" y="180" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">TAMAMLANAN</text>
+    <text x="880" y="236" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#15171a" font-weight="700" letter-spacing="0" text-anchor="start">28</text>
+    <rect x="1148" y="146" width="268" height="120" fill="#fdfdfb" stroke="rgba(21,23,26,0.1)"/>
+    <text x="1172" y="180" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">YENİ MESAJ</text>
+    <text x="1172" y="236" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#15171a" font-weight="700" letter-spacing="0" text-anchor="start">12</text>
+  <rect x="272" y="296" width="812" height="330" fill="#fdfdfb" stroke="rgba(21,23,26,0.1)"/>
+  <text x="296" y="330" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">HAFTALIK RANDEVU AKIŞI</text>
+  <line x1="296" y1="380" x2="1060" y2="380" stroke="rgba(21,23,26,0.1)" stroke-width="1"/><line x1="296" y1="440" x2="1060" y2="440" stroke="rgba(21,23,26,0.1)" stroke-width="1"/><line x1="296" y1="500" x2="1060" y2="500" stroke="rgba(21,23,26,0.1)" stroke-width="1"/><line x1="296" y1="560" x2="1060" y2="560" stroke="rgba(21,23,26,0.1)" stroke-width="1"/>
+  <polyline points="296,560 405,510 514,530 623,470 732,488 841,430 950,452 1060,398" fill="none" stroke="#c93c0b" stroke-width="2.5" stroke-dasharray="900" stroke-dashoffset="900">
+    <animate attributeName="stroke-dashoffset" values="900;0;0" keyTimes="0;0.4;1" dur="6s" repeatCount="indefinite"/>
+  </polyline>
+  <text x="296" y="606" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">PZT</text>,<text x="448" y="606" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">SAL</text>,<text x="600" y="606" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">ÇAR</text>,<text x="752" y="606" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">PER</text>,<text x="904" y="606" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">CUM</text>,<text x="1056" y="606" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">CMT</text>
+  <rect x="1112" y="296" width="292" height="330" fill="#fdfdfb" stroke="rgba(21,23,26,0.1)"/>
+  <text x="1136" y="330" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">SIRADAKİ HASTALAR</text>
+  
+    <text x="1136" y="372" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#c93c0b" font-weight="400" letter-spacing="0" text-anchor="start">09:20</text>
+    <text x="1196" y="372" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#15171a" font-weight="600" letter-spacing="0" text-anchor="start">Ayşe Yılmaz</text>
+    <text x="1196" y="391" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">Katarakt kontrol</text>
+    <text x="1136" y="434" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#c93c0b" font-weight="400" letter-spacing="0" text-anchor="start">09:40</text>
+    <text x="1196" y="434" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#15171a" font-weight="600" letter-spacing="0" text-anchor="start">Mehmet Demir</text>
+    <text x="1196" y="453" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">SMILE ön muayene</text>
+    <text x="1136" y="496" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#c93c0b" font-weight="400" letter-spacing="0" text-anchor="start">10:00</text>
+    <text x="1196" y="496" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#15171a" font-weight="600" letter-spacing="0" text-anchor="start">Zeynep Arslan</text>
+    <text x="1196" y="515" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">Lens ölçümü</text>
+    <text x="1136" y="558" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#c93c0b" font-weight="400" letter-spacing="0" text-anchor="start">10:20</text>
+    <text x="1196" y="558" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#15171a" font-weight="600" letter-spacing="0" text-anchor="start">Ali Vural</text>
+    <text x="1196" y="577" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">Kontrol</text>
+  <rect x="272" y="656" width="1132" height="190" fill="#fdfdfb" stroke="rgba(21,23,26,0.1)"/>
+  <text x="296" y="690" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">UYARILAR</text>
+  
+    <circle cx="304" cy="718" r="3.5" fill="#c93c0b"/>
+    <text x="322" y="723" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">Stok: Lens solüsyonu kritik seviyede</text>
+    <circle cx="304" cy="754" r="3.5" fill="rgba(21,23,26,0.62)"/>
+    <text x="322" y="759" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">Lab: 3 sonuç onay bekliyor</text>
+    <circle cx="304" cy="790" r="3.5" fill="#1c6b42"/>
+    <text x="322" y="795" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">Yedekleme 02:00’de tamamlandı</text>
+
+</svg>

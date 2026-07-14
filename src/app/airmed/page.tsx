@@ -6,6 +6,7 @@ import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger, EASE_OUT } from '@/lib/animation';
 import { DIAGRAMS } from '@/components/pipeline/diagrams';
 import SiteHeader, { HOME_NAV } from '@/components/SiteHeader';
+import AirmedShots from '@/components/AirmedShots';
 
 gsap.registerPlugin(useGSAP);
 
@@ -90,27 +91,79 @@ export default function AirmedPage() {
 
         gsap.set(stages, { autoAlpha: 0, y: 24 });
 
-        ScrollTrigger.create({
+        const apply = (p: number) => {
+          const raw = Math.min(N - 0.0001, p * N);
+          const idx = Math.floor(raw);
+          const local = gsap.utils.clamp(0, 1, (raw - idx) * 1.35);
+          gsap.set(railFill, { height: `${p * 100}%` });
+          gsap.set(barFill, { width: `${p * 100}%` });
+          setStage(idx);
+          timelines.current[idx]?.progress(local);
+        };
+
+        // The scroll position only sets a TARGET; what's on screen walks toward
+        // it at a capped, steady pace. A flick to the bottom therefore plays the
+        // whole story through, readable, instead of teleporting past six steps.
+        let target = 0;
+        let shown = 0;
+        let primed = false;
+
+        const SPEED = 0.34; // full-story units/s — one step ≈ 0.42s of catch-up
+        const SLOW_ZONE = 0.16; // last stretch of a step where the pace sinks…
+        const FLOOR = 0.32; // …down to this fraction, a beat on the finished drawing
+
+        const tick = (_t: number, deltaMs: number) => {
+          const dist = target - shown;
+          if (!primed || Math.abs(dist) < 0.00001) return;
+          const dt = Math.min(deltaMs / 1000, 0.05);
+          const dir = Math.sign(dist);
+          // ease off approaching whichever step boundary we're travelling into,
+          // pick the pace back up right after crossing it
+          const frac = (shown * N) % 1;
+          const toBoundary = dir > 0 ? 1 - frac : frac;
+          let v = SPEED * (FLOOR + (1 - FLOOR) * Math.min(1, toBoundary / SLOW_ZONE));
+          // and settle into the stop instead of clipping to it
+          v = Math.min(v, Math.max(Math.abs(dist) * 5, 0.03));
+          shown += dir * Math.min(Math.abs(dist), v * dt);
+          apply(shown);
+        };
+        gsap.ticker.add(tick);
+
+        const st = ScrollTrigger.create({
           trigger: '.pipe-pin',
           start: 'top top',
           end: `+=${N * 140}%`,
           pin: true,
-          scrub: true,
           anticipatePin: 1,
           onUpdate: (self) => {
-            const p = self.progress;
-            const raw = Math.min(N - 0.0001, p * N);
-            const idx = Math.floor(raw);
-            const local = gsap.utils.clamp(0, 1, (raw - idx) * 1.35);
-            gsap.set(railFill, { height: `${p * 100}%` });
-            gsap.set(barFill, { width: `${p * 100}%` });
-            setStage(idx);
-            timelines.current[idx]?.progress(local);
+            target = self.progress;
+          },
+          // arriving mid-page (reload, hash) starts in place, not with a replay
+          onRefresh: (self) => {
+            target = self.progress;
+            if (!primed) {
+              primed = true;
+              shown = target;
+              apply(shown);
+            }
           },
         });
 
-        setStage(0);
-        return () => gsap.set(stages, { clearProps: 'all' });
+        if (!primed) {
+          primed = true;
+          target = st.progress;
+          shown = target;
+          apply(shown);
+        }
+        // The pin above inserts ~10 viewport-heights of spacer AFTER child
+        // components (the product showcase) already measured their triggers.
+        // Without this remeasure their start/end stay pre-spacer — the
+        // showcase then runs its pages while the pipeline is still pinned.
+        ScrollTrigger.refresh();
+        return () => {
+          gsap.ticker.remove(tick);
+          gsap.set(stages, { clearProps: 'all' });
+        };
       });
 
       // Touch: pinning a screen and scrubbing sideways drawings is miserable on a
@@ -133,7 +186,7 @@ export default function AirmedPage() {
             once: true,
             onEnter: () => {
               const tl = timelines.current[i];
-              if (tl) gsap.to(tl, { progress: 1, duration: 2.2, ease: 'none' });
+              if (tl) gsap.to(tl, { progress: 1, duration: 1.6, ease: 'none' });
             },
           });
         });
@@ -160,6 +213,12 @@ export default function AirmedPage() {
         {/* ---------- Pinned, scroll-drawn pipeline ---------- */}
         <section className="pipe-pin grid-paper relative flex flex-col overflow-hidden px-5 pb-16 sm:px-8 lg:h-svh lg:pb-0">
           <div className="pipe-intro relative mx-auto w-full max-w-[1440px] pt-24 sm:pt-28">
+            <Link
+              href="/#work"
+              className="label label-link mb-5 inline-flex items-center gap-2 underline-offset-4 transition-colors hover:text-signal hover:underline"
+            >
+              ← BACK TO WORK
+            </Link>
             <p className="label label-signal">AIRMED HBYS — HOW IT&apos;S BUILT</p>
             <h1 className="display mt-2 text-3xl leading-[0.95] sm:text-5xl">
               One feature&apos;s journey to production.
@@ -214,6 +273,17 @@ export default function AirmedPage() {
               <span className="label">SCROLL TO ADVANCE</span>
               <span className="stage-counter label">STEP 1 / 7</span>
             </div>
+          </div>
+        </section>
+
+        {/* ---------- The product, page by page ---------- */}
+        <section className="border-t border-line px-5 py-24 sm:px-8 sm:py-32">
+          <div className="mx-auto max-w-[1440px]">
+            <div className="title-block mb-12" data-shots-reveal>
+              <span className="label label-signal">THE PRODUCT</span>
+              <span className="label">PAGE BY PAGE</span>
+            </div>
+            <AirmedShots />
           </div>
         </section>
 

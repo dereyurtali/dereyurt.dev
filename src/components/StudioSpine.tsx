@@ -35,6 +35,11 @@ const BOTTOM = H; // where the leaders meet the cell row
 const wave = (x: number) => Math.sin((x / PERIOD) * Math.PI * 2);
 const NODES = [150, 450, 750, 1050];
 
+// Server and client disagree on Math.sin's last bit (different libm), and any
+// raw float here becomes a hydration mismatch. Two decimals is far below a
+// visible difference and identical on both sides.
+const round = (n: number) => Math.round(n * 100) / 100;
+
 const strand = (sign: number) =>
   Array.from({ length: 121 }, (_, i) => {
     const x = (i / 120) * W;
@@ -46,7 +51,12 @@ const STRANDS = [strand(1), strand(-1)];
 const RUNGS = Array.from({ length: 49 }, (_, i) => {
   const x = (i / 48) * W;
   const s = wave(x);
-  return { x, y1: MID + AMP * s, y2: MID - AMP * s, depth: Math.abs(s) };
+  return {
+    x: round(x),
+    y1: round(MID + AMP * s),
+    y2: round(MID - AMP * s),
+    opacity: round(0.18 + 0.4 * Math.abs(s)),
+  };
 });
 
 export default function StudioSpine({ className }: { className?: string }) {
@@ -114,7 +124,7 @@ export default function StudioSpine({ className }: { className?: string }) {
           stroke={INK}
           strokeWidth="1"
           vectorEffect="non-scaling-stroke"
-          opacity={0.18 + 0.4 * r.depth}
+          opacity={r.opacity}
         />
       ))}
 
@@ -145,8 +155,8 @@ export default function StudioSpine({ className }: { className?: string }) {
 
       {/* each base pair hands off to the capability cell underneath it */}
       {NODES.map((x) => {
-        const y = MID + AMP * wave(x);
-        const yTop = MID - AMP * wave(x);
+        const y = round(MID + AMP * wave(x));
+        const yTop = round(MID - AMP * wave(x));
         const low = Math.max(y, yTop);
         return (
           <g key={x}>

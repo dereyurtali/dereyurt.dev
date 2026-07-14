@@ -8,6 +8,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// The live Lenis instance, for components that need a programmatic scroll that
+// Lenis won't immediately fight (a raw window.scrollTo gets lerped right back).
+let activeLenis: Lenis | null = null;
+
+export function lenisScrollTo(y: number) {
+  if (activeLenis) activeLenis.scrollTo(y, { duration: 0.9 });
+  else window.scrollTo({ top: y, behavior: 'smooth' });
+}
+
 export default function SmoothScroll({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const lenis = useRef<Lenis | null>(null);
@@ -35,6 +44,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
     lenis.current = instance;
+    activeLenis = instance;
 
     instance.on('scroll', ScrollTrigger.update);
 
@@ -52,6 +62,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       gsap.ticker.remove(tick);
       instance.destroy();
       lenis.current = null;
+      activeLenis = null;
     };
   }, []);
 

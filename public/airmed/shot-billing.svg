@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <rect width="1440" height="900" fill="#f7f8f4"/>
+  
+  
+    <rect x="0" y="0" width="1440" height="64" fill="#fdfdfb" /><line x1="0" y1="64" x2="1440" y2="64" stroke="rgba(21,23,26,0.1)" stroke-width="1"/>
+    <rect x="28" y="22" width="20" height="20" fill="#c93c0b" /><path d="M 34 32 h 8 M 38 28 v 8" stroke="#f7f8f4" stroke-width="2.4"/>
+    <text x="60" y="37" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#15171a" font-weight="700" letter-spacing="0" text-anchor="start">AirMed HBYS</text>
+    <text x="185" y="36" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">· TÜRKEYE GÖZ KLİNİĞİ — DEMO</text>
+    <rect x="1236" y="21" width="77.6" height="22" fill="rgba(201,60,11,0.08)" /><text x="1274.8" y="36" font-family="ui-monospace, Menlo, monospace" font-size="10.5" fill="#c93c0b" font-weight="400" letter-spacing="1" text-anchor="middle">YÖNETİCİ</text>
+    <text x="1222" y="37" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="end">Cem Öztürk</text>
+    <rect x="0" y="64" width="232" height="836" fill="#fdfdfb" /><line x1="232" y1="64" x2="232" y2="900" stroke="rgba(21,23,26,0.1)" stroke-width="1"/>
+    <text x="28" y="118" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">PANEL</text><text x="28" y="164" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">RANDEVULAR</text><text x="28" y="210" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">HASTALAR</text><text x="28" y="256" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">MUAYENE</text><text x="28" y="302" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">LABORATUVAR</text><rect x="0" y="326" width="232" height="36" fill="rgba(201,60,11,0.08)" /><rect x="0" y="326" width="3" height="36" fill="#c93c0b" /><text x="28" y="348" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="#c93c0b" font-weight="400" letter-spacing="1.5" text-anchor="start">FATURALAMA</text><text x="28" y="394" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">ECZANE</text><text x="28" y="440" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">STOK</text><text x="28" y="486" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">RAPORLAR</text><text x="28" y="532" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">KULLANICILAR</text><text x="28" y="578" font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="1.5" text-anchor="start">AYARLAR</text>
+    <text x="28" y="872" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">v0.4 · KVKK UYUMLU</text>
+  
+  <text x="272" y="116" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#15171a" font-weight="700" letter-spacing="0" text-anchor="start">Fatura — F-2026-1187</text>
+  <rect x="272" y="130" width="142.4" height="22" fill="rgba(28,107,66,0.1)" /><text x="343.2" y="145" font-family="ui-monospace, Menlo, monospace" font-size="10.5" fill="#1c6b42" font-weight="400" letter-spacing="1" text-anchor="middle">SİGORTA ONAYLANDI</text>
+  <rect x="272" y="170" width="740" height="680" fill="#fdfdfb" stroke="rgba(21,23,26,0.1)"/>
+  <text x="296" y="206" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">HASTA: AYŞE YILMAZ · DOSYA P-2026-0412</text>
+  <line x1="272" y1="220" x2="1012" y2="220" stroke="rgba(21,23,26,0.2)" stroke-width="1"/>
+  <text x="296" y="252" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">KALEM</text><text x="760" y="252" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">ADET</text><text x="900" y="252" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">TUTAR</text>
+  <line x1="296" y1="268" x2="988" y2="268" stroke="rgba(21,23,26,0.1)" stroke-width="1"/>
+      <text x="296" y="304" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="start">Katarakt ameliyatı — tek göz</text>
+      <text x="772" y="304" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">1</text>
+      <text x="988" y="304" font-family="ui-monospace, Menlo, monospace" font-size="13.5" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="end">₺38.500</text><line x1="296" y1="326" x2="988" y2="326" stroke="rgba(21,23,26,0.1)" stroke-width="1"/>
+      <text x="296" y="362" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="start">Monofokal lens</text>
+      <text x="772" y="362" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">1</text>
+      <text x="988" y="362" font-family="ui-monospace, Menlo, monospace" font-size="13.5" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="end">₺6.200</text><line x1="296" y1="384" x2="988" y2="384" stroke="rgba(21,23,26,0.1)" stroke-width="1"/>
+      <text x="296" y="420" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="start">Biyometri ölçümü</text>
+      <text x="772" y="420" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">1</text>
+      <text x="988" y="420" font-family="ui-monospace, Menlo, monospace" font-size="13.5" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="end">₺1.150</text><line x1="296" y1="442" x2="988" y2="442" stroke="rgba(21,23,26,0.1)" stroke-width="1"/>
+      <text x="296" y="478" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="start">Kontrol muayenesi (3x)</text>
+      <text x="772" y="478" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">3</text>
+      <text x="988" y="478" font-family="ui-monospace, Menlo, monospace" font-size="13.5" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="0" text-anchor="end">Pakete dahil</text><line x1="296" y1="500" x2="988" y2="500" stroke="rgba(21,23,26,0.1)" stroke-width="1"/>
+      <text x="296" y="536" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="start">Ameliyat sonrası ilaç seti</text>
+      <text x="772" y="536" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">1</text>
+      <text x="988" y="536" font-family="ui-monospace, Menlo, monospace" font-size="13.5" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="end">₺840</text>
+  <rect x="1040" y="170" width="364" height="400" fill="#fdfdfb" stroke="rgba(21,23,26,0.1)"/>
+  <text x="1064" y="206" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">ÖZET</text>
+  
+    <text x="1064" y="248" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">Ara toplam</text>
+    <text x="1380" y="248" font-family="ui-monospace, Menlo, monospace" font-size="13.5" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="end">₺46.690</text>
+    <text x="1064" y="292" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">İndirim (paket)</text>
+    <text x="1380" y="292" font-family="ui-monospace, Menlo, monospace" font-size="13.5" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="end">− ₺2.400</text>
+    <text x="1064" y="336" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">KDV (%10)</text>
+    <text x="1380" y="336" font-family="ui-monospace, Menlo, monospace" font-size="13.5" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="end">₺4.429</text>
+    <text x="1064" y="380" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">Sigorta karşılığı</text>
+    <text x="1380" y="380" font-family="ui-monospace, Menlo, monospace" font-size="13.5" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="end">− ₺31.200</text>
+  <line x1="1064" y1="428" x2="1380" y2="428" stroke="rgba(21,23,26,0.2)" stroke-width="1"/>
+  <text x="1064" y="470" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#15171a" font-weight="700" letter-spacing="0" text-anchor="start">Hasta ödemesi</text>
+  <g>
+    <text x="1380" y="470" font-family="ui-monospace, Menlo, monospace" font-size="19" fill="#c93c0b" font-weight="700" letter-spacing="0" text-anchor="end">₺17.519</text>
+    <animate attributeName="opacity" values="1;1;0.25;1" keyTimes="0;0.6;0.68;0.8" dur="5s" repeatCount="indefinite"/>
+  </g>
+  <rect x="1064" y="500" width="316" height="42" fill="#15171a" />
+  <text x="1222" y="526" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#f7f8f4" font-weight="400" letter-spacing="2" text-anchor="middle">TAHSİLAT AL →</text>
+  <rect x="1040" y="600" width="364" height="250" fill="#fdfdfb" stroke="rgba(21,23,26,0.1)"/>
+  <text x="1064" y="636" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="1.5" text-anchor="start">ÖDEME GEÇMİŞİ</text>
+  
+    <text x="1064" y="676" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="0" text-anchor="start">14.07.2026</text>
+    <text x="1180" y="676" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">Kapora</text>
+    <text x="1380" y="676" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="end">₺5.000</text>
+    <text x="1064" y="720" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="rgba(21,23,26,0.4)" font-weight="400" letter-spacing="0" text-anchor="start">02.07.2026</text>
+    <text x="1180" y="720" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="rgba(21,23,26,0.62)" font-weight="400" letter-spacing="0" text-anchor="start">Ön ödeme</text>
+    <text x="1380" y="720" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#15171a" font-weight="400" letter-spacing="0" text-anchor="end">₺4.000</text>
+
+</svg>
