@@ -72,7 +72,9 @@ export default function ClinicFlows() {
             <span className="block overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={f.src}
+                /* the static twin: SMIL in a thumbnail repaints on every
+                   animation tick and taxes scrolling past the row */
+                src={f.src.replace('.svg', '-static.svg')}
                 alt={`n8n workflow — ${f.title.toLowerCase()}`}
                 loading="lazy"
                 decoding="async"

@@ -233,5 +233,8 @@ const FLOWS = {};
 
 for (const [name, svg] of Object.entries(FLOWS)) {
   writeFileSync(`${OUT}/${name}.svg`, svg);
-  console.log('wrote', name, (svg.length / 1024).toFixed(1) + 'kb');
+  // Static twin for the homepage thumbnails: SMIL in an <img> keeps
+  // animating (and repainting) even at thumbnail size, which taxes scroll.
+  writeFileSync(`${OUT}/${name}-static.svg`, svg.replace(/<animate\b[^>]*\/>/g, ''));
+  console.log('wrote', name, (svg.length / 1024).toFixed(1) + 'kb (+static)');
 }

@@ -123,6 +123,35 @@ export default function OrbField({ className }: { className?: string }) {
       }
     };
 
+    // Pre-rendered disc sprites: a radial gradient per frame per orb was the
+    // hottest line in the loop. The disc's SHAPE only depends on colour and
+    // (bucketed) defocus, so those live in a small cache and each orb is one
+    // drawImage + globalAlpha — the per-frame pigment fade — at draw time.
+    const BUCKETS = 12;
+    const SPRITE = 128;
+    const sprites = new Map<string, HTMLCanvasElement>();
+    const sprite = (ch: string, bucket: number) => {
+      const key = `${ch}|${bucket}`;
+      let c = sprites.get(key);
+      if (!c) {
+        c = document.createElement('canvas');
+        c.width = c.height = SPRITE;
+        const sc = c.getContext('2d')!;
+        const r = SPRITE / 2;
+        const edge = Math.max(0, 1 - (0.1 + 0.8 * (bucket / (BUCKETS - 1))));
+        const g = sc.createRadialGradient(r, r, 0, r, r, r);
+        g.addColorStop(0, `rgba(${ch}, 1)`);
+        g.addColorStop(edge, `rgba(${ch}, 1)`);
+        g.addColorStop(1, `rgba(${ch}, 0)`);
+        sc.fillStyle = g;
+        sc.beginPath();
+        sc.arc(r, r, r, 0, TAU);
+        sc.fill();
+        sprites.set(key, c);
+      }
+      return c;
+    };
+
     const draw = (t: number, parX: number, parY: number) => {
       ctx.clearRect(0, 0, w, h);
       // painter's order: deep circles first, so a near bokeh disc drifting
@@ -142,17 +171,16 @@ export default function OrbField({ className }: { className?: string }) {
         // depth of field: pigment concentrates at the focal plane; off it,
         // the same pigment spreads into a dimmer disc with a melted edge
         const defocus = Math.min(1, Math.abs(o.z - FOCUS) / 0.5);
-        const alpha = o.a * (1 - 0.6 * defocus);
-        const edge = Math.max(0, 1 - (0.1 + 0.8 * defocus));
-        const g = ctx.createRadialGradient(x, y, 0, x, y, rr);
-        g.addColorStop(0, `rgba(${o.ch}, ${alpha.toFixed(3)})`);
-        g.addColorStop(edge, `rgba(${o.ch}, ${alpha.toFixed(3)})`);
-        g.addColorStop(1, `rgba(${o.ch}, 0)`);
-        ctx.beginPath();
-        ctx.arc(x, y, rr, 0, TAU);
-        ctx.fillStyle = g;
-        ctx.fill();
+        ctx.globalAlpha = o.a * (1 - 0.6 * defocus);
+        ctx.drawImage(
+          sprite(o.ch, Math.round(defocus * (BUCKETS - 1))),
+          x - rr,
+          y - rr,
+          rr * 2,
+          rr * 2
+        );
       }
+      ctx.globalAlpha = 1;
     };
 
     size();

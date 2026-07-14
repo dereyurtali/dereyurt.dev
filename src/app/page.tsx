@@ -229,11 +229,13 @@ export default function Home() {
             agentic turn going through classification, a guardrail, a tool call and
             a row-level-secured transaction, live, on loop. */}
         <section className="hero-pin grid-paper relative flex min-h-svh flex-col overflow-hidden border-b border-line px-5 pb-8 pt-20 sm:px-8 sm:pt-24">
-          {/* Drifting theme-coloured circles on the graph paper — multiply blend at
-              low alpha keeps them under the type; they gather gently around a slow
-              cursor (see OrbField for the behaviour). */}
+          {/* Drifting theme-coloured circles on the graph paper — translucent ink
+              keeps them under the type; they gather gently around a slow cursor
+              (see OrbField for the behaviour). No blend mode: the rgba fills
+              already let the grid through, and multiply cost a compositing pass
+              on every frame of an always-animating canvas. */}
           <div className="hero-orbs-wrap pointer-events-none absolute inset-0" aria-hidden>
-            <OrbField className="h-full w-full mix-blend-multiply" />
+            <OrbField className="h-full w-full" />
           </div>
 
           {/* the copy block sits in the middle of whatever height is left, so the

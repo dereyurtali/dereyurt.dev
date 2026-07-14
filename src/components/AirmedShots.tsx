@@ -215,8 +215,12 @@ export default function AirmedShots() {
                   key={s.src}
                   src={s.src}
                   alt={i === idx ? `AirMed HBYS — ${s.title.toLowerCase()}` : ''}
+                  /* `invisible` flips at the END of the outgoing fade (CSS
+                     treats visibility as discrete in a transition), so the
+                     crossfade survives — but the eight hidden screens stop
+                     being painted, and their SMIL loops stop costing frames */
                   className={`absolute inset-0 h-full w-full object-cover object-top transition-all duration-700 ease-out ${
-                    i === idx ? 'scale-100 opacity-100' : 'scale-[1.015] opacity-0'
+                    i === idx ? 'visible scale-100 opacity-100' : 'invisible scale-[1.015] opacity-0'
                   }`}
                   loading={i === 0 ? 'eager' : 'lazy'}
                   decoding="async"
