@@ -197,30 +197,35 @@ export default function AirmedShots() {
         onMouseEnter={() => (hovered.current = true)}
         onMouseLeave={() => (hovered.current = false)}
       >
-      {/* the frame */}
+      {/* the frame — below lg the 1440-wide screens keep a readable size and
+          the frame swipes sideways (the site's mobile figure rule) */}
       <figure className="min-w-0 lg:col-span-8">
-        <div className="border border-line bg-card">
-          <div className="flex items-baseline justify-between border-b border-line px-4 py-2.5 sm:px-5">
-            <span className="label label-signal">FIG 08 — AIRMED HBYS</span>
-            <span className="label hidden sm:block">{SHOTS[idx].title}</span>
-          </div>
-          <div className="relative aspect-[16/10] overflow-hidden">
-            {SHOTS.map((s, i) => (
-              /* all frames stay mounted and stacked, so a cycle is a pure
-                 crossfade with no network hiccup mid-animation */
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                key={s.src}
-                src={s.src}
-                alt={i === idx ? `AirMed HBYS — ${s.title.toLowerCase()}` : ''}
-                className={`absolute inset-0 h-full w-full object-cover object-top transition-all duration-700 ease-out ${
-                  i === idx ? 'scale-100 opacity-100' : 'scale-[1.015] opacity-0'
-                }`}
-                loading={i === 0 ? 'eager' : 'lazy'}
-              />
-            ))}
+        <div className="-mx-5 overflow-x-auto px-5 sm:-mx-8 sm:px-8 lg:mx-0 lg:overflow-visible lg:px-0">
+          <div className="min-w-[880px] border border-line bg-card lg:min-w-0">
+            <div className="flex items-baseline justify-between border-b border-line px-4 py-2.5 sm:px-5">
+              <span className="label label-signal">FIG 08 — AIRMED HBYS</span>
+              <span className="label">{SHOTS[idx].title}</span>
+            </div>
+            <div className="relative aspect-[16/10] overflow-hidden">
+              {SHOTS.map((s, i) => (
+                /* all frames stay mounted and stacked, so a cycle is a pure
+                   crossfade with no network hiccup mid-animation */
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={s.src}
+                  src={s.src}
+                  alt={i === idx ? `AirMed HBYS — ${s.title.toLowerCase()}` : ''}
+                  className={`absolute inset-0 h-full w-full object-cover object-top transition-all duration-700 ease-out ${
+                    i === idx ? 'scale-100 opacity-100' : 'scale-[1.015] opacity-0'
+                  }`}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+              ))}
+            </div>
           </div>
         </div>
+        <p className="label mt-2 text-signal lg:hidden">SWIPE THE SCREEN →</p>
         <figcaption className="label mt-3 text-ink-faint">
           STYLIZED RECREATION · INVENTED DEMO DATA — THE REAL SYSTEM AND ITS RECORDS STAY PRIVATE
         </figcaption>

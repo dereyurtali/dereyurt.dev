@@ -101,7 +101,9 @@ export default function OrbField({ className }: { className?: string }) {
       rect = canvas.getBoundingClientRect();
       w = rect.width;
       h = rect.height;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // phones pay for every blended pixel twice over — 1.5x is visually
+      // identical for soft discs and markedly cheaper than 2-3x
+      const dpr = Math.min(window.devicePixelRatio || 1, w < 768 ? 1.5 : 2);
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -299,8 +301,12 @@ export default function OrbField({ className }: { className?: string }) {
     const ro = new ResizeObserver(size);
     ro.observe(canvas);
 
-    window.addEventListener('pointermove', onMove, { passive: true });
-    window.addEventListener('pointerdown', onMove, { passive: true });
+    // no mouse, no courtship — touch devices skip the pointer wiring entirely
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+    if (finePointer) {
+      window.addEventListener('pointermove', onMove, { passive: true });
+      window.addEventListener('pointerdown', onMove, { passive: true });
+    }
     window.addEventListener('blur', onLeave);
     window.addEventListener('scroll', onScroll, { passive: true });
     document.addEventListener('visibilitychange', onVisibility);

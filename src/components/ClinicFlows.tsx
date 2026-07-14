@@ -75,6 +75,7 @@ export default function ClinicFlows() {
                 src={f.src}
                 alt={`n8n workflow — ${f.title.toLowerCase()}`}
                 loading="lazy"
+                decoding="async"
                 className="aspect-[9/5] w-full object-cover transition-transform duration-500 group-hover/flow:scale-[1.03]"
               />
             </span>
@@ -101,28 +102,30 @@ export default function ClinicFlows() {
             className="flex max-h-full w-full max-w-6xl flex-col border border-line bg-card"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-line px-4 py-2.5 sm:px-5">
-              <span className="label label-signal">
+            <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-2.5 sm:px-5">
+              <span className="label label-signal min-w-0 truncate">
                 FIG 10.{open + 1} — {FLOWS[open].title}
               </span>
-              <div className="flex items-center gap-4">
+              <div className="flex shrink-0 items-center gap-4">
                 <button type="button" onClick={() => step(-1)} className="label label-link hover:text-signal" aria-label="Previous workflow">
-                  ← PREV
+                  ←<span className="hidden sm:inline"> PREV</span>
                 </button>
                 <button type="button" onClick={() => step(1)} className="label label-link hover:text-signal" aria-label="Next workflow">
-                  NEXT →
+                  <span className="hidden sm:inline">NEXT </span>→
                 </button>
                 <button type="button" onClick={() => setOpen(null)} className="label label-link hover:text-signal" aria-label="Close viewer">
-                  CLOSE ✕
+                  <span className="hidden sm:inline">CLOSE </span>✕
                 </button>
               </div>
             </div>
-            <div className="min-h-0 flex-1 bg-paper">
+            {/* phones pan the drawing at a readable size instead of shrinking
+                a 1440px canvas into a 350px slot */}
+            <div className="min-h-0 flex-1 overflow-auto bg-paper">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={FLOWS[open].src}
                 alt={`n8n workflow — ${FLOWS[open].title.toLowerCase()}`}
-                className="h-full max-h-[70vh] w-full object-contain"
+                className="h-auto min-w-[860px] max-w-none sm:h-full sm:max-h-[70vh] sm:w-full sm:min-w-0 sm:max-w-full sm:object-contain"
               />
             </div>
             <p className="border-t border-line px-4 py-3 text-xs leading-relaxed text-ink-dim sm:px-5">
