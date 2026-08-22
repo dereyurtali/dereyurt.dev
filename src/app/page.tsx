@@ -27,30 +27,22 @@ const TALIA_STATS: [string, string][] = [
   ['39/39', 'REQUIREMENTS MET · 2022'],
 ];
 
-const SPACE = [
+const EARLIER = [
   {
-    index: '01.2',
-    title: 'TÜRKSAT Ground Station',
-    subtitle: 'R&D intern · satellite R&D directorate · 2022',
-    description:
-      'Ground-station desktop software for a tethered aerostat system: a Java Swing operator screen tracking altitude, position, environmental data and system health in real time, with JDBC/MySQL logging — built alongside the hardware and systems teams.',
-    links: [],
-  },
-  {
-    index: '01.3',
+    index: '07.1',
     title: 'Model Satellite 2021',
     subtitle: 'Team lead · autogyro descent · 199-page CDR',
     description:
       'A rocket-deployed model satellite that slows its own fall: parachute to 400 m, then an autogyro rotor, a ten-second PID altitude hold at 200 m and a pyrotechnic smoke marker.',
-    links: [{ label: 'Case study', href: '/turksat-muy-2021', internal: true }],
+    href: '/turksat-muy-2021',
   },
   {
-    index: '01.4',
+    index: '07.2',
     title: 'CanSat Spin Stabilization',
     subtitle: 'NASA CanSat · mechanical subsystem lead',
     description:
       'Instead of de-rotating the camera image after the fact, a closed-loop mechanism counter-rotates the camera platform during descent. The call was made on processing load and system mass together.',
-    links: [{ label: 'Case study', href: '/cansat-stabilization', internal: true }],
+    href: '/cansat-stabilization',
   },
 ];
 
@@ -97,7 +89,7 @@ const PRODUCTION = [
 
 const WORK = [
   {
-    index: '04.2',
+    index: '08.2',
     title: 'Clinic AI Automation',
     subtitle: 'n8n-orchestrated operations for an eye hospital',
     description:
@@ -105,7 +97,7 @@ const WORK = [
     links: [],
   },
   {
-    index: '04.3',
+    index: '08.3',
     title: 'Printimize',
     subtitle: 'The optimisation study, shipped as a product',
     description:
@@ -117,7 +109,7 @@ const WORK = [
     ],
   },
   {
-    index: '04.4',
+    index: '08.4',
     title: 'UX Principles Skill',
     subtitle: 'A Claude Code skill used by other developers',
     description:
@@ -125,7 +117,7 @@ const WORK = [
     links: [{ label: 'GitHub', href: 'https://github.com/dereyurtali/ux-principles-skill' }],
   },
   {
-    index: '04.5',
+    index: '08.5',
     title: 'AirMed Monitor',
     subtitle: 'Live ops panel for my dev pipeline',
     description:
@@ -136,7 +128,7 @@ const WORK = [
     ],
   },
   {
-    index: '04.6',
+    index: '08.6',
     title: 'Vonguard',
     subtitle: 'Bilingual site + warranty verification',
     description:
@@ -339,12 +331,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- 01 · Satellite & ground systems ---------- */}
+        {/* ---------- 01 · TÜRKSAT Model Satellite ---------- */}
         <section id="work" className="scroll-mt-16 px-5 py-24 sm:px-8 sm:py-32">
           <div className="mx-auto max-w-[1440px]">
             <div className="title-block mb-14" data-reveal>
               <span className="label label-signal">01</span>
-              <span className="label">SATELLITE &amp; GROUND SYSTEMS</span>
+              <span className="label">SATELLITE SYSTEMS</span>
               <span className="label ml-auto hidden sm:block">2018 — 2022</span>
             </div>
 
@@ -423,55 +415,95 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
 
-            {/* the rest of the space work */}
-            <div className="work-list mt-4">
-              {SPACE.map((w) => (
-                <article
-                  key={w.index}
-                  className="work-row group border-t border-line py-10 transition-colors hover:bg-paper-2 sm:py-12"
-                >
-                  <div className="grid gap-6 sm:grid-cols-12 sm:items-baseline">
-                    <p className="label sm:col-span-1">{w.index}</p>
-                    <div className="sm:col-span-5">
-                      <h3 className="display text-4xl leading-[0.95] transition-colors group-hover:text-signal sm:text-6xl">
-                        {w.title}
-                      </h3>
-                      <p className="label mt-3">{w.subtitle.toUpperCase()}</p>
+        {/* ---------- 02 · TÜRKSAT ground systems ---------- */}
+        <section
+          id="ground"
+          className="scroll-mt-16 border-y border-line bg-paper-2 px-5 py-24 sm:px-8 sm:py-32"
+        >
+          <div className="mx-auto max-w-[1440px]">
+            <div className="title-block mb-14" data-reveal>
+              <span className="label label-signal">02</span>
+              <span className="label">GROUND SYSTEMS SOFTWARE</span>
+              <span className="label ml-auto hidden sm:block">TÜRKSAT UYDU HABERLEŞME · 2022</span>
+            </div>
+
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+              <div className="min-w-0 lg:col-span-7">
+                <h2 className="display display-xl invisible text-5xl leading-[0.95] sm:text-7xl" data-split>
+                  A screen the <span className="text-signal">operator</span> can fly a balloon from
+                </h2>
+                <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-dim" data-reveal>
+                  R&amp;D internship in TÜRKSAT&apos;s Satellite R&amp;D Directorate, on the
+                  ground-station desktop software for a tethered aerostat system. The job was to
+                  watch the data coming down during flight, record it, and put it in front of the
+                  operations side in an order they could actually work from.
+                </p>
+                <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2" data-reveal>
+                  {['Java Swing', 'Real-time telemetry', 'JDBC / MySQL', 'Systems integration'].map((t) => (
+                    <span key={t} className="tag">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <ul className="mt-8 space-y-3 border-l-2 border-signal pl-5" data-reveal>
+                  {[
+                    'Telemetry interface in Java Swing — altitude, position, environmental data and system health on one screen',
+                    'Data logging through JDBC / MySQL, so a flight can be read back afterwards',
+                    'Integration work with the hardware and systems teams',
+                    'Operator-screen logic and user flow, not just a data dump',
+                  ].map((line) => (
+                    <li key={line} className="text-sm leading-relaxed text-ink-dim">
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="min-w-0 lg:col-span-5" data-reveal>
+                <div className="dim mb-5" />
+                <dl>
+                  {[
+                    ['ROLE', 'R&D INTERN'],
+                    ['UNIT', 'SATELLITE R&D DIRECTORATE'],
+                    ['PERIOD', 'JUN — AUG 2022'],
+                    ['SYSTEM', 'TETHERED AEROSTAT'],
+                  ].map(([k, v]) => (
+                    <div key={k} className="flex justify-between gap-6 border-b border-line py-3">
+                      <dt className="label">{k}</dt>
+                      <dd className="label text-ink">{v}</dd>
                     </div>
-                    <p className="text-sm leading-relaxed text-ink-dim sm:col-span-4">{w.description}</p>
-                    <div className="flex gap-5 sm:col-span-2 sm:justify-end">
-                      {w.links.map((l) => (
-                        <Link
-                          key={l.label}
-                          href={l.href}
-                          className="label label-link underline-offset-4 transition-colors hover:text-signal hover:underline"
-                        >
-                          {l.label.toUpperCase()} →
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              ))}
-              <div className="rule" data-rule />
+                  ))}
+                </dl>
+                <div className="card mt-8 p-6">
+                  <p className="label label-signal mb-3">WHAT IT LEFT ME WITH</p>
+                  <p className="text-sm leading-relaxed text-ink-dim">
+                    Working against a live data stream, and seeing at close range how ground-system
+                    software has to sit between the operations side and the hardware side —
+                    the same seam the model satellite ground station sits on, this time inside a
+                    real satellite organisation.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ---------- 02 · Research & instrumentation ---------- */}
-        <section id="research" className="scroll-mt-16 border-y border-line bg-paper-2 px-5 py-24 sm:px-8 sm:py-32">
+        {/* ---------- 03 · IAC 2026 ---------- */}
+        <section id="research" className="scroll-mt-16 px-5 py-24 sm:px-8 sm:py-32">
           <div className="mx-auto max-w-[1440px]">
             <div className="title-block mb-14" data-reveal>
-              <span className="label label-signal">02</span>
-              <span className="label">RESEARCH &amp; INSTRUMENTATION</span>
-              <span className="label ml-auto hidden sm:block">IAC 2026 · ANTALYA</span>
+              <span className="label label-signal">03</span>
+              <span className="label">RESEARCH — ACCEPTED TO IAC 2026</span>
+              <span className="label ml-auto hidden sm:block">ANTALYA · 5—9 OCT 2026</span>
             </div>
 
             <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
               <div className="min-w-0 lg:col-span-7">
                 <p className="label label-signal mb-5" data-reveal>
-                  ACCEPTED — 77TH INTERNATIONAL ASTRONAUTICAL CONGRESS
+                  77TH INTERNATIONAL ASTRONAUTICAL CONGRESS · INTERACTIVE PRESENTATION
                 </p>
                 <h2 className="display display-xl invisible text-5xl leading-[0.95] sm:text-7xl" data-split>
                   Printing <span className="text-signal">in microgravity</span>, without adding an
@@ -503,83 +535,54 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <p className="label mt-8" data-reveal>
-                  INTERACTIVE PRESENTATION · 5—9 OCTOBER 2026
-                </p>
-              </div>
-
-              {/* the rig that reproduces the disturbance */}
-              <div className="min-w-0 lg:col-span-5" data-reveal>
-                <div className="card p-6 sm:p-8">
-                  <p className="label label-signal mb-3">OPEN HARDWARE</p>
-                  <h3 className="display text-3xl leading-none sm:text-4xl">Single-Axis Shaker Rig</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-ink-dim">
-                    To reproduce that disturbance on a bench I built a single-axis shaker: mechanical
-                    layout and drive selection, a STEP/DIR driver chain and power electronics,
-                    firmware on an Arduino Nano, and a Python/Tk control application — mechanics,
-                    electronics, firmware, desktop software and test logic in one project.
-                  </p>
-                  <dl className="mt-6">
-                    {RIG_STATS.map(([value, label]) => (
-                      <div key={label} className="flex items-baseline justify-between gap-6 border-b border-line py-3">
-                        <dt className="label leading-relaxed">{label}</dt>
-                        <dd className="display shrink-0 text-xl text-signal">{value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                  <a
-                    href="https://github.com/dereyurtali/single-axis-shaker-rig"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="label label-link mt-6 underline-offset-4 transition-colors hover:text-signal hover:underline"
+                <div className="mt-10" data-reveal>
+                  <Link
+                    href="/research"
+                    className="label-link group gap-3 font-mono text-xs tracking-[0.14em] text-signal"
                   >
-                    GITHUB.COM/DEREYURTALI/SINGLE-AXIS-SHAKER-RIG ↗
-                  </a>
+                    READ THE RESEARCH PAGE
+                    <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </Link>
                 </div>
               </div>
-            </div>
 
-            {/* publications */}
-            <div className="mt-16">
-              <div className="title-block mb-8" data-reveal>
-                <span className="label label-signal">02.2</span>
-                <span className="label">PUBLICATIONS — IN PREPARATION</span>
-              </div>
-              <div className="grid gap-px border border-line bg-line lg:grid-cols-2">
-                {PAPERS.map((p) => (
-                  <div key={p.title} className="bg-card p-6 sm:p-8" data-reveal>
-                    <h3 className="text-base leading-snug text-ink">{p.title}</h3>
-                    <p className="label mt-3">{p.authors.toUpperCase()}</p>
-                    <p className="mt-4 text-sm leading-relaxed text-ink-dim">{p.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* production floor experience */}
-            <div className="mt-16">
-              <div className="title-block mb-8" data-reveal>
-                <span className="label label-signal">02.3</span>
-                <span className="label">PRODUCTION EXPERIENCE — ADDITIVE MANUFACTURING</span>
-              </div>
-              <div className="grid gap-px border border-line bg-line sm:grid-cols-2">
-                {PRODUCTION.map(([org, meta, body]) => (
-                  <div key={org} className="bg-card p-6 sm:p-8" data-reveal>
-                    <p className="label label-signal mb-2">{org}</p>
-                    <p className="label mb-4">{meta}</p>
-                    <p className="text-sm leading-relaxed text-ink-dim">{body}</p>
-                  </div>
-                ))}
+              <div className="min-w-0 lg:col-span-5" data-reveal>
+                <div className="dim mb-5" />
+                <dl>
+                  {[
+                    ['VENUE', 'IAC 2026 · ANTALYA'],
+                    ['FORMAT', 'INTERACTIVE PRESENTATION'],
+                    ['DATES', '5 — 9 OCTOBER 2026'],
+                    ['DOMAIN', 'IN-SPACE MANUFACTURING'],
+                  ].map(([k, v]) => (
+                    <div key={k} className="flex justify-between gap-6 border-b border-line py-3">
+                      <dt className="label">{k}</dt>
+                      <dd className="label text-ink">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <div className="card mt-8 p-6">
+                  <p className="label label-signal mb-3">WHY IT MATTERS ON ORBIT</p>
+                  <p className="text-sm leading-relaxed text-ink-dim">
+                    Anything printed on a station is printed inside its vibration environment.
+                    Answering that in firmware rather than with another actuator means no added
+                    mass, no added power draw, and no new hardware to qualify — three arguments
+                    that decide things in space systems.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ---------- 03 · Embedded ---------- */}
-        <section id="embedded" className="scroll-mt-16 px-5 py-24 sm:px-8 sm:py-32">
+        {/* ---------- 04 · Embedded ---------- */}
+        <section
+          id="embedded"
+          className="scroll-mt-16 border-y border-line bg-paper-2 px-5 py-24 sm:px-8 sm:py-32"
+        >
           <div className="mx-auto max-w-[1440px]">
             <div className="title-block mb-14" data-reveal>
-              <span className="label label-signal">03</span>
+              <span className="label label-signal">04</span>
               <span className="label">EMBEDDED SOFTWARE</span>
               <span className="label ml-auto hidden sm:block">ASPİLSAN ENERJİ · R&amp;D</span>
             </div>
@@ -641,11 +644,145 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- 04 · Software systems ---------- */}
+        {/* ---------- 05 · Shaker rig ---------- */}
+        <section id="rig" className="scroll-mt-16 px-5 py-24 sm:px-8 sm:py-32">
+          <div className="mx-auto max-w-[1440px]">
+            <div className="title-block mb-14" data-reveal>
+              <span className="label label-signal">05</span>
+              <span className="label">TEST INSTRUMENTATION — OPEN HARDWARE</span>
+            </div>
+
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+              <div className="min-w-0 lg:col-span-7">
+                <h2 className="display display-xl invisible text-5xl leading-[0.95] sm:text-7xl" data-split>
+                  Single-Axis <span className="text-signal">Shaker Rig</span>
+                </h2>
+                <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-dim" data-reveal>
+                  To reproduce the IAC study&apos;s disturbance physically on a bench I built the
+                  disturbance itself: a single-axis shaker carrying mechanical layout and drive
+                  selection, a STEP/DIR driver chain and power electronics, firmware on an Arduino
+                  Nano, and a Python/Tk control application — mechanics, electronics, firmware,
+                  desktop software and test logic in one project, published in full.
+                </p>
+                <ul className="mt-8 space-y-3 border-l-2 border-signal pl-5" data-reveal>
+                  {[
+                    'Mechanical layout and drive selection',
+                    'STEP/DIR driver chain and power electronics',
+                    'Firmware on an Arduino Nano',
+                    'Python/Tk control software and the test logic around it',
+                  ].map((line) => (
+                    <li key={line} className="text-sm leading-relaxed text-ink-dim">
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="https://github.com/dereyurtali/single-axis-shaker-rig"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="label label-link mt-8 underline-offset-4 transition-colors hover:text-signal hover:underline"
+                  data-reveal
+                >
+                  GITHUB.COM/DEREYURTALI/SINGLE-AXIS-SHAKER-RIG ↗
+                </a>
+              </div>
+
+              <div className="min-w-0 lg:col-span-5">
+                <div className="grid-paper grid grid-cols-2 border border-line">
+                  {RIG_STATS.map(([value, label], i) => (
+                    <div
+                      key={label}
+                      className={`flex min-h-[120px] flex-col justify-center p-5 sm:min-h-[150px] sm:p-7 ${
+                        i % 2 === 0 ? 'border-r border-line' : ''
+                      } ${i < 2 ? 'border-b border-line' : ''}`}
+                      data-reveal
+                    >
+                      <p className="display text-3xl leading-none text-signal sm:text-4xl">{value}</p>
+                      <p className="label mt-3 leading-relaxed">{label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- 06 · Publications & additive manufacturing ---------- */}
+        <section className="border-y border-line bg-paper-2 px-5 py-24 sm:px-8 sm:py-32">
+          <div className="mx-auto max-w-[1440px]">
+            <div className="title-block mb-12" data-reveal>
+              <span className="label label-signal">06</span>
+              <span className="label">PUBLICATIONS — IN PREPARATION</span>
+            </div>
+            <div className="grid gap-px border border-line bg-line lg:grid-cols-2">
+              {PAPERS.map((p) => (
+                <div key={p.title} className="bg-card p-6 sm:p-8" data-reveal>
+                  <h3 className="text-base leading-snug text-ink">{p.title}</h3>
+                  <p className="label mt-3">{p.authors.toUpperCase()}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-ink-dim">{p.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="title-block mb-8 mt-16" data-reveal>
+              <span className="label label-signal">06.2</span>
+              <span className="label">PRODUCTION EXPERIENCE — ADDITIVE MANUFACTURING</span>
+            </div>
+            <div className="grid gap-px border border-line bg-line sm:grid-cols-2">
+              {PRODUCTION.map(([org, meta, body]) => (
+                <div key={org} className="bg-card p-6 sm:p-8" data-reveal>
+                  <p className="label label-signal mb-2">{org}</p>
+                  <p className="label mb-4">{meta}</p>
+                  <p className="text-sm leading-relaxed text-ink-dim">{body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- 07 · Earlier aerospace ---------- */}
+        <section className="px-5 py-24 sm:px-8 sm:py-32">
+          <div className="mx-auto max-w-[1440px]">
+            <div className="title-block mb-8" data-reveal>
+              <span className="label label-signal">07</span>
+              <span className="label">EARLIER AEROSPACE WORK</span>
+            </div>
+            <div className="work-list">
+              {EARLIER.map((w) => (
+                <article
+                  key={w.index}
+                  className="work-row group border-t border-line py-10 transition-colors hover:bg-paper-2 sm:py-12"
+                >
+                  <div className="grid gap-6 sm:grid-cols-12 sm:items-baseline">
+                    <p className="label sm:col-span-1">{w.index}</p>
+                    <div className="sm:col-span-5">
+                      <h3 className="display text-4xl leading-[0.95] transition-colors group-hover:text-signal sm:text-6xl">
+                        {w.title}
+                      </h3>
+                      <p className="label mt-3">{w.subtitle.toUpperCase()}</p>
+                    </div>
+                    <p className="text-sm leading-relaxed text-ink-dim sm:col-span-4">{w.description}</p>
+                    <div className="flex gap-5 sm:col-span-2 sm:justify-end">
+                      <Link
+                        href={w.href}
+                        className="label label-link underline-offset-4 transition-colors hover:text-signal hover:underline"
+                      >
+                        CASE STUDY →
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              ))}
+              <div className="rule" data-rule />
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- 08 · Software systems ---------- */}
         <section id="software" className="scroll-mt-16 border-t border-line px-5 py-24 sm:px-8 sm:py-32">
           <div className="mx-auto max-w-[1440px]">
             <div className="title-block mb-14" data-reveal>
-              <span className="label label-signal">04</span>
+              <span className="label label-signal">08</span>
               <span className="label">SOFTWARE SYSTEMS</span>
               <span className="label ml-auto hidden sm:block">2023 — 2026</span>
             </div>
@@ -655,7 +792,7 @@ export default function Home() {
                 {/* text side — clean paper, fully readable */}
                 <div className="min-w-0 p-6 sm:p-10 lg:col-span-7 lg:p-14">
                   <p className="label mb-5" data-reveal>
-                    04.1 — PRODUCTION HIS
+                    08.1 — PRODUCTION HIS
                   </p>
                   <h2 className="display display-xl invisible text-6xl leading-[0.95] sm:text-8xl" data-split>
                     AirMed <span className="text-signal">HBYS</span>
@@ -758,11 +895,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- 05 · Studio: where the client work ships from ---------- */}
+        {/* ---------- 09 · Studio: where the client work ships from ---------- */}
         <section id="studio" className="scroll-mt-16 px-5 pb-24 sm:px-8 sm:pb-32">
           <div className="mx-auto max-w-[1440px]">
             <div className="title-block mb-14" data-reveal>
-              <span className="label label-signal">05</span>
+              <span className="label label-signal">09</span>
               <span className="label">STUDIO</span>
               <a
                 href="https://dnasoft.co"
@@ -815,11 +952,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- 06 · Process band ---------- */}
+        {/* ---------- 10 · Process band ---------- */}
         <section className="border-y border-line bg-paper-2 px-5 py-24 sm:px-8 sm:py-32">
           <div className="mx-auto max-w-[1440px]">
             <div className="title-block mb-12" data-reveal>
-              <span className="label label-signal">06</span>
+              <span className="label label-signal">10</span>
               <span className="label">HOW I WORK</span>
             </div>
             <h2 className="display invisible max-w-4xl text-4xl leading-[0.98] sm:text-6xl" data-split>
@@ -850,7 +987,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- 07 · Contact: robotic arm draws the closing line ---------- */}
+        {/* ---------- 11 · Contact: robotic arm draws the closing line ---------- */}
         <section id="contact" className="contact-section relative scroll-mt-16 overflow-hidden px-5 pb-28 pt-16 sm:px-8 sm:pb-32">
           <div className="pointer-events-none absolute inset-0" aria-hidden>
             <AmbientVideo
@@ -864,7 +1001,7 @@ export default function Home() {
           <div className="relative mx-auto max-w-[1440px]">
             <div className="rule mb-14" data-rule />
             <p className="label label-signal mb-8" data-reveal>
-              07 — CONTACT
+              11 — CONTACT
             </p>
 
             {/* data-split must sit on the element that carries `invisible`,
