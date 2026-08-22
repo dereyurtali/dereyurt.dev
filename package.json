@@ -1,7 +1,7 @@
 {
   "name": "dereyurt.dev",
   "version": "1.0.0",
-  "description": "Personal site of Ali Dereyurt \u2014 AI developer.",
+  "description": "Personal site of Ali Dereyurt — computer engineer.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

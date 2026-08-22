@@ -30,12 +30,12 @@ const mono = IBM_Plex_Mono({
 
 const SITE = "https://ali.dereyurt.dev";
 const DESCRIPTION =
-  "AI developer building production systems where LLM agents do real work — agentic tool-use, guardrails, and the pipelines that keep them safe.";
+  "Computer engineer working on satellite and ground systems, embedded software and control — telemetry software, CAN bus tooling, and additive manufacturing research accepted to IAC 2026.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: {
-    default: "Ali Dereyurt — AI Developer",
+    default: "Ali Dereyurt — Computer Engineer",
     template: "%s — Ali Dereyurt",
   },
   description: DESCRIPTION,
@@ -47,14 +47,14 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE,
     siteName: "Ali Dereyurt",
-    title: "Ali Dereyurt — AI Developer",
+    title: "Ali Dereyurt — Computer Engineer",
     description: DESCRIPTION,
     locale: "en_US",
-    images: [{ url: "/videos/fig-satellite-poster.jpg", width: 1280, height: 720, alt: "Ali Dereyurt — AI developer" }],
+    images: [{ url: "/videos/fig-satellite-poster.jpg", width: 1280, height: 720, alt: "Ali Dereyurt — computer engineer" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ali Dereyurt — AI Developer",
+    title: "Ali Dereyurt — Computer Engineer",
     description: DESCRIPTION,
     images: ["/videos/fig-satellite-poster.jpg"],
   },
@@ -75,7 +75,7 @@ const PERSON_LD = {
   "@type": "Person",
   name: "Ali Dereyurt",
   url: SITE,
-  jobTitle: "AI Developer",
+  jobTitle: "Computer Engineer",
   description: DESCRIPTION,
   address: { "@type": "PostalAddress", addressLocality: "Istanbul", addressCountry: "TR" },
   email: "mailto:ali@dereyurt.dev",

@@ -7,12 +7,13 @@ import { gsap } from '@/lib/animation';
 gsap.registerPlugin(useGSAP);
 
 /**
- * The hero's proof: a real agentic turn, running by itself.
+ * The hero's proof: real traffic, decoded, running by itself.
  *
- * Rather than claiming "LLM integration", the page shows one — a patient message
- * classified, scrubbed, checked against the tenant policy, turned into a tool call
- * and a row-level-secured transaction, and answered. The second scenario is the
- * one that matters to anyone hiring for this: a request that the guardrail refuses.
+ * Rather than claiming "embedded software" and "ground systems", the panel shows
+ * both — a CAN frame arriving on SLCAN, matched against a DBC and turned into
+ * physical values on four live charts (the HEDAP tool at ASPİLSAN), then a
+ * telemetry packet coming down at 1 Hz, checked, logged and drawn on the
+ * operator screen (the ground station work at TÜRKSAT and TALIA).
  *
  * Two rules from the rest of the site hold here: the animation is ambient (it runs
  * on its own, nothing is scrubbed by scroll), and it is code-native, not a video.
@@ -23,27 +24,27 @@ type Line = { k: string; v: string; tone: Tone; wait?: boolean };
 
 const SCENARIOS: { channel: string; lines: Line[]; stat: string }[] = [
   {
-    channel: 'WHATSAPP · TR',
+    channel: 'CAN · SLCAN 500K',
     lines: [
-      { k: 'IN', v: '"yarın 14:00\'e alabilir miyiz?"', tone: 'in' },
-      { k: 'INTENT', v: 'reschedule_appointment · 0.97', tone: 'step' },
-      { k: 'GUARD', v: 'pii scrubbed · tenant = clinic_04', tone: 'step' },
-      { k: 'TOOL', v: 'slots.find({ doctor, thu }) → 3', tone: 'step', wait: true },
-      { k: 'TX', v: 'BEGIN · SET rls · UPDATE · COMMIT', tone: 'step' },
-      { k: 'OUT', v: '"Perşembe 14:00 onaylandı ✓"', tone: 'out' },
+      { k: 'RX', v: '18FF50E5 [8] 22 A1 0C 3F 00 4E 12 90', tone: 'in' },
+      { k: 'DBC', v: 'BMS_PackStatus · Motorola MSB', tone: 'step' },
+      { k: 'DECODE', v: 'V 52.84 · I −11.2 A · SOC 78 %', tone: 'step', wait: true },
+      { k: 'LIMIT', v: 'cell delta 24 mV · inside band', tone: 'step' },
+      { k: 'PLOT', v: '4 charts · 50 ms batched repaint', tone: 'out' },
     ],
-    stat: '1.4 s · 2 tool calls · 0 rows outside the tenant',
+    stat: '50 ms batch · 4 live charts · 0 dropped frames',
   },
   {
-    channel: 'TELEGRAM · EN',
+    channel: 'TELEMETRY · 1 HZ DOWNLINK',
     lines: [
-      { k: 'IN', v: '"send me Mehmet\'s test results"', tone: 'in' },
-      { k: 'INTENT', v: 'fetch_records · 0.93', tone: 'step' },
-      { k: 'GUARD', v: 'cross-patient read · DENIED by policy', tone: 'deny', wait: true },
-      { k: 'TOOL', v: 'never called', tone: 'step' },
-      { k: 'OUT', v: '"I can only share your own records."', tone: 'out' },
+      { k: 'RX', v: '$TLM,0412,00412.6,8.42,41.0082,28.9784', tone: 'in' },
+      { k: 'CRC', v: 'ok · packet 412 · 0 gaps', tone: 'step' },
+      { k: 'STATE', v: 'descent 8.4 m/s · separation armed', tone: 'step', wait: true },
+      { k: 'FLAG', v: 'battery 2 undervoltage · logged, not fatal', tone: 'deny' },
+      { k: 'STORE', v: 'INSERT tlm → mysql · csv mirror', tone: 'step' },
+      { k: 'UI', v: 'map · 3D attitude · altitude plot', tone: 'out' },
     ],
-    stat: '0.6 s · 0 tool calls · 0 rows leaked',
+    stat: '1 Hz · 6 payload channels · whole flight recorded',
   },
 ];
 
@@ -171,7 +172,7 @@ export default function AgentLoop() {
       <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-2.5">
         <p className="label flex items-center gap-2">
           <span className="al-dot inline-block h-1.5 w-1.5 bg-signal" aria-hidden />
-          AGENT LOOP
+          LIVE TRACE
         </p>
         <p className="label al-channel text-signal" aria-hidden />
       </div>
@@ -195,10 +196,11 @@ export default function AgentLoop() {
 
       {/* the trace is decorative motion; this is what it says */}
       <p className="sr-only">
-        A live trace of the LLM assistant I built for a hospital information system: a patient
-        message on WhatsApp is classified, scrubbed of personal data, checked against the tenant
-        policy, turned into a tool call and a row-level-secured transaction, and answered — and a
-        request for another patient&apos;s records is refused by the policy before any tool runs.
+        A live trace of two systems I worked on: a CAN frame arriving over SLCAN is matched against
+        a Vector DBC, decoded into pack voltage, current and state of charge, checked against the
+        cell balance limit and drawn on four synchronised real-time charts; then a model-satellite
+        telemetry packet comes down at 1 Hz, is CRC-checked, resolved into flight state, written to
+        the database and mirrored to CSV, and drawn on the operator&apos;s map and attitude display.
       </p>
     </div>
   );

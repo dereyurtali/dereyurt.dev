@@ -43,8 +43,8 @@ export default function SiteHeader({ items }: { items: Item[] }) {
 
 export const HOME_NAV: Item[] = [
   { href: '/#work', label: 'WORK' },
-  { href: '/#studio', label: 'STUDIO' },
-  { href: '/airmed', label: 'HOW I BUILD', short: 'BUILD' },
+  { href: '/research', label: 'RESEARCH', short: 'RES.' },
+  { href: '/#embedded', label: 'EMBEDDED', short: 'EMB.' },
   { href: '/cv', label: 'CV' },
   { href: '/#contact', label: 'CONTACT' },
 ];

@@ -16,11 +16,88 @@ import ClinicFlows from '@/components/ClinicFlows';
 gsap.registerPlugin(useGSAP);
 
 const CAPABILITIES =
-  'AGENTIC TOOL-USE · CLAUDE / OPENROUTER · N8N · POSTGRESQL RLS · NESTJS · NEXT.JS · CI/CD ON SELF-HOSTED RUNNERS';
+  'C++17 · QT6 · CAN / DBC · STM32 · AVR · TELEMETRY & GROUND STATIONS · PID / FxLMS · PYTHON · MACHINE LEARNING · FDM / SLS / DMLS';
+
+/* ---------- 01 · satellite and ground systems ---------- */
+
+const TALIA_STATS: [string, string][] = [
+  ['30+', 'ENGINEERS LED'],
+  ['4', 'CONSECUTIVE NATIONAL FINALS'],
+  ['5', 'PAYLOAD LAYERS'],
+  ['39/39', 'REQUIREMENTS MET · 2022'],
+];
+
+const SPACE = [
+  {
+    index: '01.2',
+    title: 'TÜRKSAT Ground Station',
+    subtitle: 'R&D intern · satellite R&D directorate · 2022',
+    description:
+      'Ground-station desktop software for a tethered aerostat system: a Java Swing operator screen tracking altitude, position, environmental data and system health in real time, with JDBC/MySQL logging — built alongside the hardware and systems teams.',
+    links: [],
+  },
+  {
+    index: '01.3',
+    title: 'Model Satellite 2021',
+    subtitle: 'Team lead · autogyro descent · 199-page CDR',
+    description:
+      'A rocket-deployed model satellite that slows its own fall: parachute to 400 m, then an autogyro rotor, a ten-second PID altitude hold at 200 m and a pyrotechnic smoke marker.',
+    links: [{ label: 'Case study', href: '/turksat-muy-2021', internal: true }],
+  },
+  {
+    index: '01.4',
+    title: 'CanSat Spin Stabilization',
+    subtitle: 'NASA CanSat · mechanical subsystem lead',
+    description:
+      'Instead of de-rotating the camera image after the fact, a closed-loop mechanism counter-rotates the camera platform during descent. The call was made on processing load and system mass together.',
+    links: [{ label: 'Case study', href: '/cansat-stabilization', internal: true }],
+  },
+];
+
+/* ---------- 02 · research and instrumentation ---------- */
+
+const RIG_STATS: [string, string][] = [
+  ['1 kHz', 'POSITION SET-POINT UPDATE'],
+  ['±150 mm', 'USABLE STROKE'],
+  ['~10 kg', 'TARGET LOAD CLASS'],
+  ['<200 USD', 'BUILD COST, EXCL. PRINTER & PC'],
+];
+
+const PAPERS = [
+  {
+    title:
+      'Effects of process parameters on surface roughness in fused deposition modelling after cusp filtering',
+    authors: 'Ali Dereyurt · Ebubekir Koç — in preparation',
+    description:
+      'Layer height, wall count, infill density and print speed in a full factorial design: 324 surface profiles from 108 specimens, measured to ISO 4287/4288. To separate the dominant effect of layer geometry I developed a cusp filter locked to the measured peak and valley positions — after filtering, speed becomes significant at p = 0.005.',
+  },
+  {
+    title:
+      'Multi-objective parameter optimisation in fused deposition modelling using machine learning and Bayesian optimisation',
+    authors: 'Ali Dereyurt · Ebubekir Koç — in preparation',
+    description:
+      'End-to-end approach that reads an uploaded 3D model through four orthographic views and a vision-language model, predicts roughness with monotonicity-constrained gradient boosting (5-fold CV R² = 0.989 ± 0.007, LOOCV R² = 0.991, RMSE 0.569 µm) and balances roughness, material use, print time and strength through Bayesian search with slicer validation. Full cycle ≈ 270 s.',
+  },
+];
+
+const PRODUCTION = [
+  [
+    '3DOIT ADDITIVE MANUFACTURING',
+    'ENGINEER CANDIDATE · AUG 2024 — FEB 2025',
+    'FDM production for aerospace and industrial prototyping: printer-farm operation, parameter optimisation, DfM, dimensional verification and surface inspection.',
+  ],
+  [
+    'FSMVÜ ALUTEAM',
+    'PART-TIME · OCT 2021 — FEB 2022',
+    'EOS SLS and DMLS systems: build preparation, powder handling, depowdering and surface finishing; 3D scanning and part inspection on a Hexagon robotic arm.',
+  ],
+];
+
+/* ---------- 04 · software systems ---------- */
 
 const WORK = [
   {
-    index: '02',
+    index: '04.2',
     title: 'Clinic AI Automation',
     subtitle: 'n8n-orchestrated operations for an eye hospital',
     description:
@@ -28,11 +105,11 @@ const WORK = [
     links: [],
   },
   {
-    index: '03',
+    index: '04.3',
     title: 'Printimize',
-    subtitle: 'AI-powered 3D print parameter optimization',
+    subtitle: 'The optimisation study, shipped as a product',
     description:
-      'Claude vision with forced tool-use for structured defect analysis; Bayesian optimization over ML models trained on real lab measurements.',
+      'The web application behind the multi-objective optimisation paper: vision-model geometry analysis with forced tool-use, a physics-constrained roughness model trained on real profilometer readings, and Bayesian search validated through the slicer.',
     links: [
       { label: 'Case study', href: '/parameter', internal: true },
       { label: 'Live', href: 'https://parameterapp.dereyurt.dev' },
@@ -40,7 +117,7 @@ const WORK = [
     ],
   },
   {
-    index: '04',
+    index: '04.4',
     title: 'UX Principles Skill',
     subtitle: 'A Claude Code skill used by other developers',
     description:
@@ -48,9 +125,9 @@ const WORK = [
     links: [{ label: 'GitHub', href: 'https://github.com/dereyurtali/ux-principles-skill' }],
   },
   {
-    index: '05',
+    index: '04.5',
     title: 'AirMed Monitor',
-    subtitle: 'Live ops panel for my AI dev pipeline',
+    subtitle: 'Live ops panel for my dev pipeline',
     description:
       'Real-time instrument panel I use daily while building AirMed — runner queues, CI jobs and staging deploys on one screen.',
     links: [
@@ -59,20 +136,7 @@ const WORK = [
     ],
   },
   {
-    index: '06',
-    title: 'HEDAP',
-    subtitle: 'CAN bus analysis platform — Qt6 / C++17',
-    description:
-      'Cross-platform desktop tool for BMS engineers: Vector DBC decode, UART/SLCAN/PCAN live telemetry, four synchronized real-time charts. Built AI-orchestrated at ASPİLSAN R&D and delivered as their internal tool. Repo is private — access granted on request.',
-    links: [
-      {
-        label: 'Private repo — request access',
-        href: 'mailto:ali@dereyurt.dev?subject=HEDAP%20repo%20access%20request',
-      },
-    ],
-  },
-  {
-    index: '07',
+    index: '04.6',
     title: 'Vonguard',
     subtitle: 'Bilingual site + warranty verification',
     description:
@@ -105,13 +169,6 @@ const PROCESS = [
   ['TWO-LANE CI', 'Fast blocking gate in minutes on self-hosted runners; heavy e2e suite in stage groups.'],
   ['AUTO STAGING', 'Every merge deploys to a staging box on a private Tailscale mesh.'],
   ['SAFE PRODUCTION', 'Backups → migration rehearsal on a copy → deploy → health check → auto-rollback.'],
-];
-
-const EARLIER = [
-  { title: 'TÜRKSAT Model Satellite 2022', meta: 'System Lead · PID landing · YOLOv4', href: '/turksat-muy-2022' },
-  { title: 'TÜRKSAT Model Satellite 2021', meta: 'Team Lead · autogyro', href: '/turksat-muy-2021' },
-  { title: 'CanSat Spin Stabilization', meta: 'NASA CanSat', href: '/cansat-stabilization' },
-  { title: 'ROKETSAN / TÜBİTAK Rocket', meta: 'Payload structures', href: '/cv' },
 ];
 
 export default function Home() {
@@ -184,14 +241,19 @@ export default function Home() {
           });
         });
 
-        // Work rows: staggered entrance
-        gsap.from('.work-row', {
-          autoAlpha: 0,
-          y: 44,
-          duration: 0.9,
-          stagger: 0.12,
-          ease: EASE_OUT,
-          scrollTrigger: { trigger: '.work-list', start: 'top 85%' },
+        // Work rows: staggered entrance. Two lists live on the page now (space
+        // work and software work), so each one triggers on itself — a single
+        // selector would fire every row off the first list and the second set
+        // would finish its reveal far above the fold.
+        ctx.querySelectorAll<HTMLElement>('.work-list').forEach((list) => {
+          gsap.from(list.querySelectorAll('.work-row'), {
+            autoAlpha: 0,
+            y: 44,
+            duration: 0.9,
+            stagger: 0.12,
+            ease: EASE_OUT,
+            scrollTrigger: { trigger: list, start: 'top 85%' },
+          });
         });
 
         ScrollTrigger.refresh();
@@ -225,9 +287,9 @@ export default function Home() {
 
       <main>
         {/* ---------- Hero: the name, and beside it the work, running ----------
-            No slogan. A recruiter is told nothing and shown one thing instead: an
-            agentic turn going through classification, a guardrail, a tool call and
-            a row-level-secured transaction, live, on loop. */}
+            No slogan. A reviewer is told nothing and shown one thing instead: a CAN
+            frame being decoded against a DBC, and a telemetry packet coming down a
+            1 Hz link, live, on loop. */}
         <section className="hero-pin grid-paper relative flex min-h-svh flex-col overflow-hidden border-b border-line px-5 pb-8 pt-20 sm:px-8 sm:pt-24">
           {/* Drifting theme-coloured circles on the graph paper — translucent ink
               keeps them under the type; they gather gently around a slow cursor
@@ -238,21 +300,19 @@ export default function Home() {
             <OrbField className="h-full w-full" />
           </div>
 
-          {/* the copy block sits in the middle of whatever height is left, so the
-              hero neither clips on a phone nor leaves a void on a desktop */}
+          {/* DOM order is name → panel → role, which on a phone puts the proof
+              inside the first screen; on lg the grid pulls the panel to the right
+              column and the role back under the name. */}
           <div className="flex flex-1 items-center">
             <div className="hero-copy relative mx-auto w-full max-w-[1440px]">
               <div className="mb-8 flex items-center justify-between">
-                <p className="hero-meta label">AI DEVELOPER — ISTANBUL, TR</p>
+                <p className="hero-meta label">COMPUTER ENGINEER — ISTANBUL, TR</p>
                 <p className="hero-meta label hidden items-center gap-2 sm:flex">
                   <span className="inline-block h-2 w-2 animate-pulse bg-green" />
                   OPEN TO WORK
                 </p>
               </div>
 
-              {/* DOM order is name → panel → role, which on a phone puts the proof
-                  inside the first screen; on lg the grid pulls the panel to the right
-                  column and the role back under the name. */}
               <div className="grid gap-7 lg:grid-cols-12 lg:gap-12">
                 <h1 className="hero-title display display-xl invisible min-w-0 text-[16vw] leading-[0.84] sm:text-[13vw] lg:col-span-6 lg:text-[7.4vw]">
                   Ali
@@ -265,9 +325,9 @@ export default function Home() {
                 </div>
 
                 <p className="hero-role max-w-md text-[15px] leading-relaxed text-ink-dim sm:text-base lg:col-span-6">
-                  I build <span className="text-ink">agentic systems</span> — LLM tool-use wired
-                  into real databases, with the guardrails and pipelines that keep them safe in
-                  production.
+                  I work on <span className="text-ink">satellite and ground systems</span>, embedded
+                  software and control — telemetry that has to arrive, buses that have to decode,
+                  and the software that has to stay honest about both.
                 </p>
               </div>
             </div>
@@ -279,12 +339,314 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- Featured: AirMed over scrubbed system-topology video ---------- */}
+        {/* ---------- 01 · Satellite & ground systems ---------- */}
         <section id="work" className="scroll-mt-16 px-5 py-24 sm:px-8 sm:py-32">
           <div className="mx-auto max-w-[1440px]">
             <div className="title-block mb-14" data-reveal>
               <span className="label label-signal">01</span>
-              <span className="label">SELECTED WORK</span>
+              <span className="label">SATELLITE &amp; GROUND SYSTEMS</span>
+              <span className="label ml-auto hidden sm:block">2018 — 2022</span>
+            </div>
+
+            <div className="featured-panel relative overflow-hidden border border-line bg-card">
+              <div className="grid lg:grid-cols-12">
+                {/* text side — clean paper, fully readable */}
+                <div className="min-w-0 p-6 sm:p-10 lg:col-span-7 lg:p-14">
+                  <p className="label mb-5" data-reveal>
+                    FOUNDER &amp; TEAM LEAD — TALIA AEROSPACE
+                  </p>
+                  <h2 className="display display-xl invisible text-6xl leading-[0.95] sm:text-8xl" data-split>
+                    TÜRKSAT <span className="text-signal">Model Satellite</span>
+                  </h2>
+                  <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-dim" data-reveal>
+                    Four years leading the same team through Türkiye&apos;s model satellite
+                    competition. I owned the system architecture, the mission profile, the
+                    integration plan, the ground station and the actively controlled landing —
+                    and in 2022 the design met all 39 requirements and reached the national final
+                    again.
+                  </p>
+                  <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2" data-reveal>
+                    {['System Architecture', 'PID Active Landing', 'Telemetry & Command', 'C# WPF Ground Station', 'YOLOv4 Detection'].map(
+                      (t) => (
+                        <span key={t} className="tag">
+                          {t}
+                        </span>
+                      )
+                    )}
+                  </div>
+                  <ul className="mt-10 space-y-3 border-l-2 border-signal pl-5" data-reveal>
+                    {[
+                      'System architecture and payload decomposition across five modular layers',
+                      'Separation mechanism, mechanical revisions and FDM-produced flight parts',
+                      'Mass and power budgets, material selection, integration planning',
+                      'Ground station: map, 3D attitude, live video and on-screen object detection',
+                    ].map((line) => (
+                      <li key={line} className="text-sm leading-relaxed text-ink-dim">
+                        {line}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4" data-reveal>
+                    <Link
+                      href="/turksat-muy-2022"
+                      className="label-link group gap-3 font-mono text-xs tracking-[0.14em] text-signal"
+                    >
+                      READ THE 2022 CRITICAL DESIGN REVIEW
+                      <span className="transition-transform group-hover:translate-x-1">→</span>
+                    </Link>
+                    <Link
+                      href="/turksat-muy-2021"
+                      className="label label-link underline-offset-4 transition-colors hover:text-ink hover:underline"
+                    >
+                      2021 CDR →
+                    </Link>
+                  </div>
+                </div>
+
+                {/* numbers side — the mission record, on graph paper */}
+                <div className="grid-paper relative grid min-w-0 grid-cols-2 border-t border-line lg:col-span-5 lg:border-l lg:border-t-0">
+                  {TALIA_STATS.map(([value, label], i) => (
+                    <div
+                      key={label}
+                      className={`flex min-h-[130px] flex-col justify-center p-5 sm:min-h-[170px] sm:p-8 ${
+                        i % 2 === 0 ? 'border-r border-line' : ''
+                      } ${i < 2 ? 'border-b border-line' : ''}`}
+                      data-reveal
+                    >
+                      <p className="display text-4xl leading-none text-signal sm:text-5xl">{value}</p>
+                      <p className="label mt-3 leading-relaxed">{label}</p>
+                    </div>
+                  ))}
+                  <p className="label absolute bottom-3 left-4 bg-paper/85 px-2 py-1">
+                    TALIA AEROSPACE — MISSION RECORD
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* the rest of the space work */}
+            <div className="work-list mt-4">
+              {SPACE.map((w) => (
+                <article
+                  key={w.index}
+                  className="work-row group border-t border-line py-10 transition-colors hover:bg-paper-2 sm:py-12"
+                >
+                  <div className="grid gap-6 sm:grid-cols-12 sm:items-baseline">
+                    <p className="label sm:col-span-1">{w.index}</p>
+                    <div className="sm:col-span-5">
+                      <h3 className="display text-4xl leading-[0.95] transition-colors group-hover:text-signal sm:text-6xl">
+                        {w.title}
+                      </h3>
+                      <p className="label mt-3">{w.subtitle.toUpperCase()}</p>
+                    </div>
+                    <p className="text-sm leading-relaxed text-ink-dim sm:col-span-4">{w.description}</p>
+                    <div className="flex gap-5 sm:col-span-2 sm:justify-end">
+                      {w.links.map((l) => (
+                        <Link
+                          key={l.label}
+                          href={l.href}
+                          className="label label-link underline-offset-4 transition-colors hover:text-signal hover:underline"
+                        >
+                          {l.label.toUpperCase()} →
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </article>
+              ))}
+              <div className="rule" data-rule />
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- 02 · Research & instrumentation ---------- */}
+        <section id="research" className="scroll-mt-16 border-y border-line bg-paper-2 px-5 py-24 sm:px-8 sm:py-32">
+          <div className="mx-auto max-w-[1440px]">
+            <div className="title-block mb-14" data-reveal>
+              <span className="label label-signal">02</span>
+              <span className="label">RESEARCH &amp; INSTRUMENTATION</span>
+              <span className="label ml-auto hidden sm:block">IAC 2026 · ANTALYA</span>
+            </div>
+
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+              <div className="min-w-0 lg:col-span-7">
+                <p className="label label-signal mb-5" data-reveal>
+                  ACCEPTED — 77TH INTERNATIONAL ASTRONAUTICAL CONGRESS
+                </p>
+                <h2 className="display display-xl invisible text-5xl leading-[0.95] sm:text-7xl" data-split>
+                  Printing <span className="text-signal">in microgravity</span>, without adding an
+                  actuator
+                </h2>
+                <p className="mt-6 max-w-2xl text-base leading-relaxed text-ink-dim" data-reveal>
+                  <em>Real-Time Active Vibration Compensation in Microgravity Additive
+                  Manufacturing via Kinematic Speed Modulation.</em> On a station, the
+                  micro-vibration environment shows up directly in FDM surface quality. Instead of
+                  adding a counter-actuator, the approach modulates the print head&apos;s
+                  instantaneous kinematic speed in firmware so the motion never excites the
+                  structure&apos;s resonances in the first place.
+                </p>
+                <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2" data-reveal>
+                  {['FxLMS', 'Firmware-level control', 'ISS-like micro-vibration', 'No added hardware'].map((t) => (
+                    <span key={t} className="tag">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <ul className="mt-8 space-y-3 border-l-2 border-signal pl-5" data-reveal>
+                  {[
+                    'Research idea, experimental approach and system concept',
+                    'Design of the control side',
+                    'Built the physical test rig the work is validated on',
+                  ].map((line) => (
+                    <li key={line} className="text-sm leading-relaxed text-ink-dim">
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+                <p className="label mt-8" data-reveal>
+                  INTERACTIVE PRESENTATION · 5—9 OCTOBER 2026
+                </p>
+              </div>
+
+              {/* the rig that reproduces the disturbance */}
+              <div className="min-w-0 lg:col-span-5" data-reveal>
+                <div className="card p-6 sm:p-8">
+                  <p className="label label-signal mb-3">OPEN HARDWARE</p>
+                  <h3 className="display text-3xl leading-none sm:text-4xl">Single-Axis Shaker Rig</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-ink-dim">
+                    To reproduce that disturbance on a bench I built a single-axis shaker: mechanical
+                    layout and drive selection, a STEP/DIR driver chain and power electronics,
+                    firmware on an Arduino Nano, and a Python/Tk control application — mechanics,
+                    electronics, firmware, desktop software and test logic in one project.
+                  </p>
+                  <dl className="mt-6">
+                    {RIG_STATS.map(([value, label]) => (
+                      <div key={label} className="flex items-baseline justify-between gap-6 border-b border-line py-3">
+                        <dt className="label leading-relaxed">{label}</dt>
+                        <dd className="display shrink-0 text-xl text-signal">{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <a
+                    href="https://github.com/dereyurtali/single-axis-shaker-rig"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="label label-link mt-6 underline-offset-4 transition-colors hover:text-signal hover:underline"
+                  >
+                    GITHUB.COM/DEREYURTALI/SINGLE-AXIS-SHAKER-RIG ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* publications */}
+            <div className="mt-16">
+              <div className="title-block mb-8" data-reveal>
+                <span className="label label-signal">02.2</span>
+                <span className="label">PUBLICATIONS — IN PREPARATION</span>
+              </div>
+              <div className="grid gap-px border border-line bg-line lg:grid-cols-2">
+                {PAPERS.map((p) => (
+                  <div key={p.title} className="bg-card p-6 sm:p-8" data-reveal>
+                    <h3 className="text-base leading-snug text-ink">{p.title}</h3>
+                    <p className="label mt-3">{p.authors.toUpperCase()}</p>
+                    <p className="mt-4 text-sm leading-relaxed text-ink-dim">{p.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* production floor experience */}
+            <div className="mt-16">
+              <div className="title-block mb-8" data-reveal>
+                <span className="label label-signal">02.3</span>
+                <span className="label">PRODUCTION EXPERIENCE — ADDITIVE MANUFACTURING</span>
+              </div>
+              <div className="grid gap-px border border-line bg-line sm:grid-cols-2">
+                {PRODUCTION.map(([org, meta, body]) => (
+                  <div key={org} className="bg-card p-6 sm:p-8" data-reveal>
+                    <p className="label label-signal mb-2">{org}</p>
+                    <p className="label mb-4">{meta}</p>
+                    <p className="text-sm leading-relaxed text-ink-dim">{body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- 03 · Embedded ---------- */}
+        <section id="embedded" className="scroll-mt-16 px-5 py-24 sm:px-8 sm:py-32">
+          <div className="mx-auto max-w-[1440px]">
+            <div className="title-block mb-14" data-reveal>
+              <span className="label label-signal">03</span>
+              <span className="label">EMBEDDED SOFTWARE</span>
+              <span className="label ml-auto hidden sm:block">ASPİLSAN ENERJİ · R&amp;D</span>
+            </div>
+
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+              <div className="min-w-0 lg:col-span-7">
+                <h2 className="display display-xl invisible text-5xl leading-[0.95] sm:text-7xl" data-split>
+                  HEDAP — <span className="text-signal">CAN bus analysis</span> for defence-grade
+                  battery packs
+                </h2>
+                <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-dim" data-reveal>
+                  A Qt6 / C++17 desktop platform for the engineers working on battery management
+                  systems: Vector DBC parsing with Intel and Motorola bit layouts, live links over
+                  UART, SLCAN and PCAN-USB, four synchronised real-time charts on a 50 ms batched
+                  repaint, and a CSV replay mode for reading a recorded run back. Delivered for
+                  internal R&amp;D use.
+                </p>
+                <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2" data-reveal>
+                  {['Qt6', 'C++17', 'CMake', 'Vector DBC', 'SLCAN / PCAN-USB', 'UART'].map((t) => (
+                    <span key={t} className="tag">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <a
+                  href="mailto:ali@dereyurt.dev?subject=HEDAP%20repo%20access%20request"
+                  className="label label-link mt-8 underline-offset-4 transition-colors hover:text-signal hover:underline"
+                  data-reveal
+                >
+                  PRIVATE REPO — REQUEST ACCESS ↗
+                </a>
+              </div>
+
+              <div className="min-w-0 lg:col-span-5" data-reveal>
+                <div className="dim mb-5" />
+                <dl>
+                  {[
+                    ['ROLE', 'EMBEDDED SW INTERN'],
+                    ['PERIOD', 'FEB — MAR 2026'],
+                    ['DOMAIN', 'BMS · DEFENCE'],
+                    ['DELIVERED', 'INTERNAL R&D TOOL'],
+                  ].map(([k, v]) => (
+                    <div key={k} className="flex justify-between gap-6 border-b border-line py-3">
+                      <dt className="label">{k}</dt>
+                      <dd className="label text-ink">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <div className="card mt-8 p-6">
+                  <p className="label label-signal mb-3">ALSO IN THIS LANE</p>
+                  <p className="text-sm leading-relaxed text-ink-dim">
+                    AVR / Arduino and STM32 firmware, I²C, SPI and GPIO bring-up, PID and FxLMS
+                    control loops, and the instrumentation side of test rigs — from the shaker rig
+                    firmware to the active landing controller on the model satellite.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- 04 · Software systems ---------- */}
+        <section id="software" className="scroll-mt-16 border-t border-line px-5 py-24 sm:px-8 sm:py-32">
+          <div className="mx-auto max-w-[1440px]">
+            <div className="title-block mb-14" data-reveal>
+              <span className="label label-signal">04</span>
+              <span className="label">SOFTWARE SYSTEMS</span>
               <span className="label ml-auto hidden sm:block">2023 — 2026</span>
             </div>
 
@@ -293,7 +655,7 @@ export default function Home() {
                 {/* text side — clean paper, fully readable */}
                 <div className="min-w-0 p-6 sm:p-10 lg:col-span-7 lg:p-14">
                   <p className="label mb-5" data-reveal>
-                    FLAGSHIP — PRODUCTION HIS
+                    04.1 — PRODUCTION HIS
                   </p>
                   <h2 className="display display-xl invisible text-6xl leading-[0.95] sm:text-8xl" data-split>
                     AirMed <span className="text-signal">HBYS</span>
@@ -349,60 +711,58 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            {/* work rows */}
+            <div className="work-list mt-4">
+              {WORK.map((w) => (
+                <article key={w.index} className="work-row group border-t border-line py-10 transition-colors hover:bg-paper-2 sm:py-12">
+                  <div className="grid gap-6 sm:grid-cols-12 sm:items-baseline">
+                    <p className="label sm:col-span-1">{w.index}</p>
+                    <div className="sm:col-span-5">
+                      <h3 className="display text-4xl leading-[0.95] transition-colors group-hover:text-signal sm:text-6xl">
+                        {w.title}
+                      </h3>
+                      <p className="label mt-3">{w.subtitle.toUpperCase()}</p>
+                    </div>
+                    <p className="text-sm leading-relaxed text-ink-dim sm:col-span-4">{w.description}</p>
+                    <div className="flex gap-5 sm:col-span-2 sm:justify-end">
+                      {w.links.map((l) =>
+                        'internal' in l && l.internal ? (
+                          <Link
+                            key={l.label}
+                            href={l.href}
+                            className="label label-link underline-offset-4 transition-colors hover:text-signal hover:underline"
+                          >
+                            {l.label.toUpperCase()} →
+                          </Link>
+                        ) : (
+                          <a
+                            key={l.label}
+                            href={l.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="label label-link underline-offset-4 transition-colors hover:text-signal hover:underline"
+                          >
+                            {l.label.toUpperCase()} ↗
+                          </a>
+                        )
+                      )}
+                    </div>
+                  </div>
+                  {/* the clinic row carries its n8n workflows as clickable drawings */}
+                  {w.title === 'Clinic AI Automation' && <ClinicFlows />}
+                </article>
+              ))}
+              <div className="rule" data-rule />
+            </div>
           </div>
         </section>
 
-        {/* ---------- Work rows ---------- */}
-        <section className="px-5 pb-24 sm:px-8 sm:pb-32">
-          <div className="work-list mx-auto max-w-[1440px]">
-            {WORK.map((w) => (
-              <article key={w.index} className="work-row group border-t border-line py-10 transition-colors hover:bg-paper-2 sm:py-12">
-                <div className="grid gap-6 sm:grid-cols-12 sm:items-baseline">
-                  <p className="label sm:col-span-1">NO. {w.index}</p>
-                  <div className="sm:col-span-5">
-                    <h3 className="display text-4xl leading-[0.95] transition-colors group-hover:text-signal sm:text-6xl">
-                      {w.title}
-                    </h3>
-                    <p className="label mt-3">{w.subtitle.toUpperCase()}</p>
-                  </div>
-                  <p className="text-sm leading-relaxed text-ink-dim sm:col-span-4">{w.description}</p>
-                  <div className="flex gap-5 sm:col-span-2 sm:justify-end">
-                    {w.links.map((l) =>
-                      'internal' in l && l.internal ? (
-                        <Link
-                          key={l.label}
-                          href={l.href}
-                          className="label label-link underline-offset-4 transition-colors hover:text-signal hover:underline"
-                        >
-                          {l.label.toUpperCase()} →
-                        </Link>
-                      ) : (
-                        <a
-                          key={l.label}
-                          href={l.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="label label-link underline-offset-4 transition-colors hover:text-signal hover:underline"
-                        >
-                          {l.label.toUpperCase()} ↗
-                        </a>
-                      )
-                    )}
-                  </div>
-                </div>
-                {/* the clinic row carries its n8n workflows as clickable drawings */}
-                {w.title === 'Clinic AI Automation' && <ClinicFlows />}
-              </article>
-            ))}
-            <div className="rule" data-rule />
-          </div>
-        </section>
-
-        {/* ---------- Studio: where the client work ships from ---------- */}
+        {/* ---------- 05 · Studio: where the client work ships from ---------- */}
         <section id="studio" className="scroll-mt-16 px-5 pb-24 sm:px-8 sm:pb-32">
           <div className="mx-auto max-w-[1440px]">
             <div className="title-block mb-14" data-reveal>
-              <span className="label label-signal">02</span>
+              <span className="label label-signal">05</span>
               <span className="label">STUDIO</span>
               <a
                 href="https://dnasoft.co"
@@ -455,11 +815,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- Process band ---------- */}
+        {/* ---------- 06 · Process band ---------- */}
         <section className="border-y border-line bg-paper-2 px-5 py-24 sm:px-8 sm:py-32">
           <div className="mx-auto max-w-[1440px]">
             <div className="title-block mb-12" data-reveal>
-              <span className="label label-signal">03</span>
+              <span className="label label-signal">06</span>
               <span className="label">HOW I WORK</span>
             </div>
             <h2 className="display invisible max-w-4xl text-4xl leading-[0.98] sm:text-6xl" data-split>
@@ -490,30 +850,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- Earlier work ---------- */}
-        <section className="px-5 py-24 sm:px-8">
-          <div className="mx-auto max-w-[1440px]">
-            <div className="title-block mb-8" data-reveal>
-              <span className="label label-signal">04</span>
-              <span className="label">EARLIER WORK — AEROSPACE</span>
-            </div>
-            {EARLIER.map((e) => (
-              <Link
-                key={e.title}
-                href={e.href}
-                className="group flex items-baseline justify-between gap-4 border-b border-line py-6"
-                data-reveal
-              >
-                <span className="display text-xl text-ink-dim transition-colors group-hover:text-signal sm:text-2xl">
-                  {e.title}
-                </span>
-                <span className="label hidden text-right sm:block">{e.meta}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        {/* ---------- Contact: robotic arm draws the closing line ---------- */}
+        {/* ---------- 07 · Contact: robotic arm draws the closing line ---------- */}
         <section id="contact" className="contact-section relative scroll-mt-16 overflow-hidden px-5 pb-28 pt-16 sm:px-8 sm:pb-32">
           <div className="pointer-events-none absolute inset-0" aria-hidden>
             <AmbientVideo
@@ -527,7 +864,7 @@ export default function Home() {
           <div className="relative mx-auto max-w-[1440px]">
             <div className="rule mb-14" data-rule />
             <p className="label label-signal mb-8" data-reveal>
-              05 — CONTACT
+              07 — CONTACT
             </p>
 
             {/* data-split must sit on the element that carries `invisible`,
@@ -602,6 +939,13 @@ export default function Home() {
                 <Link href="/cv" className="label label-link transition-colors hover:text-signal">
                   CV
                 </Link>
+                <a
+                  href="/docs/Ali-Dereyurt-Portfolio.pdf"
+                  className="label label-link transition-colors hover:text-signal"
+                  download
+                >
+                  PORTFOLIO (PDF) ↓
+                </a>
               </div>
               <p className="label">© {new Date().getFullYear()} ALI DEREYURT</p>
             </div>
